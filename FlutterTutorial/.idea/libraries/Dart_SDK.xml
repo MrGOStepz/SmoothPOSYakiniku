@@ -20,6 +20,7 @@
       <root url="file://C:/flutter/bin/cache/dart-sdk/lib/typed_data" />
       <root url="file://C:/flutter/bin/cache/dart-sdk/lib/web_audio" />
       <root url="file://C:/flutter/bin/cache/dart-sdk/lib/web_gl" />
+      <root url="file://C:/flutter/bin/cache/dart-sdk/lib/web_sql" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
