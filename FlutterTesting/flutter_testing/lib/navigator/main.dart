@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_testing/home_page.dart';
-import 'package:flutter_testing/profile_page.dart';
+import 'package:flutter_testing/navigator/home_page.dart';
+import 'package:flutter_testing/navigator/profile_page.dart';
 
 void main() {
   runApp(const MyApp());
