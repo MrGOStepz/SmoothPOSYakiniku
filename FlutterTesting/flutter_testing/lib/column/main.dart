@@ -1,12 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_testing/column/transaction.dart';
-import 'package:intl/intl.dart';
+import './widgets/new_transaction.dart';
+import './widgets/transaction_list.dart';
+import 'models/transaction.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-  final List<Transaction> transactions = [
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Personal Expenses',
+      theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepOrange)
+              .copyWith(secondary: Colors.amber),
+          textTheme: TextTheme(
+            titleMedium: TextStyle(fontFamily: 'OpenSands',
+            fontSize: 18,
+            fontWeight: FontWeight.bold)
+          ),
+          fontFamily: 'Quicksand',
+          appBarTheme: AppBarTheme(
+            titleTextStyle: TextStyle(
+                fontFamily: 'OpenSans',
+                 fontSize: 20,
+            fontWeight: FontWeight.bold),
+          )),
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> _userTransaction = [
     Transaction(
         id: 't1', title: 'New Shoes', amount: 69.99, date: DateTime.now()),
     Transaction(
@@ -16,74 +50,71 @@ class MyApp extends StatelessWidget {
         date: DateTime.now()),
   ];
 
+  void _addNewTransaction(String title, double amount) {
+    final newTx = Transaction(
+      id: DateTime.now().toString(),
+      title: title,
+      amount: amount,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      _userTransaction.add(newTx);
+    });
+  }
+
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return GestureDetector(
+            onTap: () {},
+            child: NewTransaction(_addNewTransaction),
+            behavior: HitTestBehavior.opaque,
+          );
+          // return ;
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter App'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Card(
-            elevation: 10,
-            color: Colors.blue,
-            child: Container(
-              width: double.infinity,
-              child: Text('CHART!'),
-            ),
-          ),
-          Column(
-            children: transactions.map((tx) {
-              return Card(
-                  child: Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 15,
-                    ),
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                      color: Colors.black,
-                      width: 2,
-                    )),
-                    padding: const EdgeInsets.all(10),
-                    child: Text(
-                      '\$${tx.amount}',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.purple),
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        tx.title,
-                        style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      Text(
-                        // DateFormat('yyyy-MM-dd HH:mm:ss').format(tx.date),
-                        DateFormat.yMMMd().format(tx.date),
-                        style: const TextStyle(
-                            color: Colors.grey
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ));
-            }).toList(),
-          )
+        title: const Text(
+          'Personal Expenses',
+          style: TextStyle(fontFamily: 'OpenSans'),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                _startAddNewTransaction(context);
+              },
+              icon: Icon(
+                Icons.add,
+              ))
         ],
       ),
-    ));
+      body: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: double.infinity,
+              child: const Card(
+                elevation: 10,
+                child: Text('CHART!'),
+              ),
+            ),
+            TransactionList(_userTransaction)
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () => _startAddNewTransaction(context),
+      ),
+    );
   }
 }
