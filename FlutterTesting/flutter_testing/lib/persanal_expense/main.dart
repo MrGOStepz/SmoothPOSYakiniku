@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 import 'models/transaction.dart';
 import 'widgets/chart.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations(
+  //     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
@@ -17,16 +23,16 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepOrange)
               .copyWith(secondary: Colors.amber),
           textTheme: TextTheme(
-            titleMedium: TextStyle(fontFamily: 'OpenSands',
-            fontSize: 18,
-            fontWeight: FontWeight.bold)
-          ),
+              titleMedium: TextStyle(
+                  fontFamily: 'OpenSands',
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold)),
           fontFamily: 'Quicksand',
           appBarTheme: AppBarTheme(
             titleTextStyle: TextStyle(
                 fontFamily: 'OpenSans',
-                 fontSize: 20,
-            fontWeight: FontWeight.bold),
+                fontSize: 20,
+                fontWeight: FontWeight.bold),
           )),
       home: MyHomePage(),
     );
@@ -54,18 +60,19 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Transaction> get _recentTransactions {
     return _userTransaction.where((tx) {
       return tx.date.isAfter(
-          DateTime.now().subtract(Duration(days: 7),
-          ),
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
       );
     }).toList();
   }
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime chosenDate) {
     final newTx = Transaction(
       id: DateTime.now().toString(),
       title: title,
       amount: amount,
-      date: DateTime.now(),
+      date: chosenDate,
     );
 
     setState(() {
@@ -86,31 +93,52 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransaction.removeWhere((element) {
+        return element.id == id;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Personal Expenses',
-          style: TextStyle(fontFamily: 'OpenSans'),
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                _startAddNewTransaction(context);
-              },
-              icon: Icon(
-                Icons.add,
-              ))
-        ],
+    final appBar = AppBar(
+      title: const Text(
+        'Personal Expenses',
+        style: TextStyle(fontFamily: 'OpenSans'),
       ),
+      actions: [
+        IconButton(
+            onPressed: () {
+              _startAddNewTransaction(context);
+            },
+            icon: Icon(
+              Icons.add,
+            ))
+      ],
+    );
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Chart(_recentTransactions),
-            TransactionList(_userTransaction)
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.3,
+                child: Chart(_recentTransactions)),
+            // Expanded(
+            //     child: TransactionList(_userTransaction, _deleteTransaction))
+            Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.7,
+                child: TransactionList(_userTransaction, _deleteTransaction))
           ],
         ),
       ),
