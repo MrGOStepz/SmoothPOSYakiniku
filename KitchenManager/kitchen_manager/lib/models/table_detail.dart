@@ -1,5 +1,5 @@
 class TableDetail {
-  final String id;
+  final int id;
   final String status;
   final List<String> orders;
 

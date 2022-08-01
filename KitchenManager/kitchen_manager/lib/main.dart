@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kitchen_manager/models/table_detail.dart';
 
 void main() {
   runApp(const KitchenManager());
@@ -28,6 +29,11 @@ class MainHomePage extends StatefulWidget {
 }
 
 class _MainHomePageState extends State<MainHomePage> {
+  final List<TableDetail> tableDetails = [
+    new TableDetail(id: 1, status: "Waiting", orders: ["Beef 50", "Rice 20"]),
+    new TableDetail(id: 2, status: "Waiting", orders: ["Beef 70", "Rice 10"]),
+  ];
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -36,13 +42,26 @@ class _MainHomePageState extends State<MainHomePage> {
     );
     final txListWidget = Container(
       height: (mediaQuery.size.height -
-              appBar.preferredSize.height -
-              mediaQuery.padding.top) *
+          appBar.preferredSize.height -
+          mediaQuery.padding.top) *
           0.9,
-      child: ListView(
-        children: [
-          Text('Order 2'),
-        ],
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 5,
+            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+            child: ListTile(
+              title: Text("Beef 50"),
+              trailing: IconButton(
+                icon: Icon(Icons.delete),
+                color: Theme
+                    .of(context)
+                    .errorColor,
+                onPressed: () => null,
+              ),
+            ),
+          );
+        },
       ),
     );
 
@@ -57,11 +76,37 @@ class _MainHomePageState extends State<MainHomePage> {
                   Card(
                     child: Container(
                         height: (mediaQuery.size.height -
-                                appBar.preferredSize.height -
-                                mediaQuery.padding.top) *
+                            appBar.preferredSize.height -
+                            mediaQuery.padding.top) *
                             0.1,
                         width: double.infinity,
-                        child: Text('Table 1')),
+                        child: Column(
+                          children: [
+                            Text('Table'),
+                            Row(
+                              children: [
+                                Expanded(
+                                    flex: 1,
+                                    child: TextButton(
+                                      onPressed: null,
+                                      style: TextButton.styleFrom(
+                                        primary: Colors.blue,
+                                      ),
+                                      child: const Text('Call'),
+                                    )),
+                                Expanded(
+                                    flex: 1,
+                                    child: TextButton(
+                                      onPressed: null,
+                                      style: TextButton.styleFrom(
+                                        primary: Colors.blue,
+                                      ),
+                                      child: const Text('Done'),
+                                    ))
+                              ],
+                            )
+                          ],
+                        )),
                   ),
                   txListWidget,
                 ],
