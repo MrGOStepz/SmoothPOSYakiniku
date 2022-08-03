@@ -11,16 +11,16 @@ Future<void> main() async {
 class KitchenManager extends StatelessWidget {
   const KitchenManager({Key? key}) : super(key: key);
 
-  Future<void> rsocket() async {
-    const listenUrl = 'tcp://0.0.0.0:42252';
-    var closeable = await RSocketServer.create(requestResponseAcceptor((payload) {
-      return Future.value(Payload.fromText('text/plain', 'Pong'));
-    })).bind(listenUrl);
-    print('RSocket Server started on ${listenUrl}');
-  }
+  // Future<void> rsocket() async {
+  //   const listenUrl = 'tcp://0.0.0.0:42252';
+  //   var closeable = await RSocketServer.create(requestResponseAcceptor((payload) {
+  //     return Future.value(Payload.fromText('text/plain', 'Pong'));
+  //   })).bind(listenUrl);
+  //   print('RSocket Server started on ${listenUrl}');
+  // }
   @override
   Widget build(BuildContext context) {
-    rsocket();
+    // rsocket();
     return MaterialApp(
       title: 'Kitchen Manager',
       theme: ThemeData(
@@ -41,9 +41,21 @@ class MainHomePage extends StatefulWidget {
 
 class _MainHomePageState extends State<MainHomePage> {
   final List<TableDetail> tableDetails = [
-    new TableDetail(id: 1, status: "Waiting", orders: ["Beef 50", "Rice 20"]),
-    new TableDetail(id: 2, status: "Waiting", orders: ["Beef 70", "Rice 10"]),
+    // new TableDetail(id: 1, status: "Waiting", orders: ["Beef 50", "Rice 20"]),
+    // new TableDetail(id: 2, status: "Waiting", orders: ["Beef 70", "Rice 10"]),
   ];
+
+  void _addNewTable(TableDetail tableDetail) {
+    
+  }
+
+  void _deleteCurrentTable(String id) {
+    setState(() {
+      _userTransaction.removeWhere((element) {
+        return element.id == id;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
