@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:kitchen_manager/models/table_detail.dart';
+import 'package:rsocket/rsocket_server.dart';
+import 'package:rsocket/payload.dart';
+import 'package:rsocket/rsocket.dart';
 
-void main() {
+Future<void> main() async {
   runApp(const KitchenManager());
 }
 
 class KitchenManager extends StatelessWidget {
   const KitchenManager({Key? key}) : super(key: key);
 
+  Future<void> rsocket() async {
+    const listenUrl = 'tcp://0.0.0.0:42252';
+    var closeable = await RSocketServer.create(requestResponseAcceptor((payload) {
+      return Future.value(Payload.fromText('text/plain', 'Pong'));
+    })).bind(listenUrl);
+    print('RSocket Server started on ${listenUrl}');
+  }
   @override
   Widget build(BuildContext context) {
+    rsocket();
     return MaterialApp(
       title: 'Kitchen Manager',
       theme: ThemeData(
