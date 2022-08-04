@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kitchen_manager/models/table_detail.dart';
+import 'package:kitchen_manager/services/product_service.dart';
+import 'package:kitchen_manager/widgets/head_column.dart';
+import 'package:kitchen_manager/widgets/list_checker.dart';
+import 'package:kitchen_manager/widgets/list_item.dart';
 import 'package:rsocket/rsocket_server.dart';
 import 'package:rsocket/payload.dart';
 import 'package:rsocket/rsocket.dart';
@@ -39,53 +43,30 @@ class MainHomePage extends StatefulWidget {
   State<MainHomePage> createState() => _MainHomePageState();
 }
 
-class _MainHomePageState extends State<MainHomePage> {
-  final List<TableDetail> tableDetails = [
-    // new TableDetail(id: 1, status: "Waiting", orders: ["Beef 50", "Rice 20"]),
-    // new TableDetail(id: 2, status: "Waiting", orders: ["Beef 70", "Rice 10"]),
-  ];
+class _MainHomePageState extends State<MainHomePage>
+    with WidgetsBindingObserver {
+  final List<TableDetail> tableDetails = [];
+  final ProductService productService = ProductService();
 
-  void _addNewTable(TableDetail tableDetail) {
-    
-  }
+  void _addNewTable(TableDetail tableDetail) {}
 
-  void _deleteCurrentTable(String id) {
-    setState(() {
-      _userTransaction.removeWhere((element) {
-        return element.id == id;
-      });
-    });
+  // void _deleteCurrentTable(String id) {
+  //   setState(() {
+  //     // _userTransaction.removeWhere((element) {
+  //       return element.id == id;
+  //     });
+  //   });
+  // }
+
+  TableDetail get getNextTable {
+    return productService.getNextTable();
   }
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final AppBar appBar = AppBar(
-      title: Text(widget.title),
-    );
-    final txListWidget = Container(
-      height: (mediaQuery.size.height -
-          appBar.preferredSize.height -
-          mediaQuery.padding.top) *
-          0.9,
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return Card(
-            elevation: 5,
-            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-            child: ListTile(
-              title: Text("Beef 50"),
-              trailing: IconButton(
-                icon: Icon(Icons.delete),
-                color: Theme
-                    .of(context)
-                    .errorColor,
-                onPressed: () => null,
-              ),
-            ),
-          );
-        },
-      ),
+      title: Text("Kitchen Manager"),
     );
 
     return Scaffold(
@@ -94,46 +75,7 @@ class _MainHomePageState extends State<MainHomePage> {
         child: Table(border: TableBorder.all(), children: [
           TableRow(
             children: [
-              Column(
-                children: [
-                  Card(
-                    child: Container(
-                        height: (mediaQuery.size.height -
-                            appBar.preferredSize.height -
-                            mediaQuery.padding.top) *
-                            0.1,
-                        width: double.infinity,
-                        child: Column(
-                          children: [
-                            Text('Table'),
-                            Row(
-                              children: [
-                                Expanded(
-                                    flex: 1,
-                                    child: TextButton(
-                                      onPressed: null,
-                                      style: TextButton.styleFrom(
-                                        primary: Colors.blue,
-                                      ),
-                                      child: const Text('Call'),
-                                    )),
-                                Expanded(
-                                    flex: 1,
-                                    child: TextButton(
-                                      onPressed: null,
-                                      style: TextButton.styleFrom(
-                                        primary: Colors.blue,
-                                      ),
-                                      child: const Text('Done'),
-                                    ))
-                              ],
-                            )
-                          ],
-                        )),
-                  ),
-                  txListWidget,
-                ],
-              ),
+              ListChecker(appBar: appBar, tableDetail: getNextTable),
               Text('Table 2'),
               Text('Table 3'),
               Text('Table 4'),
