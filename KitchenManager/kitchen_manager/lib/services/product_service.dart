@@ -7,7 +7,6 @@ import 'package:kitchen_manager/models/table_detail.dart';
 class ProductService {
   MockInput mockInput = MockInput();
   Queue<TableDetail> tableQueue = Queue<TableDetail>();
-  List<TableDetail> listDeleteTable = [];
 
   ProductService() {
     //TODO Initial Table Detail
@@ -16,7 +15,6 @@ class ProductService {
 
   TableDetail getNextTable() {
     TableDetail popTableDetail = tableQueue.removeFirst();
-    listDeleteTable.add(popTableDetail);
     return popTableDetail;
   }
 
