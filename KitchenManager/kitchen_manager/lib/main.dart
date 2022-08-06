@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kitchen_manager/models/table_detail.dart';
 import 'package:kitchen_manager/services/product_service.dart';
-import 'package:kitchen_manager/widgets/head_column.dart';
 import 'package:kitchen_manager/widgets/list_checker.dart';
-import 'package:kitchen_manager/widgets/list_item.dart';
-import 'package:rsocket/rsocket_server.dart';
-import 'package:rsocket/payload.dart';
-import 'package:rsocket/rsocket.dart';
 
 Future<void> main() async {
   runApp(const KitchenManager());
@@ -48,16 +43,6 @@ class _MainHomePageState extends State<MainHomePage>
   final List<TableDetail> tableDetails = [];
   final ProductService productService = ProductService();
 
-  void _addNewTable(TableDetail tableDetail) {}
-
-  // void _deleteCurrentTable(String id) {
-  //   setState(() {
-  //     // _userTransaction.removeWhere((element) {
-  //       return element.id == id;
-  //     });
-  //   });
-  // }
-
   TableDetail get getNextTable {
     return productService.getNextTable();
   }
@@ -66,7 +51,7 @@ class _MainHomePageState extends State<MainHomePage>
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final AppBar appBar = AppBar(
-      title: Text("Kitchen Manager"),
+      title: const Text("Kitchen Manager"),
     );
 
     return Scaffold(
@@ -75,7 +60,10 @@ class _MainHomePageState extends State<MainHomePage>
         child: Table(border: TableBorder.all(), children: [
           TableRow(
             children: [
-              ListChecker(appBar: appBar, tableDetail: getNextTable),
+              ListChecker(
+                appBar: appBar,
+                tableDetail: getNextTable,
+              ),
               Text('Table 2'),
               Text('Table 3'),
               Text('Table 4'),

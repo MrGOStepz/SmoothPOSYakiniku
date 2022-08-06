@@ -1,20 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kitchen_manager/models/table_detail.dart';
 
 class HeadColumn extends StatelessWidget {
   final AppBar appBar;
   final TableDetail tableDetail;
-  const HeadColumn({required this.appBar, required this.tableDetail ,Key? key}) : super(key: key);
+
+  const HeadColumn({required this.appBar, required this.tableDetail, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Card(
-      child: Container(
+      child: SizedBox(
           height: (mediaQuery.size.height -
-              appBar.preferredSize.height -
-              mediaQuery.padding.top) *
+                  appBar.preferredSize.height -
+                  mediaQuery.padding.top) *
               0.1,
           width: double.infinity,
           child: Column(

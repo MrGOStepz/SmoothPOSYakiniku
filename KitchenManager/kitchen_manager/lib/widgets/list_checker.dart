@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../models/table_detail.dart';
 import 'head_column.dart';
-import 'list_item.dart';
+import 'order_list.dart';
 
 class ListChecker extends StatelessWidget {
   final AppBar appBar;
@@ -19,11 +18,12 @@ class ListChecker extends StatelessWidget {
     return Column(children: [
       HeadColumn(appBar: appBar, tableDetail: tableDetail),
       Container(
-          height: (mediaQuery.size.height -
-                  appBar.preferredSize.height -
-                  mediaQuery.padding.top) *
-              0.9,
-          child: ItemsChecker(appBar: appBar, tableDetail: tableDetail)),
+        height: (mediaQuery.size.height -
+                appBar.preferredSize.height -
+                mediaQuery.padding.top) *
+            0.9,
+        child: OrderList(orders: tableDetail.items),
+      )
     ]);
   }
 }
