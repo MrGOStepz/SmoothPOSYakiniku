@@ -42,16 +42,38 @@ class _MainHomePageState extends State<MainHomePage>
     with WidgetsBindingObserver {
   final List<TableDetail> tableDetails = [];
   final ProductService productService = ProductService();
+  late TableDetail columnTable1 = getNextTable;
+  late TableDetail columnTable2 = getNextTable;
+  late TableDetail columnTable3 = getNextTable;
 
   TableDetail get getNextTable {
     return productService.getNextTable();
+  }
+
+  void tableDetailForColumn(int columnNumber) {
+    print("add new table");
+    setState(() {
+      switch(columnNumber) {
+        case 1:
+          columnTable1 = getNextTable;
+          break;
+        case 2:
+          columnTable2 = getNextTable;
+          break;
+        case 3:
+          columnTable3 = getNextTable;
+          break;
+        default:
+          break;
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final AppBar appBar = AppBar(
-      title: const Text("Kitchen Manager"),
+      title: Text(widget.title),
     );
 
     return Scaffold(
@@ -62,8 +84,22 @@ class _MainHomePageState extends State<MainHomePage>
             children: [
               ListChecker(
                 appBar: appBar,
-                tableDetail: getNextTable,
+                tableDetail: columnTable1,
+                addNewTable: tableDetailForColumn,
+                columnNumber: 1,
               ),
+              // ListChecker(
+              //   appBar: appBar,
+              //   tableDetail: columnTable2,
+              //   addNewTable: tableDetailForColumn,
+              //   columnNumber: 2,
+              // ),
+              // ListChecker(
+              //   appBar: appBar,
+              //   tableDetail: columnTable3,
+              //   addNewTable: tableDetailForColumn,
+              //   columnNumber: 3,
+              // ),
               Text('Table 2'),
               Text('Table 3'),
               Text('Table 4'),
