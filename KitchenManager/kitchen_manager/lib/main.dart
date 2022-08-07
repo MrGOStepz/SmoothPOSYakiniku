@@ -17,6 +17,7 @@ class KitchenManager extends StatelessWidget {
   //   })).bind(listenUrl);
   //   print('RSocket Server started on ${listenUrl}');
   // }
+
   @override
   Widget build(BuildContext context) {
     // rsocket();
@@ -42,6 +43,7 @@ class _MainHomePageState extends State<MainHomePage>
     with WidgetsBindingObserver {
   final List<TableDetail> tableDetails = [];
   final ProductService productService = ProductService();
+
   late TableDetail columnTable1 = getNextTable;
   late TableDetail columnTable2 = getNextTable;
   late TableDetail columnTable3 = getNextTable;
@@ -51,7 +53,6 @@ class _MainHomePageState extends State<MainHomePage>
   }
 
   void tableDetailForColumn(int columnNumber) {
-    print("add new table");
     setState(() {
       switch(columnNumber) {
         case 1:
@@ -71,7 +72,6 @@ class _MainHomePageState extends State<MainHomePage>
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
     final AppBar appBar = AppBar(
       title: Text(widget.title),
     );
@@ -88,21 +88,19 @@ class _MainHomePageState extends State<MainHomePage>
                 addNewTable: tableDetailForColumn,
                 columnNumber: 1,
               ),
-              // ListChecker(
-              //   appBar: appBar,
-              //   tableDetail: columnTable2,
-              //   addNewTable: tableDetailForColumn,
-              //   columnNumber: 2,
-              // ),
-              // ListChecker(
-              //   appBar: appBar,
-              //   tableDetail: columnTable3,
-              //   addNewTable: tableDetailForColumn,
-              //   columnNumber: 3,
-              // ),
-              Text('Table 2'),
-              Text('Table 3'),
-              Text('Table 4'),
+              ListChecker(
+                appBar: appBar,
+                tableDetail: columnTable2,
+                addNewTable: tableDetailForColumn,
+                columnNumber: 2,
+              ),
+              ListChecker(
+                appBar: appBar,
+                tableDetail: columnTable3,
+                addNewTable: tableDetailForColumn,
+                columnNumber: 3,
+              ),
+              Text('Table 4') // TODO Clean List,
             ],
           ),
         ]),

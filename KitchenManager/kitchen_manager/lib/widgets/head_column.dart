@@ -43,7 +43,7 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
                       flex: 1,
                       child: TextButton(
                         // onPressed: null,
-                        onPressed: widget.addNewTable(widget.columnNumber),
+                        onPressed: () => widget.addNewTable(widget.columnNumber),
                         style: TextButton.styleFrom(
                           primary: Colors.blue,
                         ),

@@ -14,14 +14,17 @@ class ProductService {
   }
 
   TableDetail getNextTable() {
-    TableDetail popTableDetail = tableQueue.removeFirst();
-    return popTableDetail;
+    if (tableQueue.isNotEmpty) {
+      TableDetail popTableDetail = tableQueue.removeFirst();
+      return popTableDetail;
+    } else {
+      return TableDetail(id: 0, tableName: "", status: "FREE", items: []);
+    }
   }
 
   void addNextTable() {
     //TODO Get next Table from Server
   }
-
 }
 
 void main() {
