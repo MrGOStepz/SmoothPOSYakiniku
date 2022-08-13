@@ -1,2 +1,4 @@
-FlutterTesting/.idea/
 */.idea/
+*/.gradle
+*/build
+.idea
