@@ -3,8 +3,8 @@ package com.mrgostepz.smooth.db.dao;
 import com.mrgostepz.smooth.db.repository.ProductRepository;
 import com.mrgostepz.smooth.db.rowmapper.ProductRowMapper;
 import com.mrgostepz.smooth.model.db.Product;
-import com.mrgostepz.smooth.model.db.SetMenu;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataAccessException;
@@ -30,7 +30,9 @@ import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_UPDATE_PRODUCT;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductDAO implements ProductRepository {
+
 
     private static final Logger logger = LogManager.getLogger(ProductDAO.class);
 
