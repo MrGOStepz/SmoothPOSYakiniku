@@ -36,9 +36,15 @@ public class ColumnName {
     public static final String COL_AMOUNT = "AMOUNT";
     public static final String COL_COMMENT = "COMMENT";
     public static final String COL_ORDER_STATUS_ID = "ORDER_STATUS_ID";
+    public static final String COL_STATUS_ID = "STATUS_ID";
+    public static final String COL_STATUS = "STATUS";
+
     public static final String COL_ORDER_STATUS_NAME = "ORDER_STATUS_NAME";
     public static final String COL_ORDER_TYPE_ID = "ORDER_TYPE_ID";
+    public static final String COL_ORDER_DETAIL = "ORDER_DETAIL";
+    public static final String COL_START_TIME = "START_TIME";
     public static final String COL_ORDER_TYPE_NAME = "ORDER_TYPE_NAME";
+    public static final String COL_ORDER_TYPE = "ORDER_TYPE";
     public static final String COL_PAYMENT_TYPE_ID = "PAYMENT_TYPE_ID";
     public static final String COL_PAYMENT_TYPE_NAME = "PAYMENT_TYPE_NAME";
     public static final String COL_POPUP_ID = "POPUP_ID";
@@ -71,6 +77,7 @@ public class ColumnName {
     public static final String COL_TABLE_SECTION_NAME = "TABLE_SECTION_NAME";
     public static final String COL_U_NAME = "U_NAME";
     public static final String COL_NAME = "NAME";
+    public static final String COL_TABLE_ID = "TABLE_ID";
     public static final String COL_MARGIN_TOP = "MARGIN_TOP";
     public static final String COL_MARGIN_BOTTOM = "MARGIN_BOTTOM";
     public static final String COL_MARGIN_LEFT = "MARGIN_LEFT";

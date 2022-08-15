@@ -1,6 +1,7 @@
 package com.mrgostepz.smooth.db.rowmapper;
 
-import com.mrgostepz.smooth.model.db.Order;
+import com.mrgostepz.smooth.model.db.OrderMenu;
+import com.mrgostepz.smooth.model.enumtype.OrderType;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -8,12 +9,15 @@ import java.sql.SQLException;
 
 import static com.mrgostepz.smooth.db.ColumnName.*;
 
-public class OrderRowMapper implements RowMapper<Order> {
+public class OrderRowMapper implements RowMapper<OrderMenu> {
     @Override
-    public Order mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Order order = new Order();
+    public OrderMenu mapRow(ResultSet rs, int rowNum) throws SQLException {
+        OrderMenu order = new OrderMenu();
         order.setId(rs.getInt(COL_ID));
-        order.setOrderDetail(rs.getInt(COL_ORDER_DETAIL_ID));
-        order.setIsActive(rs.getInt(COL_IS_ACTIVE));
+        order.setOrderDetail(rs.getString(COL_ORDER_DETAIL));
+        order.setTableId(rs.getInt(COL_TABLE_ID));
+        order.setOrderType(OrderType.fromString(rs.getString(COL_ORDER_TYPE)));
+        order.setStartTime(rs.getDate(COL_ORDER_AT));
+        return order;
     }
 }

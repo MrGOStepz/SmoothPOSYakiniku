@@ -1,24 +1,39 @@
 package com.mrgostepz.smooth.model.enumtype;
 
 public enum FoodType {
-    APPETIZER("appetizer"),
-    MAIN("main"),
-    BEVERAGE("beverage"),
-    DESSERT("dessert");
+    APPETIZER("appetizer", 1),
+    MAIN("main", 2),
+    SET("set", 3),
+    BEVERAGE("beverage", 4),
+    DESSERT("dessert", 5);
 
-    private final String value;
+    private final String valueString;
+    private final Integer valueInt;
 
-    FoodType(String value) {
-        this.value = value;
+    FoodType(String valueString, Integer valueInt) {
+        this.valueString = valueString;
+        this.valueInt = valueInt;
     }
 
-    public String getValue() {
-        return this.value;
+    public String getValueString() {
+        return this.valueString;
+    }
+    public Integer getValueInt() {
+        return this.valueInt;
     }
 
     public static FoodType fromString(String value) {
         for (FoodType foodType : FoodType.values()) {
-            if (foodType.value.equalsIgnoreCase(value)) {
+            if (foodType.valueString.equalsIgnoreCase(value)) {
+                return foodType;
+            }
+        }
+        return null;
+    }
+
+    public static FoodType fromInt(Integer value) {
+        for (FoodType foodType : FoodType.values()) {
+            if (foodType.valueInt.intValue() == value) {
                 return foodType;
             }
         }

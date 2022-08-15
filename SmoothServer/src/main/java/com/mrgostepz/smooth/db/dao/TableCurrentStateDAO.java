@@ -19,7 +19,7 @@ import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_UPDATE_PRODUCT;
 
 @Service
 @RequiredArgsConstructor
-public class OrderDAO implements OrderRepository {
+public class TableCurrentStateDAO implements OrderRepository {
     private static final Logger logger = LogManager.getLogger(ProductDAO.class);
 
     private final JdbcTemplate jdbcTemplate;
@@ -53,8 +53,8 @@ public class OrderDAO implements OrderRepository {
             statement.setString(2, orderMenu.getOrderDetail());
             statement.setFloat(3, orderMenu.getAmount());
             statement.setDate(4, orderMenu.getStartTime());
-            statement.setString(5, orderMenu.getStatus().getValueString());
-            statement.setString(6, orderMenu.getOrderType().getValueString());
+            statement.setInt(5, orderMenu.getStatusId());
+            statement.setInt(6, orderMenu.getOrderTypeId());
 
             int affectedRows = statement.executeUpdate();
 
@@ -86,7 +86,7 @@ public class OrderDAO implements OrderRepository {
                     orderMenu.getAmount(),
                     orderMenu.getStartTime(),
                     orderMenu.getStartTime(),
-                    orderMenu.getOrderType().getValueString(),
+                    orderMenu.getOrderTypeId(),
                     orderMenu.getId());
             return result == 1;
         } catch (DataAccessException ex) {

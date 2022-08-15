@@ -1,8 +1,8 @@
 package com.mrgostepz.smooth.controller;
 
 import com.mrgostepz.smooth.model.db.Product;
-import com.mrgostepz.smooth.model.db.SetMenu;
 import com.mrgostepz.smooth.service.ProductService;
+import com.mrgostepz.smooth.until.SmoothUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -57,13 +57,15 @@ class ProductController {
 
     @PostMapping(path = "/add")
     @ResponseBody
-    public ResponseEntity<String> addNewProduct(@RequestBody Product product) {
+    public ResponseEntity<String> addNewProduct(@RequestBody String jsonReq) {
+        Product product = (Product) SmoothUtil.convertJsonToObject(jsonReq, Product.class);
         productService.addProduct(product);
         return new ResponseEntity<>(String.format("Add new product successfully: %s", product.toString()), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/update")
-    public String updateProduct(@RequestBody Product product) {
+    public String updateProduct(@RequestBody String jsonReq) {
+        Product product = (Product) SmoothUtil.convertJsonToObject(jsonReq, Product.class);
         productService.updateProduct(product);
         return String.format("Update Product: %s completed.", product);
     }

@@ -4,7 +4,6 @@ import com.mrgostepz.smooth.db.repository.ProductRepository;
 import com.mrgostepz.smooth.exception.InsertRecordException;
 import com.mrgostepz.smooth.exception.RecordNotFoundException;
 import com.mrgostepz.smooth.model.db.Product;
-import com.mrgostepz.smooth.model.db.SetMenu;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

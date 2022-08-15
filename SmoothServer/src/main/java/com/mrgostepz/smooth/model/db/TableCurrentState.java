@@ -1,12 +1,13 @@
 package com.mrgostepz.smooth.model.db;
 
+import com.mrgostepz.smooth.model.enumtype.Status;
 import lombok.Data;
 
 @Data
-public class TableCurrent {
+public class TableCurrentState {
     private Integer id;
     private String name;
     private Integer orderId;
-    private Integer statusId;
+    private Status status;
     private Integer isActive;
 }

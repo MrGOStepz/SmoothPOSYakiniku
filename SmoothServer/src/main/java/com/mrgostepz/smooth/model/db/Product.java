@@ -1,5 +1,6 @@
 package com.mrgostepz.smooth.model.db;
 
+import com.mrgostepz.smooth.model.enumtype.FoodType;
 import lombok.Data;
 
 import java.util.List;
@@ -8,11 +9,11 @@ import java.util.List;
 public class Product {
     private Integer id;
     private String name;
-    private String foodType;
+    private FoodType foodType;
     private String description;
     private Integer stock;
-    private Double price;
+    private Float price;
     private List<Integer> listProductIds;
-    private Integer isAvailable;
-    private Integer isActive;
+    private Boolean isAvailable;
+    private Boolean isActive;
 }
