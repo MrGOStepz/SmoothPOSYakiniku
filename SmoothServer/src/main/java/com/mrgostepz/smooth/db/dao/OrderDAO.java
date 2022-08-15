@@ -15,12 +15,11 @@ import java.sql.*;
 import java.util.List;
 
 import static com.mrgostepz.smooth.db.sql.OrderSQL.*;
-import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_UPDATE_PRODUCT;
 
 @Service
 @RequiredArgsConstructor
 public class OrderDAO implements OrderRepository {
-    private static final Logger logger = LogManager.getLogger(ProductDAO.class);
+    private static final Logger logger = LogManager.getLogger(OrderDAO.class);
 
     private final JdbcTemplate jdbcTemplate;
     @Override
@@ -59,13 +58,13 @@ public class OrderDAO implements OrderRepository {
             int affectedRows = statement.executeUpdate();
 
             if (affectedRows == 0) {
-                throw new SQLException("Creating product failed, no rows affected.");
+                throw new SQLException("Creating order menu failed, no rows affected.");
             }
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     orderMenu.setId(generatedKeys.getInt(1));
                 } else {
-                    throw new SQLException("Creating product failed, no ID obtained.");
+                    throw new SQLException("Creating order menu failed, no ID obtained.");
                 }
             }
             return orderMenu.getId();
@@ -80,7 +79,7 @@ public class OrderDAO implements OrderRepository {
     @Override
     public Boolean update(OrderMenu orderMenu) {
         try {
-            int result = jdbcTemplate.update(SQL_UPDATE_PRODUCT,
+            int result = jdbcTemplate.update(SQL_UPDATE_ORDER,
                     orderMenu.getTableId(),
                     orderMenu.getOrderDetail(),
                     orderMenu.getAmount(),
