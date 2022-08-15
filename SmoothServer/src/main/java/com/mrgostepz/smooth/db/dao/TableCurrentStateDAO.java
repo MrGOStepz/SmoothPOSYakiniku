@@ -1,8 +1,11 @@
 package com.mrgostepz.smooth.db.dao;
 
 import com.mrgostepz.smooth.db.repository.OrderRepository;
+import com.mrgostepz.smooth.db.repository.TableCurrentStateRepository;
 import com.mrgostepz.smooth.db.rowmapper.OrderRowMapper;
-import com.mrgostepz.smooth.model.db.OrderMenu;
+import com.mrgostepz.smooth.db.rowmapper.TableCurrentStateMapper;
+import com.mrgostepz.smooth.model.db.TableCurrentState;
+import com.mrgostepz.smooth.model.db.TableCurrentState;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,17 +19,21 @@ import java.util.List;
 
 import static com.mrgostepz.smooth.db.sql.OrderSQL.*;
 import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_UPDATE_PRODUCT;
+import static com.mrgostepz.smooth.db.sql.TableCurrentStateSQL.SQL_ADD_TABLE_CURRENT_STATE;
+import static com.mrgostepz.smooth.db.sql.TableCurrentStateSQL.SQL_DELETE_TABLE_CURRENT_STATE;
+import static com.mrgostepz.smooth.db.sql.TableCurrentStateSQL.SQL_GET_ALL_TABLE_CURRENT_STATE;
+import static com.mrgostepz.smooth.db.sql.TableCurrentStateSQL.SQL_GET_TABLE_CURRENT_STATE_BY_ID;
 
 @Service
 @RequiredArgsConstructor
-public class TableCurrentStateDAO implements OrderRepository {
+public class TableCurrentStateDAO implements TableCurrentStateRepository {
     private static final Logger logger = LogManager.getLogger(ProductDAO.class);
 
     private final JdbcTemplate jdbcTemplate;
     @Override
-    public List<OrderMenu> getAll() {
+    public List<TableCurrentState> getAll() {
         try {
-            return jdbcTemplate.query(SQL_GET_ALL_ORDER, new OrderRowMapper());
+            return jdbcTemplate.query(SQL_GET_ALL_TABLE_CURRENT_STATE, new TableCurrentStateMapper());
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
             throw ex;
@@ -34,9 +41,9 @@ public class TableCurrentStateDAO implements OrderRepository {
     }
 
     @Override
-    public OrderMenu getById(Integer id) {
+    public TableCurrentState getById(Integer id) {
         try {
-            return jdbcTemplate.queryForObject(SQL_GET_ORDER_BY_ID, new OrderRowMapper(), id);
+            return jdbcTemplate.queryForObject(SQL_GET_TABLE_CURRENT_STATE_BY_ID, new TableCurrentStateMapper(), id);
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
             throw ex;
@@ -44,17 +51,15 @@ public class TableCurrentStateDAO implements OrderRepository {
     }
 
     @Override
-    public Integer add(OrderMenu orderMenu) {
+    public Integer add(TableCurrentState tableCurrentState) {
         DataSource dataSource = jdbcTemplate.getDataSource();
         assert dataSource != null;
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_ADD_ORDER, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(1, orderMenu.getTableId());
-            statement.setString(2, orderMenu.getOrderDetail());
-            statement.setFloat(3, orderMenu.getAmount());
-            statement.setDate(4, orderMenu.getStartTime());
-            statement.setInt(5, orderMenu.getStatusId());
-            statement.setInt(6, orderMenu.getOrderTypeId());
+             PreparedStatement statement = connection.prepareStatement(SQL_ADD_TABLE_CURRENT_STATE, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setInt(1, tableCurrentState.getId());
+            statement.setString(2, tableCurrentState.getName());
+            statement.setString(3, tableCurrentState.getStatus().getValueString());
+            statement.setInt(4, tableCurrentState.getOrderId());
 
             int affectedRows = statement.executeUpdate();
 
@@ -63,31 +68,28 @@ public class TableCurrentStateDAO implements OrderRepository {
             }
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    orderMenu.setId(generatedKeys.getInt(1));
+                    tableCurrentState.setId(generatedKeys.getInt(1));
                 } else {
                     throw new SQLException("Creating product failed, no ID obtained.");
                 }
             }
-            return orderMenu.getId();
+            return tableCurrentState.getId();
         } catch (DataAccessException | SQLException ex) {
             logger.error(ex.getMessage());
             return -1;
         } finally {
-            logger.info("Create new Order: {}", orderMenu);
+            logger.info("Create new Order: {}", tableCurrentState);
         }
     }
 
     @Override
-    public Boolean update(OrderMenu orderMenu) {
+    public Boolean update(TableCurrentState tableCurrentState) {
         try {
             int result = jdbcTemplate.update(SQL_UPDATE_PRODUCT,
-                    orderMenu.getTableId(),
-                    orderMenu.getOrderDetail(),
-                    orderMenu.getAmount(),
-                    orderMenu.getStartTime(),
-                    orderMenu.getStartTime(),
-                    orderMenu.getOrderTypeId(),
-                    orderMenu.getId());
+                    tableCurrentState.getName(),
+                    tableCurrentState.getStatus().getValueString(),
+                    tableCurrentState.getOrderId(),
+                    tableCurrentState.getId());
             return result == 1;
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
@@ -98,7 +100,7 @@ public class TableCurrentStateDAO implements OrderRepository {
     @Override
     public Boolean deleteById(Integer id) {
         try {
-            int result = jdbcTemplate.update(SQL_DELETE_ORDER, id);
+            int result = jdbcTemplate.update(SQL_DELETE_TABLE_CURRENT_STATE, id);
             return result == 1;
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());

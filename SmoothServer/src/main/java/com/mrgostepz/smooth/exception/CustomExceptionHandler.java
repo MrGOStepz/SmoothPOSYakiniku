@@ -16,34 +16,34 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
     public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
         String detail = ex.getLocalizedMessage();
         ErrorResponse error = new ErrorResponse(0,"Something wrong in service", detail);
-        return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(DataAccessException.class)
     public final ResponseEntity<Object> handleDataAccessExceptions(Exception ex, WebRequest request) {
         String detail = ex.getLocalizedMessage();
         ErrorResponse error = new ErrorResponse(0,"Data cannot access", detail);
-        return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(RecordNotFoundException.class)
     public final ResponseEntity<Object> handleRecordNotFoundException(RecordNotFoundException ex, WebRequest request) {
         String detail = ex.getLocalizedMessage();
         ErrorResponse error = new ErrorResponse(0,"Record Not Found", detail);
-        return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(InsertRecordException.class)
     public final ResponseEntity<Object> handleInsertErrorException(InsertRecordException ex, WebRequest request) {
         String detail = ex.getLocalizedMessage();
         ErrorResponse error = new ErrorResponse(0,"Something wrong in service.", detail);
-        return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(SmoothException.class)
     public final ResponseEntity<Object> handleSmoothException(RecordNotFoundException ex, WebRequest request) {
         String detail = ex.getLocalizedMessage();
         ErrorResponse error = new ErrorResponse(0,"Something wrong in service.", detail);
-        return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 }

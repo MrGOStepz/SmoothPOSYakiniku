@@ -13,6 +13,6 @@ public class OrderMenu {
     private String orderDetail;
     private OrderType orderType;
     private Status status;
-    private Float amount;
+    private Double amount;
     private Date startTime;
 }

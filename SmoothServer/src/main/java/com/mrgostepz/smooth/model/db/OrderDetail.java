@@ -10,7 +10,7 @@ public class OrderDetail {
     private Integer orderId;
     private Status status;
     private Integer Quality;
-    private Float price;
+    private Double price;
     private String comment;
     private Boolean isActive;
 }

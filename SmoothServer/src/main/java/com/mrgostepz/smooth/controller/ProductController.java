@@ -1,6 +1,9 @@
 package com.mrgostepz.smooth.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mrgostepz.smooth.model.db.Product;
+import com.mrgostepz.smooth.model.enumtype.FoodType;
 import com.mrgostepz.smooth.service.ProductService;
 import com.mrgostepz.smooth.until.SmoothUtil;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
+
+import static com.mrgostepz.smooth.model.constraint.JsonKey.DESCRIPTION;
+import static com.mrgostepz.smooth.model.constraint.JsonKey.FOOD_TYPE;
+import static com.mrgostepz.smooth.model.constraint.JsonKey.ID;
+import static com.mrgostepz.smooth.model.constraint.JsonKey.IS_ACTIVE;
+import static com.mrgostepz.smooth.model.constraint.JsonKey.IS_AVAILABLE;
+import static com.mrgostepz.smooth.model.constraint.JsonKey.LIST_PRODUCT;
+import static com.mrgostepz.smooth.model.constraint.JsonKey.NAME;
+import static com.mrgostepz.smooth.model.constraint.JsonKey.PRICE;
+import static com.mrgostepz.smooth.model.constraint.JsonKey.STOCK;
 
 //https://mkyong.com/spring-boot/spring-rest-error-handling-example/
 //http://localhost:8080/spring-mvc-basics/foos?id=abc
@@ -58,7 +72,7 @@ class ProductController {
     @PostMapping(path = "/add")
     @ResponseBody
     public ResponseEntity<String> addNewProduct(@RequestBody String jsonReq) {
-        Product product = (Product) SmoothUtil.convertJsonToObject(jsonReq, Product.class);
+        Product product = convertJsonToProduct(jsonReq);
         productService.addProduct(product);
         return new ResponseEntity<>(String.format("Add new product successfully: %s", product.toString()), HttpStatus.CREATED);
     }
@@ -76,6 +90,26 @@ class ProductController {
         return String.format("Delete Product Id: %d completed.", id);
     }
 
+    private Product convertJsonToProduct(String json){
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, Object> map = mapper.readValue(json, Map.class);
+            Product product = new Product();
+            product.setId((Integer) map.get(ID));
+            product.setName((String) map.get(NAME));
+            product.setDescription((String) map.get(DESCRIPTION));
+            product.setPrice((Double) map.get(PRICE));
+            product.setFoodType(FoodType.fromString((String) map.get(FOOD_TYPE)));
+            product.setStock((Integer) map.get(STOCK));
+            product.setListProductIds((List<Integer>) map.get(LIST_PRODUCT));
+            product.setIsAvailable(map.get(IS_AVAILABLE).equals(1));
+            product.setIsActive(map.get(IS_ACTIVE).equals(1));
+            return product;
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+            return null;
+        }
+    }
 
 
 }

@@ -12,7 +12,7 @@ public class Product {
     private FoodType foodType;
     private String description;
     private Integer stock;
-    private Float price;
+    private Double price;
     private List<Integer> listProductIds;
     private Boolean isAvailable;
     private Boolean isActive;

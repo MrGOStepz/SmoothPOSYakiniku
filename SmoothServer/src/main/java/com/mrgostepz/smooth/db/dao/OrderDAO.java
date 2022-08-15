@@ -51,7 +51,7 @@ public class OrderDAO implements OrderRepository {
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_ORDER, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, orderMenu.getTableId());
             statement.setString(2, orderMenu.getOrderDetail());
-            statement.setFloat(3, orderMenu.getAmount());
+            statement.setDouble(3, orderMenu.getAmount());
             statement.setDate(4, orderMenu.getStartTime());
             statement.setString(5, orderMenu.getStatus().getValueString());
             statement.setString(6, orderMenu.getOrderType().getValueString());

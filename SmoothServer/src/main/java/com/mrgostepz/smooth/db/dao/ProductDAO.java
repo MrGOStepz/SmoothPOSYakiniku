@@ -27,10 +27,8 @@ import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_GET_PRODUCT_BY_COLUMN;
 import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_GET_PRODUCT_BY_ID;
 import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_UPDATE_PRODUCT;
 
-
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class ProductDAO implements ProductRepository {
 
 

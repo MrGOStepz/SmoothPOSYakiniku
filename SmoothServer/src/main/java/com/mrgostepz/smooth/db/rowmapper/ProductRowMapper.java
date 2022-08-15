@@ -1,6 +1,7 @@
 package com.mrgostepz.smooth.db.rowmapper;
 
 import com.mrgostepz.smooth.model.db.Product;
+import com.mrgostepz.smooth.model.enumtype.FoodType;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -25,10 +26,10 @@ public class ProductRowMapper implements RowMapper<Product> {
         product.setId(rs.getInt(COL_ID));
         product.setName(rs.getString(COL_NAME));
         product.setDescription(rs.getString(COL_DESCRIPTION));
-        product.setIsAvailable(rs.getInt(COL_IS_AVAILABLE));
+        product.setIsAvailable(rs.getInt(COL_IS_AVAILABLE) == 1);
         product.setStock(rs.getInt(COL_STOCK));
         product.setPrice(rs.getDouble(COL_PRICE));
-        product.setFoodType(rs.getString(COL_FOOD_TYPE));
+        product.setFoodType(FoodType.fromString(rs.getString(COL_FOOD_TYPE)));
         String listItems = rs.getString(COL_LIST_PRODUCT);
         if(listItems != null) {
             product.setListProductIds(Stream.of(listItems.split(","))
@@ -36,7 +37,7 @@ public class ProductRowMapper implements RowMapper<Product> {
                     .map(Integer::parseInt)
                     .collect(Collectors.toList()));
         }
-        product.setIsActive(rs.getInt(COL_IS_ACTIVE));
+        product.setIsActive(rs.getInt(COL_IS_ACTIVE) == 1);
         return product;
     }
 }

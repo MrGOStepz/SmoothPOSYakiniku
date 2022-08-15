@@ -74,22 +74,4 @@ public class ProductService {
         logger.info("Product {}", customer);
         return customerList;
     }
-
-    public List<Product> getAllIngredient() {
-        List<Product> productList = productRepository.getAll();
-        if (productList == null) {
-            throw new RecordNotFoundException("There is no record in product table.");
-        }
-        logger.info(productList);
-        return productRepository.getAll();
-    }
-
-    public Product getIngredientById(int id) {
-        Product product = productRepository.getById(id);
-        if (product == null) {
-            throw new RecordNotFoundException("There is no product in this id.");
-        }
-        logger.info("Product {}", product);
-        return product;
-    }
 }
