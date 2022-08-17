@@ -65,14 +65,14 @@ class OrderController {
     @PostMapping(path = "/add")
     @ResponseBody
     public ResponseEntity<String> addNewOrder(@RequestBody String jsonReq) {
-        OrderMenu order = convertJsonToProduct(jsonReq);
+        OrderMenu order = convertJsonToOrder(jsonReq);
         orderService.addOrder(order);
         return new ResponseEntity<>(String.format("Add new order successfully: %s", order.toString()), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/update")
     public String updateOrder(@RequestBody String jsonReq) {
-        OrderMenu order = convertJsonToProduct(jsonReq);
+        OrderMenu order = convertJsonToOrder(jsonReq);
         orderService.updateOrder(order);
         return String.format("Update Order: %s completed.", order);
     }
@@ -83,7 +83,7 @@ class OrderController {
         return String.format("Delete Order Id: %d completed.", id);
     }
 
-    private OrderMenu convertJsonToProduct(String json){
+    private OrderMenu convertJsonToOrder(String json){
         try {
             ObjectMapper mapper = new ObjectMapper();
             Map<String, Object> map = mapper.readValue(json, Map.class);

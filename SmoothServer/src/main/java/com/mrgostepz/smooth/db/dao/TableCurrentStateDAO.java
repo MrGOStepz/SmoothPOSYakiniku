@@ -27,7 +27,7 @@ import static com.mrgostepz.smooth.db.sql.TableCurrentStateSQL.SQL_GET_TABLE_CUR
 @Service
 @RequiredArgsConstructor
 public class TableCurrentStateDAO implements TableCurrentStateRepository {
-    private static final Logger logger = LogManager.getLogger(ProductDAO.class);
+    private static final Logger logger = LogManager.getLogger(TableCurrentStateDAO.class);
 
     private final JdbcTemplate jdbcTemplate;
     @Override

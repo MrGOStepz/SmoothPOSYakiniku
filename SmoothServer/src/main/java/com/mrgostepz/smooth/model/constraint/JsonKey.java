@@ -21,4 +21,5 @@ public class JsonKey {
     public static String STATUS = "status";
     public static String AMOUNT = "amount";
     public static String START_TIME = "startTime";
+    public static String ORDER_ID = "orderId";
 }
