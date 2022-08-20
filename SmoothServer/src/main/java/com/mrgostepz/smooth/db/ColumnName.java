@@ -33,6 +33,8 @@ public class ColumnName {
     public static final String COL_ORDER_AT = "ORDER_AT";
     public static final String COL_ORDER_DETAIL_ID = "ORDER_DETAIL_ID";
     public static final String COL_PRODUCT_QTY = "PRODUCT_QRY";
+
+    public static final String COL_QUALITY = "QUALITY";
     public static final String COL_AMOUNT = "AMOUNT";
     public static final String COL_COMMENT = "COMMENT";
     public static final String COL_ORDER_STATUS_ID = "ORDER_STATUS_ID";

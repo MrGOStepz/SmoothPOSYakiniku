@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 import static com.mrgostepz.smooth.db.ColumnName.*;
 
-public class OrderDetailMapper implements RowMapper<OrderDetail> {
+public class OrderDetailRowMapper implements RowMapper<OrderDetail> {
     @Override
     public OrderDetail mapRow(ResultSet rs, int rowNum) throws SQLException {
         OrderDetail orderDetail = new OrderDetail();
