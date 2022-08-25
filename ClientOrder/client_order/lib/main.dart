@@ -1,40 +1,44 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const OrderApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class OrderApp extends StatelessWidget {
+  const OrderApp({Key? key}) : super(key: key);
+  final String titleName = 'Client Order';
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: titleName,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: OrderHomePage(title: titleName),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class OrderHomePage extends StatefulWidget {
+  const OrderHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<OrderHomePage> createState() => _OrderHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _OrderHomePageState extends State<OrderHomePage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Card(
-        
+      body: SafeArea(
+        child: Table(border: TableBorder.all(), children: [
+          TableRow(children: )
+        ],),
+
       ),
     );
   }
