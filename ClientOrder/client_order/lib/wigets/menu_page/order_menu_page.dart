@@ -5,13 +5,10 @@ class MainMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> typeMenu = ['Entree', 'Main', 'Beverage', 'Dessert'];
-    return Column(children: [
-      Container(
-        child: ListView(
-
-        ),
-      )
-    ],);
+    return Column(
+      children: const [
+          Text("Test"),
+      ],
+    );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:client_order/wigets/category_menu_page/category_menu_page.dart';
+import 'package:client_order/wigets/menu_page/product_menu_list.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,29 +18,59 @@ class OrderApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: OrderHomePage(title: titleName),
+      home: MainHomePage(title: titleName),
     );
   }
 }
 
-class OrderHomePage extends StatefulWidget {
-  const OrderHomePage({Key? key, required this.title}) : super(key: key);
+class MainHomePage extends StatefulWidget {
+  const MainHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  State<OrderHomePage> createState() => _OrderHomePageState();
+  State<MainHomePage> createState() => _MainHomePageState();
 }
 
-class _OrderHomePageState extends State<OrderHomePage> {
+class _MainHomePageState extends State<MainHomePage> {
+  int currentCategoryState = 1;
+
+  void clickCategoryItem(int categoryId) {
+    setState(() {
+      currentCategoryState = categoryId;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Table(border: TableBorder.all(), children: [
-          TableRow(children: )
-        ],),
-
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.topCenter,
+                child: CategoryMenu(tap: clickCategoryItem),
+              ),
+            ),
+            Expanded(
+              flex: 9,
+              child: Column(
+                children: [
+                  Container(
+                      alignment: Alignment.topCenter,
+                      width: double.infinity,
+                      height: 50,
+                      child: CategoryMenuList(
+                        currentCategory: currentCategoryState,
+                        menuItemTap: clickCategoryItem,
+                      )),
+                  Text('Menu Display'),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
