@@ -9,6 +9,9 @@
       <excludeFolder url="file://$MODULE_DIR$/FlutterTesting/flutter_testing/build" />
       <excludeFolder url="file://$MODULE_DIR$/FlutterTesting/flutter_testing/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/FlutterTesting/flutter_testing/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ClientOrder/client_order/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ClientOrder/client_order/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ClientOrder/client_order/.dart_tool" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
