@@ -10,13 +10,8 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(body: SafeArea(
-      child: Table( children: [
-        TableRow(
-          children: [],
-        )
-      ],),
-    ),
+    return  Container(
+      child: Text("Cart"),
     );
   }
 }

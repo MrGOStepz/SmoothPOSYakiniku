@@ -1,5 +1,6 @@
-import 'package:client_order/wigets/category_menu_page/category_menu_page.dart';
-import 'package:client_order/wigets/menu_page/product_menu_list.dart';
+import 'package:client_order/widgets/cart_page/cart_page.dart';
+import 'package:client_order/widgets/category_menu_page/category_menu_page.dart';
+import 'package:client_order/widgets/menu_page/product_menu_list.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -50,7 +51,7 @@ class _MainHomePageState extends State<MainHomePage> {
               flex: 1,
               child: Container(
                 alignment: Alignment.topCenter,
-                child: CategoryMenu(tap: clickCategoryItem),
+                child: CategoryMenu(selectCategory: clickCategoryItem),
               ),
             ),
             Expanded(
@@ -65,10 +66,33 @@ class _MainHomePageState extends State<MainHomePage> {
                         currentCategory: currentCategoryState,
                         menuItemTap: clickCategoryItem,
                       )),
-                  Text('Menu Display'),
+              GridView(
+                padding: const EdgeInsets.all(25),
+                children: DUMMY_CATEGORIES
+                    .map(
+                      (catData) => CategoryItem(
+                    catData.id,
+                    catData.title,
+                    catData.color,
+                  ),
+                )
+                    .toList(),
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  childAspectRatio: 3 / 2,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                ),
                 ],
               ),
-            )
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                alignment: Alignment.topCenter,
+                child: CartPage(),
+              ),
+            ),
           ],
         ),
       ),

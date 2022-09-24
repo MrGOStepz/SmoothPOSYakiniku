@@ -17,16 +17,21 @@ class CategoryMenuList extends StatelessWidget {
         .where((item) => item.category == currentCategory)
         .toList();
 
+    var pageNumber = Set<int>();
+    List<ProductItem> lstPageOfProduct = lstProductItem
+        .where((pageProduct) => pageNumber.add(pageProduct.page))
+        .toList();
+
     for (var element in lstProductItem) {
       debugPrint(element.name);
     }
 
     return ListView(
       scrollDirection: Axis.horizontal,
-      children: lstProductItem
+      children: lstPageOfProduct
           .map((item) => ProductMenuItem(
-                key: ValueKey(item.id),
-                productItem: item,
+                key: ValueKey(item.page),
+                listProductItem: lstProductItem,
               ))
           .toList(),
     );

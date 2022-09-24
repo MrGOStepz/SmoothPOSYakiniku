@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'category_menu_item.dart';
 
 class CategoryMenu extends StatelessWidget {
-  final Function(int) tap;
+  final Function(int) selectCategory;
 
-  const CategoryMenu({required this.tap, Key? key}) : super(key: key);
+  const CategoryMenu({required this.selectCategory, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class CategoryMenu extends StatelessWidget {
       children: DUMMY_CATEGORY
           .map((item) => CategoryMenuItem(
                 key: ValueKey(item.id),
-                tap: tap,
+                selectCategory: selectCategory,
                 category: item,
               ))
           .toList(),
