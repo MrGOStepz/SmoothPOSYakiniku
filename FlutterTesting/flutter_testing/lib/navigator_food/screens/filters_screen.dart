@@ -33,7 +33,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
     String title,
     String description,
     bool currentValue,
-    Function updateValue,
+    Function(bool) updateValue,
   ) {
     return SwitchListTile(
       title: Text(title),

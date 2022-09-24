@@ -23,27 +23,30 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expenses',
       theme: ThemeData(
-          primarySwatch: Colors.purple,
-          accentColor: Colors.amber,
-          // errorColor: Colors.red,
-          fontFamily: 'Quicksand',
-          textTheme: ThemeData.light().textTheme.copyWith(
-                titleMedium: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-                button: TextStyle(color: Colors.white),
-              ),
-          appBarTheme: AppBarTheme(
-            textTheme: ThemeData.light().textTheme.copyWith(
-              titleMedium: TextStyle(
-                    fontFamily: 'OpenSans',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-          )),
+        fontFamily: 'Quicksand',
+        textTheme: const TextTheme(
+          headline1: TextStyle(
+              fontFamily: 'OpenSans',
+              fontWeight: FontWeight.bold,
+              fontSize: 18),
+          // textTheme: ThemeData.light().textTheme.copyWith(
+          //       titleMedium: TextStyle(
+          //         fontFamily: 'OpenSans',
+          //         fontWeight: FontWeight.bold,
+          //         fontSize: 18,
+          //       ),
+          button: TextStyle(color: Colors.white),
+        ),
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+            .copyWith(secondary: Colors.amber),
+      ),
       home: MyHomePage(),
     );
   }
@@ -223,7 +226,7 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
     final PreferredSizeWidget appBar = _buildAppBar() as PreferredSizeWidget;
     final txListWidget = Container(
       height: (mediaQuery.size.height -
-            appBar.preferredSize.height -
+              appBar.preferredSize.height -
               mediaQuery.padding.top) *
           0.7,
       child: TransactionList(_userTransactions, _deleteTransaction),
