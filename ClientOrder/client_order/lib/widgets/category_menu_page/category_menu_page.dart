@@ -5,13 +5,14 @@ import 'category_menu_item.dart';
 
 class CategoryMenu extends StatelessWidget {
   final Function(int) selectCategory;
+  final List<Category> lstCategory;
 
-  const CategoryMenu({required this.selectCategory, Key? key}) : super(key: key);
+  const CategoryMenu({required this.selectCategory, Key? key, required this.lstCategory}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: DUMMY_CATEGORY
+      children: lstCategory
           .map((item) => CategoryMenuItem(
                 key: ValueKey(item.id),
                 selectCategory: selectCategory,

@@ -1,7 +1,11 @@
 import 'package:client_order/widgets/cart_page/cart_page.dart';
 import 'package:client_order/widgets/category_menu_page/category_menu_page.dart';
-import 'package:client_order/widgets/menu_page/product_menu_list.dart';
+import 'package:client_order/widgets/menu_page/main_menu_list.dart';
+import 'package:client_order/widgets/menu_page/main_menu_page.dart';
+import 'package:client_order/widgets/menu_page/manu_bar_list.dart';
 import 'package:flutter/material.dart';
+
+import 'models/product_model.dart';
 
 void main() {
   runApp(const OrderApp());
@@ -33,12 +37,37 @@ class MainHomePage extends StatefulWidget {
 }
 
 class _MainHomePageState extends State<MainHomePage> {
-  int currentCategoryState = 1;
+  int currentCategorySelected = 1;
+  int currentCategoryPageSelected = 1;
+  late List<ProductItem> lstProductItem;
+  late List<Category> lstCategory;
+
+  @override
+  void initState() {
+    super.initState();
+    //TODO Use service instead of DUMMY
+    lstProductItem = DUMMY_PRODUCT;
+    lstCategory = DUMMY_CATEGORY;
+  }
 
   void clickCategoryItem(int categoryId) {
     setState(() {
-      currentCategoryState = categoryId;
+      currentCategorySelected = categoryId;
+      currentCategoryPageSelected = 1;
     });
+  }
+
+  void clickMenuBarPage(int pageId) {
+    setState(() {
+      currentCategoryPageSelected = pageId;
+    });
+  }
+
+  List<ProductItem> get productItemsByCategory {
+    var productItemCategory = lstProductItem
+        .where((item) => item.category == currentCategorySelected)
+        .toList();
+    return productItemCategory;
   }
 
   @override
@@ -51,39 +80,19 @@ class _MainHomePageState extends State<MainHomePage> {
               flex: 1,
               child: Container(
                 alignment: Alignment.topCenter,
-                child: CategoryMenu(selectCategory: clickCategoryItem),
+                child: CategoryMenu(
+                  selectCategory: clickCategoryItem,
+                  lstCategory: lstCategory,
+                ),
               ),
             ),
             Expanded(
-              flex: 9,
-              child: Column(
-                children: [
-                  Container(
-                      alignment: Alignment.topCenter,
-                      width: double.infinity,
-                      height: 50,
-                      child: CategoryMenuList(
-                        currentCategory: currentCategoryState,
-                        menuItemTap: clickCategoryItem,
-                      )),
-              GridView(
-                padding: const EdgeInsets.all(25),
-                children: DUMMY_CATEGORIES
-                    .map(
-                      (catData) => CategoryItem(
-                    catData.id,
-                    catData.title,
-                    catData.color,
-                  ),
-                )
-                    .toList(),
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
-                  childAspectRatio: 3 / 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                ),
-                ],
+              flex: 8,
+              child: MainMenuPage(
+                currentCategorySelected: currentCategorySelected,
+                lstProductItem: productItemsByCategory,
+                tapMenubar: clickMenuBarPage,
+                currentCategoryPageSelected: currentCategoryPageSelected,
               ),
             ),
             Expanded(
