@@ -1,11 +1,9 @@
-import 'package:client_order/widgets/cart_page/cart_page.dart';
-import 'package:client_order/widgets/category_menu_page/category_menu_page.dart';
-import 'package:client_order/widgets/menu_page/main_menu_list.dart';
-import 'package:client_order/widgets/menu_page/main_menu_page.dart';
-import 'package:client_order/widgets/menu_page/manu_bar_list.dart';
 import 'package:flutter/material.dart';
 
-import 'models/product_model.dart';
+import './models/product_model.dart';
+import './screens/main_menu_screen.dart';
+import './widgets/cart_page/cart_page.dart';
+import './widgets/category_menu_page/category_menu_page.dart';
 
 void main() {
   runApp(const OrderApp());
