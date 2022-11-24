@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 import '../models/product_model.dart';
 
-class Products with ChangeNotifier {
+class Categories with ChangeNotifier {
   final List<Category> _items = [
     Category(1, "MAIN 1"),
     Category(2, "MAIN 2"),
