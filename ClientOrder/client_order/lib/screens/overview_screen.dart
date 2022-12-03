@@ -28,17 +28,17 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
 
   @override
   void didChangeDependencies() {
-    if (_isInit) {
-      setState(() {
-        _isLoading = true;
-      });
-      Provider.of<Products>(context).fetchAndSetProducts().then((_) {
-        setState(() {
-          _isLoading = false;
-        });
-      });
-    }
-    _isInit = false;
+    // if (_isInit) {
+    //   setState(() {
+    //     _isLoading = true;
+    //   });
+    //   Provider.of<Products>(context).fetchAndSetProducts().then((_) {
+    //     setState(() {
+    //       _isLoading = false;
+    //     });
+    //   });
+    // }
+    // _isInit = false;
     super.didChangeDependencies();
   }
 
@@ -71,7 +71,7 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
               ),
             ),
             Expanded(
-              flex: 8,
+              flex: 7,
               child: MenuScreen(
                 currentCategorySelected: currentCategorySelected,
                 currentCategoryPageSelected: currentCategoryPageSelected,
@@ -79,7 +79,7 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
               ),
             ),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Container(
                 alignment: Alignment.topCenter,
                 child: CartPage(),
@@ -89,6 +89,5 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
         ),
       ),
     );
-    ;
   }
 }

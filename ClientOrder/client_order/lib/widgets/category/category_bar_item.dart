@@ -9,6 +9,18 @@ class MenuBarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return SizedBox(
+      width: 100,
+      child: Card(
+        elevation: 5,
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: InkWell(
+          onTap: () => tapMenubar(page),
+          child: Text("Page $page"),
+        ),
+      ),
+    );
+
     return Card(
       elevation: 5,
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),

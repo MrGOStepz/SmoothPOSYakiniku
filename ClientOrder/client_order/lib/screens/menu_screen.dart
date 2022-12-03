@@ -23,6 +23,7 @@ class MenuScreen extends StatefulWidget {
 class _MenuScreenState extends State<MenuScreen> {
   int currentMenuId = 0;
 
+
   void selectMenuItem(int pageId, int menuId) {
     setState(() {
       currentMenuId = menuId;
@@ -31,12 +32,14 @@ class _MenuScreenState extends State<MenuScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
     return Column(
       children: [
         Container(
             alignment: Alignment.topCenter,
             width: double.infinity,
-            height: 50,
+            height: size.height * 0.1,
             child: CategoryMenuBar(
               currentCategory: widget.currentCategorySelected,
               selectMenubar: widget.selectMenubar,
@@ -44,7 +47,7 @@ class _MenuScreenState extends State<MenuScreen> {
         Container(
             alignment: Alignment.topCenter,
             width: double.infinity,
-            height: 500,
+            height: size.height * 0.9,
             child: DishMenu(
               currentCategory: widget.currentCategorySelected,
               currentPage: widget.currentCategoryPageSelected,
