@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/menu_widgets/main_menu_list.dart';
-import '../widgets/menu_widgets/manu_bar_list.dart';
-import '../models/product_model.dart';
+import '../widgets/dish_menu/dish_menu.dart';
+import '../widgets/category/category_bar.dart';
 
 class MenuScreen extends StatefulWidget {
   final int currentCategorySelected;
   final int currentCategoryPageSelected;
-  final List<ProductItem> lstProductItem;
-  final Function(int) tapMenubar;
+  final Function(int) selectMenubar;
   static const routeName = '/menu-screen';
+
   const MenuScreen(
       {Key? key,
       required this.currentCategorySelected,
-      required this.lstProductItem,
-      required this.tapMenubar,
-      required this.currentCategoryPageSelected})
+      required this.currentCategoryPageSelected,
+      required this.selectMenubar})
       : super(key: key);
 
   @override
@@ -25,7 +23,7 @@ class MenuScreen extends StatefulWidget {
 class _MenuScreenState extends State<MenuScreen> {
   int currentMenuId = 0;
 
-  void clickMenuItem(int pageId, int menuId) {
+  void selectMenuItem(int pageId, int menuId) {
     setState(() {
       currentMenuId = menuId;
     });
@@ -41,16 +39,14 @@ class _MenuScreenState extends State<MenuScreen> {
             height: 50,
             child: CategoryMenuBar(
               currentCategory: widget.currentCategorySelected,
-              tapMenubar: widget.tapMenubar,
-              productItem: widget.lstProductItem,
+              selectMenubar: widget.selectMenubar,
             )),
         Container(
             alignment: Alignment.topCenter,
             width: double.infinity,
             height: 500,
-            child: MainMenu(
-              lstMenu: widget.lstProductItem,
-              currentCategoryAndPage: clickMenuItem,
+            child: DishMenu(
+              currentCategory: widget.currentCategorySelected,
               currentPage: widget.currentCategoryPageSelected,
             ))
       ],

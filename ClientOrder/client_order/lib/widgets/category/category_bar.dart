@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/product_model.dart';
-import 'menu_bar_item.dart';
+import '../../providers/products_provider.dart';
+import 'category_bar_item.dart';
 
 class CategoryMenuBar extends StatelessWidget {
   final int currentCategory;
-  final List<ProductItem> productItem;
-  final Function(int) tapMenubar;
+  final Function(int) selectMenubar;
 
   const CategoryMenuBar(
-      {Key? key,
-      required this.tapMenubar,
-      required this.currentCategory,
-      required this.productItem})
+      {Key? key, required this.selectMenubar, required this.currentCategory})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<ProductItem> lstProductItem =
-        productItem.where((item) => item.category == currentCategory).toList();
+    final product = Provider.of<Products>(context, listen: false);
+    List<ProductItem> lstProductItem = product.items
+        .where((item) => item.category == currentCategory)
+        .toList();
 
     var pageNumber = <int>{};
     lstProductItem
@@ -31,7 +31,7 @@ class CategoryMenuBar extends StatelessWidget {
           .map((e) => MenuBarPage(
                 key: ValueKey(e),
                 page: e,
-                tapMenubar: tapMenubar,
+                tapMenubar: selectMenubar,
               ))
           .toList(),
     );

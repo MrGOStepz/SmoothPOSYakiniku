@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../models/product_model.dart';
 import '../providers/products_provider.dart';
 import '../widgets/cart_page/cart_page.dart';
-import '../widgets/category_menu_page/category_menu_page.dart';
+import '../widgets/category/category_menu.dart';
 import 'menu_screen.dart';
 
 class OrderOverViewScreen extends StatefulWidget {
@@ -20,15 +20,10 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
 
   int currentCategorySelected = 1;
   int currentCategoryPageSelected = 1;
-  late List<ProductItem> lstProductItem;
-  late List<Category> lstCategory;
 
   @override
   void initState() {
     super.initState();
-    //TODO Use service instead of DUMMY
-    // lstProductItem = DUMMY_PRODUCT;
-    lstCategory = DUMMY_CATEGORY;
   }
 
   @override
@@ -47,30 +42,17 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
     super.didChangeDependencies();
   }
 
-  void clickCategoryItem(int categoryId) {
+  void selectCategoryMenu(int categoryId) {
     setState(() {
       currentCategorySelected = categoryId;
       currentCategoryPageSelected = 1;
     });
   }
 
-  void clickMenuBarPage(int pageId) {
+  void selectMenuBar(int pageId) {
     setState(() {
       currentCategoryPageSelected = pageId;
     });
-  }
-
-  List<ProductItem> get productItemsByCategory {
-    // var productItemCategory = lstProductItem
-    //     .where((item) => item.category == currentCategorySelected)
-    //     .toList();
-
-    var test = Provider.of<Products>(context)
-        .items
-        .where((item) => item.category == currentCategorySelected)
-        .toList();
-    // return productItemCategory;
-    return test;
   }
 
   @override
@@ -84,8 +66,7 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
               child: Container(
                 alignment: Alignment.topCenter,
                 child: CategoryMenu(
-                  selectCategory: clickCategoryItem,
-                  lstCategory: lstCategory,
+                  selectCategory: selectCategoryMenu,
                 ),
               ),
             ),
@@ -93,9 +74,8 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
               flex: 8,
               child: MenuScreen(
                 currentCategorySelected: currentCategorySelected,
-                lstProductItem: productItemsByCategory,
-                tapMenubar: clickMenuBarPage,
                 currentCategoryPageSelected: currentCategoryPageSelected,
+                selectMenubar: selectMenuBar,
               ),
             ),
             Expanded(

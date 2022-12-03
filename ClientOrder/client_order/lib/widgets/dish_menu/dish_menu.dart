@@ -1,24 +1,25 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/product_model.dart';
-import 'main_menu_item.dart';
+import '../../providers/products_provider.dart';
+import 'dish_menu_item.dart';
 
-class MainMenu extends StatelessWidget {
-  final List<ProductItem> lstMenu;
+class DishMenu extends StatelessWidget {
+  final int currentCategory;
   final int currentPage;
-  final Function(int, int) currentCategoryAndPage;
 
-  const MainMenu(
-      {Key? key,
-      required this.lstMenu,
-      required this.currentCategoryAndPage,
-      required this.currentPage})
+  const DishMenu(
+      {Key? key, required this.currentCategory, required this.currentPage})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<ProductItem> productItem =
-        lstMenu.where((item) => item.page == currentPage).toList();
+    final product = Provider.of<Products>(context, listen: false);
+    List<ProductItem> productItem = product.items
+        .where((item) =>
+            item.category == currentCategory && item.page == currentPage)
+        .toList();
 
     return GridView(
       padding: const EdgeInsets.all(25),
