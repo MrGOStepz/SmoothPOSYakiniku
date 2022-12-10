@@ -7,6 +7,28 @@ class ProductMenuItem extends StatelessWidget {
   const ProductMenuItem({Key? key, required this.id, required this.name})
       : super(key: key);
 
+  //  _showPopup(BuildContext context) {
+  //   return showDialog<void>(
+  //     context: context,
+  //     // barrierDismissible: barrierDismissible,
+  //     // false = user must tap button, true = tap outside dialog
+  //     builder: (BuildContext dialogContext) {
+  //       return AlertDialog(
+  //         title: Text('title'),
+  //         content: Text('dialogBody'),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             child: Text('buttonText'),
+  //             onPressed: () {
+  //               Navigator.of(dialogContext).pop(); // Dismiss alert dialog
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(

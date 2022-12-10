@@ -13,6 +13,8 @@ class DishMenu extends StatelessWidget {
   DishMenu({Key? key, required this.currentCategory, required this.currentPage})
       : super(key: key);
 
+
+
   Widget generateExpanded(List<ProductItem> productItems, int row, int column) {
     try {
       ProductItem productItem = productItems
