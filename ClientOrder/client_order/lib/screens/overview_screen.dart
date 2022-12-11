@@ -1,3 +1,4 @@
+import 'package:client_order/widgets/cart/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -82,7 +83,7 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
               flex: 2,
               child: Container(
                 alignment: Alignment.topCenter,
-                child: CartPage(),
+                child: CartMenu(),
               ),
             ),
           ],
