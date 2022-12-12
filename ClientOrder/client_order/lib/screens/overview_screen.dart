@@ -83,6 +83,9 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
               flex: 2,
               child: Container(
                 alignment: Alignment.topCenter,
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height,
+                // child: Text("Test"),
                 child: CartMenu(),
               ),
             ),

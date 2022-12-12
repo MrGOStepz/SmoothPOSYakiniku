@@ -4,12 +4,14 @@ class CartSection extends StatefulWidget {
   const CartSection(
       {Key? key,
       required this.id,
+      required this.productId,
       required this.title,
       required this.price,
       required this.quantity})
       : super(key: key);
 
   final String id;
+  final String productId;
   final String title;
   final double price;
   final int quantity;
@@ -23,19 +25,15 @@ class _CartSectionState extends State<CartSection> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(10),
-      child: Column(
-        children: [
-          ListTile(
-            title: Text(widget.title),
-            subtitle: Text(widget.title),
-            trailing: IconButton(
-              icon: Icon(Icons.expand_less),
-              onPressed: null,
-            ),
-          )
-        ],
-      ),
-    );
+        margin: const EdgeInsets.all(10),
+        elevation: 5,
+        child: ListTile(
+          title: Text(widget.title),
+          subtitle: Text(widget.title),
+          trailing: IconButton(
+            icon: Icon(Icons.expand_less),
+            onPressed: null,
+          ),
+        ));
   }
 }
