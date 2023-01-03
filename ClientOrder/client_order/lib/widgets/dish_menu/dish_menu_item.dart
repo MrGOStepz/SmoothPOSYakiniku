@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/carts_provider.dart';
 
 class ProductMenuItem extends StatelessWidget {
   final int id;
   final String name;
+  final double price;
 
-  const ProductMenuItem({Key? key, required this.id, required this.name})
+  const ProductMenuItem(
+      {Key? key, required this.id, required this.name, required this.price})
       : super(key: key);
 
   //  _showPopup(BuildContext context) {
@@ -31,9 +36,16 @@ class ProductMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<Cart>(context, listen: false);
     return InkWell(
-      onTap: null,
-      splashColor: Theme.of(context).primaryColor,
+      // onTap: null,
+      onTap: () {
+        cart.addItem(id, price, name);
+        debugPrint(cart.itemCount.toString());
+      },
+      splashColor: Theme
+          .of(context)
+          .primaryColor,
       borderRadius: BorderRadius.circular(15),
       child: Container(
         width: double.infinity,
@@ -52,7 +64,10 @@ class ProductMenuItem extends StatelessWidget {
         ),
         child: Text(
           name,
-          style: Theme.of(context).textTheme.titleMedium,
+          style: Theme
+              .of(context)
+              .textTheme
+              .titleMedium,
         ),
       ),
     );

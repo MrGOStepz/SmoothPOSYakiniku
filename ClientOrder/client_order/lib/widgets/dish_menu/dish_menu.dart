@@ -13,15 +13,14 @@ class DishMenu extends StatelessWidget {
   DishMenu({Key? key, required this.currentCategory, required this.currentPage})
       : super(key: key);
 
-
-
   Widget generateExpanded(List<ProductItem> productItems, int row, int column) {
     try {
       ProductItem productItem = productItems
           .where((value) =>
               value.tableMenu.row == row && value.tableMenu.column == column)
           .first;
-      return ProductMenuItem(id: productItem.id, name: productItem.name);
+      return ProductMenuItem(
+          id: productItem.id, price: productItem.price, name: productItem.name);
     } catch (e) {
       return const Text("");
     }

@@ -1,8 +1,10 @@
+import 'dart:ui';
+
 import 'package:client_order/models/product_model.dart';
 import 'package:flutter/foundation.dart';
 
 class CartItem {
-  final String id;
+  final int id;
   final String title;
   final int quantity;
   final double price;
@@ -17,9 +19,10 @@ class CartItem {
 
 class Cart with ChangeNotifier {
   // Map<String, CartItem> _items = { '1': CartItem(id: '1', title: 'Test1', price: 20, quantity: 1), '2': CartItem(id: '2', title: 'Title2', price: 10, quantity: 1)};
-  Map<String, CartItem> _items = {};
+  Map<int, CartItem> _items = {};
+  List<CartItem> cartItem = [CartItem(id: 1, title: "Test1", price: 14.5, quantity: 3), CartItem(id: 2, title: "Test2", price: 2.5, quantity: 3)];
 
-  Map<String, CartItem> get items {
+  Map<int, CartItem> get items {
     return {...items};
   }
 
@@ -35,7 +38,7 @@ class Cart with ChangeNotifier {
     return total;
   }
 
-  void addItem(String productId, double price, String title) {
+  void addItem(int productId, double price, String title) {
     if (_items.containsKey(productId)) {
       _items.update(
           productId,
@@ -43,25 +46,22 @@ class Cart with ChangeNotifier {
               id: existingCartItem.id,
               title: existingCartItem.title,
               price: existingCartItem.price,
-              quantity: existingCartItem.quantity));
+              quantity: existingCartItem.quantity + 1));
     } else {
       _items.putIfAbsent(
         productId,
-        () => CartItem(
-            id: DateTime.now().toString(),
-            title: title, price: price,
-            quantity: 1),
+        () => CartItem(id: productId, title: title, price: price, quantity: 1),
       );
     }
     notifyListeners();
   }
 
-  void removeItem(String productId) {
+  void removeItem(int productId) {
     _items.remove(productId);
     notifyListeners();
   }
 
-  void addOrRemoveItem(String productId, int value) {
+  void addOrRemoveItem(int productId, int value) {
     if (!_items.containsKey(productId)) {
       return;
     }
