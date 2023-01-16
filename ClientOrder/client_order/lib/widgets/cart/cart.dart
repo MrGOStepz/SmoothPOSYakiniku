@@ -4,18 +4,20 @@ import 'package:provider/provider.dart';
 
 import 'cart_item.dart';
 
-class CartMenu extends StatelessWidget {
+class CartMenu extends StatefulWidget {
   const CartMenu({Key? key}) : super(key: key);
 
   @override
+  State<CartMenu> createState() => _CartMenuState();
+}
+
+class _CartMenuState extends State<CartMenu> {
+  @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<Cart>(context);
+    final cart = Provider.of<Cart>(context, listen: true);
     // List<CartItem> carts = cart.items as List<CartItem>;
     Size size = MediaQuery.of(context).size;
-    CartItem ca = CartItem(id: 1, title: "TEST1", price: 2, quantity: 1);
-    Map<int, CartItem> temp1 = {};
-    temp1[1] = ca;
-    debugPrint(temp1[2]?.title.toString());
+    debugPrint("ITEM QUANTITY ${cart.Titems[1]?.quantity}");
     if (cart.itemCount == 0) {
       return Text("EMPTY");
     } else {
@@ -27,15 +29,16 @@ class CartMenu extends StatelessWidget {
               // itemBuilder: (ctx, i) => Text(cartS.items.values.toString())));
               // itemBuilder: (ctx, i) => Text(cartS.items.values.toList()[i].title.toString())));
               itemBuilder: (ctx, i) => CartSection(
-                    id: cartS.items[i]?.id,
-                    title: cartS.items[i]?.title,
-                    price: cartS.items[i]?.price,
-                    quantity: cartS.items[i]?.quantity,
-                  )));
-      // id: cart.items.values.toList()[i].id,
-      // title: cart.items.values.toList()[i].title,
-      // price: cart.items.values.toList()[i].price,
-      // quantity: cart.items.values.toList()[i].quantity)));
+                  //   id: cartS.items[i]?.id,
+                  //   title: cartS.items[i]?.title,
+                  //   price: cartS.items[i]?.price,
+                  //   quantity: cartS.items[i]?.quantity,
+                  // )));
+                  id: cartS.Titems.values.toList()[i].id,
+                  title: cartS.Titems.values.toList()[i].title,
+                  price: cartS.Titems.values.toList()[i].price,
+                  quantity: cartS.Titems.values.toList()[i].quantity)
+          ));
     }
     // return Container(
     //   width: double.infinity,

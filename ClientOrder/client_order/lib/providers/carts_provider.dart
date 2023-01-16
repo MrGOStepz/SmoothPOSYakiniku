@@ -26,6 +26,10 @@ class Cart with ChangeNotifier {
     return {...items};
   }
 
+  Map<int, CartItem> get Titems {
+    return _items;
+  }
+
   int get itemCount {
     return _items.length;
   }
@@ -39,7 +43,10 @@ class Cart with ChangeNotifier {
   }
 
   void addItem(int productId, double price, String title) {
+    debugPrint("ProductID = ${productId.toString()}");
+    debugPrint(_items.toString());
     if (_items.containsKey(productId)) {
+      debugPrint("Quantity Same Key ${_items[productId]?.quantity.toString()}");
       _items.update(
           productId,
           (existingCartItem) => CartItem(
@@ -52,6 +59,8 @@ class Cart with ChangeNotifier {
         productId,
         () => CartItem(id: productId, title: title, price: price, quantity: 1),
       );
+     debugPrint("Quantity ${_items[productId]?.quantity.toString()}");
+
     }
     notifyListeners();
   }

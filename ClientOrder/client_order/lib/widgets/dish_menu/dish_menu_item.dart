@@ -36,12 +36,11 @@ class ProductMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<Cart>(context, listen: false);
+    final cart = Provider.of<Cart>(context, listen: true);
     return InkWell(
       // onTap: null,
       onTap: () {
         cart.addItem(id, price, name);
-        debugPrint(cart.itemCount.toString());
       },
       splashColor: Theme
           .of(context)

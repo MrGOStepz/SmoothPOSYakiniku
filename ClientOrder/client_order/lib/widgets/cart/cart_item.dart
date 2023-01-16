@@ -34,7 +34,7 @@ class _CartSectionState extends State<CartSection> {
         elevation: 5,
         child: ListTile(
           title: Text(widget.title as String),
-          subtitle: Text(_countItem.toString()),
+          subtitle: Text(widget.quantity.toString()),
           trailing: IconButton(
             icon: Icon(Icons.expand_less),
             onPressed: addItemNumber,
