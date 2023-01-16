@@ -4,14 +4,9 @@ import 'package:provider/provider.dart';
 
 import 'cart_item.dart';
 
-class CartMenu extends StatefulWidget {
+class CartMenu extends StatelessWidget {
   const CartMenu({Key? key}) : super(key: key);
 
-  @override
-  State<CartMenu> createState() => _CartMenuState();
-}
-
-class _CartMenuState extends State<CartMenu> {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context, listen: true);
