@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/product_model.dart';
+import '../models/category_model.dart';
 
 class Categories with ChangeNotifier {
   final List<Category> _items = [

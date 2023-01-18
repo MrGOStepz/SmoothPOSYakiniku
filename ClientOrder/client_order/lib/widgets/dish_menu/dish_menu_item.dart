@@ -42,9 +42,7 @@ class ProductMenuItem extends StatelessWidget {
       onTap: () {
         cart.addItem(id, price, name);
       },
-      splashColor: Theme
-          .of(context)
-          .primaryColor,
+      splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(15),
       child: Container(
         width: double.infinity,
@@ -63,10 +61,7 @@ class ProductMenuItem extends StatelessWidget {
         ),
         child: Text(
           name,
-          style: Theme
-              .of(context)
-              .textTheme
-              .titleMedium,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
     );

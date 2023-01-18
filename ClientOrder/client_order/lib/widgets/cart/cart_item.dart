@@ -21,6 +21,7 @@ class CartSection extends StatefulWidget {
 class _CartSectionState extends State<CartSection> {
   //TODO Create Button for Increase and Decrease
   int _countItem = 0;
+
   void addItemNumber() {
     setState(() {
       _countItem++;

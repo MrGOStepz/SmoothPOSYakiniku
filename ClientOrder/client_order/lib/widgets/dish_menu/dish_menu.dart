@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/product_model.dart';
+import '../../models/product_item_model.dart';
 import '../../providers/products_provider.dart';
 import 'dish_menu_item.dart';
 
@@ -62,23 +62,5 @@ class DishMenu extends StatelessWidget {
                 ],
               )),
         ]));
-
-    // return GridView(
-    //   padding: const EdgeInsets.all(25),
-    //   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-    //     maxCrossAxisExtent: 200,
-    //     childAspectRatio: 1,
-    //     crossAxisSpacing: 20,
-    //     mainAxisSpacing: 20,
-    //   ),
-    //   children: productItem
-    //       .map(
-    //         (menu) => ProductMenuItem(
-    //           id: menu.id,
-    //           name: menu.name,
-    //         ),
-    //       )
-    //       .toList(),
-    // );
   }
 }

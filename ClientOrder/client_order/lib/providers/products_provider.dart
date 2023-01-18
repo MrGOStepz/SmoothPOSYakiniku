@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/product_model.dart';
+import '../models/product_item_model.dart';
+import '../models/food_type_model.dart';
+import '../models/table_menu_model.dart';
 
 class Products with ChangeNotifier {
   final List<ProductItem> _items = [

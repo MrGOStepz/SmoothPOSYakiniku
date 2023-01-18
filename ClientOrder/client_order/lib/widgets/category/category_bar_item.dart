@@ -20,14 +20,5 @@ class MenuBarPage extends StatelessWidget {
         ),
       ),
     );
-
-    return Card(
-      elevation: 5,
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-      child: InkWell(
-        onTap: () => tapMenubar(page),
-        child: Text(page.toString()),
-      ),
-    );
   }
 }

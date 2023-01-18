@@ -7,8 +7,7 @@ import 'category_menu_item.dart';
 class CategoryMenu extends StatelessWidget {
   final Function(int) selectCategory;
 
-  const CategoryMenu(
-      {required this.selectCategory, Key? key})
+  const CategoryMenu({required this.selectCategory, Key? key})
       : super(key: key);
 
   @override

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../models/product_model.dart';
+import '../../models/category_model.dart';
 
 class CategoryMenuItem extends StatelessWidget {
   final Category category;
   final Function(int) selectCategory;
 
-  const CategoryMenuItem({required this.category, required this.selectCategory, Key? key}) : super(key: key);
+  const CategoryMenuItem(
+      {required this.category, required this.selectCategory, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

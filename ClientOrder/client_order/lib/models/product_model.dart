@@ -1,40 +1,20 @@
-class ProductItem {
+import 'category_model.dart';
+import 'food_type_model.dart';
+import 'product_item_model.dart';
+import 'table_menu_model.dart';
+
+class Product {
   final int id;
   final String name;
   final String description;
   final double price;
-  final FoodType foodType;
-  final int category;
-  final int page;
-  final TableMenu tableMenu;
-  final List<int> listProduct;
-  final int order;
-  final bool isAvailable;
-  final bool isActive;
+  final String foodType;
+  final int stock;
+  final int isAvailable;
+  final int isActive;
 
-  ProductItem(this.id, this.name, this.description, this.price, this.foodType,
-      this.category, this.page, this.tableMenu, this.listProduct, this.order, this.isAvailable, this.isActive);
-}
-
-class Category {
-  final int id;
-  final String name;
-
-  Category(this.id, this.name);
-}
-
-class TableMenu {
-  final int row;
-  final int column;
-
-  TableMenu(this.row, this.column);
-}
-
-enum FoodType {
-  main,
-  setMenu,
-  beverage,
-  dessert
+  Product(this.id, this.name, this.description, this.price, this.foodType,
+      this.stock, this.isAvailable, this.isActive);
 }
 
 List<Category> DUMMY_CATEGORY = [
