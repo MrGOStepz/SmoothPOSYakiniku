@@ -30,16 +30,24 @@ class _CartSectionState extends State<CartSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        margin: const EdgeInsets.all(10),
-        elevation: 5,
-        child: ListTile(
-          title: Text(widget.title as String),
-          subtitle: Text(widget.quantity.toString()),
-          trailing: IconButton(
-            icon: Icon(Icons.expand_less),
-            onPressed: addItemNumber,
-          ),
-        ));
+    return Container(
+      height: 200,
+      child: Card(
+          margin: const EdgeInsets.all(10),
+          elevation: 5,
+          child: ListTile(
+            title: Text(widget.title as String),
+            subtitle: Text(widget.quantity.toString()),
+            trailing: Column(children: [
+              TextButton(onPressed: null, child: Text("+", style: TextStyle(fontSize: 10))),
+              Text(_countItem.toString()),
+              TextButton(onPressed: null, child: Text("-", style: TextStyle(fontSize: 10)))
+            ],)
+            // IconButton(
+            //   icon: Icon(Icons.expand_less),
+            //   onPressed: addItemNumber,
+            // ),
+          )),
+    );
   }
 }
