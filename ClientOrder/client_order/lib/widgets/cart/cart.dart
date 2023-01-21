@@ -9,20 +9,24 @@ class CartMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<Cart>(context, listen: true);
+    final cartProvider = Provider.of<Cart>(context, listen: true);
     Size size = MediaQuery.of(context).size;
-    debugPrint("ITEM QUANTITY ${cart.Titems[1]?.quantity}");
-    if (cart.itemCount == 0) {
+    debugPrint("ITEM QUANTITY ${cartProvider.items[1]?.quantity}");
+    if (cartProvider.itemCount == 0) {
       return Text("EMPTY");
     } else {
       return Consumer<Cart>(
-          builder: (ctx, cartS, _) => ListView.builder(
-              itemCount: cartS.itemCount,
-              itemBuilder: (ctx, i) => CartSection(
-                  id: cartS.Titems.values.toList()[i].id,
-                  title: cartS.Titems.values.toList()[i].title,
-                  price: cartS.Titems.values.toList()[i].price,
-                  quantity: cartS.Titems.values.toList()[i].quantity)));
+        builder: (ctx, cart, _) => ListView.builder(
+          itemCount: cart.itemCount,
+          itemBuilder: (ctx, i) => CartSection(
+            id: cart.items.values.toList()[i].id,
+            title: cart.items.values.toList()[i].title,
+            description: cart.items.values.toList()[i].description,
+            price: cart.items.values.toList()[i].price,
+            quantity: cart.items.values.toList()[i].quantity,
+          ),
+        ),
+      );
     }
   }
 }

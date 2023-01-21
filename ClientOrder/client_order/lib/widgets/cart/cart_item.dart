@@ -5,12 +5,14 @@ class CartSection extends StatefulWidget {
       {Key? key,
       required this.id,
       required this.title,
+      required this.description,
       required this.price,
       required this.quantity})
       : super(key: key);
 
   final int? id;
   final String? title;
+  final String? description;
   final double? price;
   final int? quantity;
 
@@ -19,35 +21,44 @@ class CartSection extends StatefulWidget {
 }
 
 class _CartSectionState extends State<CartSection> {
-  //TODO Create Button for Increase and Decrease
   int _countItem = 0;
 
-  void addItemNumber() {
+  void _addItemNumber(int value) {
     setState(() {
-      _countItem++;
+      _countItem = _countItem + value;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
-      child: Card(
-          margin: const EdgeInsets.all(10),
-          elevation: 5,
-          child: ListTile(
-            title: Text(widget.title as String),
-            subtitle: Text(widget.quantity.toString()),
-            trailing: Column(children: [
-              TextButton(onPressed: null, child: Text("+", style: TextStyle(fontSize: 10))),
-              Text(_countItem.toString()),
-              TextButton(onPressed: null, child: Text("-", style: TextStyle(fontSize: 10)))
-            ],)
-            // IconButton(
-            //   icon: Icon(Icons.expand_less),
-            //   onPressed: addItemNumber,
-            // ),
-          )),
+      color: Colors.grey,
+      height: 50,
+      width: double.infinity,
+      child: Row(
+        children: [
+          Expanded(
+            flex: 7,
+            child: Text("Title"),
+          ),
+          Expanded(
+            flex: 3,
+            child: Row(
+              children: [
+                TextButton(
+                  onPressed: () => _addItemNumber(-1),
+                  child: Text("-"),
+                ),
+                Text(_countItem.toString()),
+                TextButton(
+                  onPressed: () => _addItemNumber(1),
+                  child: Text("+"),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

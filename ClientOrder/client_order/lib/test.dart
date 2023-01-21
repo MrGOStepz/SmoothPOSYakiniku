@@ -12,28 +12,44 @@ class TestApp extends StatefulWidget {
 }
 
 class _TestAppState extends State<TestApp> {
+  int _quantity = 1;
+
+  void _updateQuantity(int value) {
+    setState(() {
+      _quantity = _quantity + value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    Map<int, CartItem> _items = {};
-    List<CartItem> cartItem = [
-      CartItem(id: 1, title: "Test1", price: 14.5, quantity: 3),
-      CartItem(id: 2, title: "Test2", price: 2.5, quantity: 3)
-    ];
-    _items[1] = CartItem(id: 1, title: "Test1", price: 14.5, quantity: 3);
-    _items[2] = CartItem(id: 2, title: "Test2", price: 14.5, quantity: 3);
-
-    _items[5] = CartItem(id: 333, title: "Test333", price: 14.5, quantity: 3);
-    debugPrint(_items.values.toList()[0].title);
-    debugPrint(_items.values.toList()[1].title);
-    debugPrint(_items.values.toList()[2].title);
-    debugPrint(_items[5]?.title.toString());
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text('AppBar'),
         ),
-        body: Text("Test"),
+        body: Container(
+          color: Colors.grey,
+          height: 50,
+          width: double.infinity,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 7,
+                child: Text("Title"),
+              ),
+              Expanded(
+                flex: 3,
+                child: Row(
+                  children: [
+                    TextButton(onPressed:() => _updateQuantity(-1), child: Text("-")),
+                    Text(_quantity.toString()),
+                    TextButton(onPressed:() => _updateQuantity(1), child: Text("+"))
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
