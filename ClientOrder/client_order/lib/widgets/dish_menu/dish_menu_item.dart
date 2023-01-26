@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../providers/carts_provider.dart';
 
-class ProductMenuItem extends StatelessWidget {
+class ProductMenuItem extends StatefulWidget {
   final int id;
   final String name;
   final double price;
@@ -12,35 +12,62 @@ class ProductMenuItem extends StatelessWidget {
       {Key? key, required this.id, required this.name, required this.price})
       : super(key: key);
 
-  //  _showPopup(BuildContext context) {
-  //   return showDialog<void>(
-  //     context: context,
-  //     // barrierDismissible: barrierDismissible,
-  //     // false = user must tap button, true = tap outside dialog
-  //     builder: (BuildContext dialogContext) {
-  //       return AlertDialog(
-  //         title: Text('title'),
-  //         content: Text('dialogBody'),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             child: Text('buttonText'),
-  //             onPressed: () {
-  //               Navigator.of(dialogContext).pop(); // Dismiss alert dialog
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
+  @override
+  State<ProductMenuItem> createState() => _ProductMenuItemState();
+}
+
+class _ProductMenuItemState extends State<ProductMenuItem> {
+  late String valueText;
+  late String codeDialog;
+  TextEditingController _textFieldController = TextEditingController();
+
+  Future<void> _displayTextInputDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('TextField in Dialog'),
+          content: TextField(
+            onChanged: (value) {
+              setState(() {
+                valueText = value;
+              });
+            },
+            controller: _textFieldController,
+            decoration: InputDecoration(hintText: "Text Field in Dialog"),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  Navigator.pop(context);
+                });
+              },
+              child: Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  codeDialog = valueText;
+                  Navigator.pop(context);
+                });
+              },
+              child: Text("Ok"),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context, listen: true);
     return InkWell(
-      // onTap: null,
+      //Add Description
       onTap: () {
-        cart.addItem(id, price, name);
+        _displayTextInputDialog(context);
+        // cart.addItem(widget.id, widget.price, widget.name, "");
       },
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(15),
@@ -60,7 +87,7 @@ class ProductMenuItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Text(
-          name,
+          widget.name,
           style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
