@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'providers/carts_provider.dart';
-
 void main() => runApp(TestApp());
+
+enum SingingCharacter { lafayette, jefferson }
 
 class TestApp extends StatefulWidget {
   const TestApp({Key? key}) : super(key: key);
@@ -28,25 +28,45 @@ class _TestAppState extends State<TestApp> {
           title: const Text('AppBar'),
         ),
         body: Container(
-          color: Colors.grey,
-          height: 50,
+          padding: const EdgeInsets.all(30),
+          height: double.infinity,
           width: double.infinity,
-          child: Row(
+          child: Column(
             children: [
               Expanded(
-                flex: 7,
-                child: Text("Title"),
+                flex: 1,
+                child: Text("Name"),
               ),
               Expanded(
                 flex: 3,
                 child: Row(
                   children: [
-                    TextButton(onPressed:() => _updateQuantity(-1), child: Text("-")),
-                    Text(_quantity.toString()),
-                    TextButton(onPressed:() => _updateQuantity(1), child: Text("+"))
+                    Expanded(
+                      child: Text("Rice"),
+                      flex: 1,
+                    ),
+                    Expanded(
+                      child: Text("Beef"),
+                      flex: 1,
+                    )
                   ],
                 ),
-              )
+              ),
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text("Confirm"),
+                      flex: 1,
+                    ),
+                    Expanded(
+                      child: Text("Cancel"),
+                      flex: 1,
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
