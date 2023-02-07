@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'models/product_item_model.dart';
+
 void main() => runApp(TestApp());
 
 enum SingingCharacter { lafayette, jefferson }
@@ -12,12 +14,46 @@ class TestApp extends StatefulWidget {
 }
 
 class _TestAppState extends State<TestApp> {
+  SingingCharacter? _character = SingingCharacter.jefferson;
   int _quantity = 1;
+  int _riceId = 1;
+  int _mealId = 1;
 
-  void _updateQuantity(int value) {
+  _updateQuantity(int value) {
     setState(() {
       _quantity = _quantity + value;
     });
+  }
+
+  _updateRiceId(int productId, bool isMeal) {
+    setState(() {
+      if (isMeal) {
+        _riceId = productId;
+      } else {
+        _mealId = productId;
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _mealId = 1;
+    _riceId = 1;
+  }
+
+  List<Widget>? generateRadio(List<ProductItem> productItems, bool isMeal) {
+    List<Widget> widgets = [];
+    String meal = isMeal ? "Meal" : "Rice";
+    for (ProductItem productItem in productItems) {
+      widgets.add(
+        Radio(
+            value: productItem.id,
+            groupValue: meal,
+            onChanged: _updateRiceId(productItem.id, isMeal)),
+      );
+    }
+    return widgets;
   }
 
   @override
@@ -42,11 +78,55 @@ class _TestAppState extends State<TestApp> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: Text("Rice"),
+                      child: Column(
+                        children: [
+                          Text("Rice"),
+                          ListTile(
+                            title: const Text('Lafayette'),
+                            leading: Radio<SingingCharacter>(
+                              value: SingingCharacter.lafayette,
+                              groupValue: _character,
+                              onChanged: (SingingCharacter? value) {
+                                setState(() {
+                                  _character = value;
+                                });
+                              },
+                            ),
+                          ),
+                          ListTile(
+                            title: const Text('Jefferson'),
+                            leading: Radio<SingingCharacter>(
+                              value: SingingCharacter.jefferson,
+                              groupValue: _character,
+                              onChanged: (SingingCharacter? value) {
+                                setState(() {
+                                  _character = value;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                       flex: 1,
                     ),
                     Expanded(
-                      child: Text("Beef"),
+                      child: Column(
+                        children: [
+                          Text("Beef"),
+                          ListTile(
+                            title: const Text('Lafayette'),
+                            leading: Radio<SingingCharacter>(
+                              value: SingingCharacter.jefferson,
+                              groupValue: _character,
+                              onChanged: (SingingCharacter? value) {
+                                setState(() {
+                                  _character = value;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                       flex: 1,
                     )
                   ],
