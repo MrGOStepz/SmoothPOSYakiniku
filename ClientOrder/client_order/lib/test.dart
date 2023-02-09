@@ -47,10 +47,13 @@ class _TestAppState extends State<TestApp> {
     String meal = isMeal ? "Meal" : "Rice";
     for (ProductItem productItem in productItems) {
       widgets.add(
-        Radio(
-            value: productItem.id,
-            groupValue: meal,
-            onChanged: _updateRiceId(productItem.id, isMeal)),
+        ListTile(
+          title: Text(productItem.name),
+          leading: Radio(
+              value: productItem.id,
+              groupValue: meal,
+              onChanged: _updateRiceId(productItem.id, isMeal)),
+        ),
       );
     }
     return widgets;
@@ -81,30 +84,31 @@ class _TestAppState extends State<TestApp> {
                       child: Column(
                         children: [
                           Text("Rice"),
-                          ListTile(
-                            title: const Text('Lafayette'),
-                            leading: Radio<SingingCharacter>(
-                              value: SingingCharacter.lafayette,
-                              groupValue: _character,
-                              onChanged: (SingingCharacter? value) {
-                                setState(() {
-                                  _character = value;
-                                });
-                              },
-                            ),
-                          ),
-                          ListTile(
-                            title: const Text('Jefferson'),
-                            leading: Radio<SingingCharacter>(
-                              value: SingingCharacter.jefferson,
-                              groupValue: _character,
-                              onChanged: (SingingCharacter? value) {
-                                setState(() {
-                                  _character = value;
-                                });
-                              },
-                            ),
-                          ),
+                          ...generateRadio(productItems, isMeal),
+                          // ListTile(
+                          //   title: const Text('Lafayette'),
+                          //   leading: Radio<SingingCharacter>(
+                          //     value: SingingCharacter.lafayette,
+                          //     groupValue: _character,
+                          //     onChanged: (SingingCharacter? value) {
+                          //       setState(() {
+                          //         _character = value;
+                          //       });
+                          //     },
+                          //   ),
+                          // ),
+                          // ListTile(
+                          //   title: const Text('Jefferson'),
+                          //   leading: Radio<SingingCharacter>(
+                          //     value: SingingCharacter.jefferson,
+                          //     groupValue: _character,
+                          //     onChanged: (SingingCharacter? value) {
+                          //       setState(() {
+                          //         _character = value;
+                          //       });
+                          //     },
+                          //   ),
+                          // ),
                         ],
                       ),
                       flex: 1,
