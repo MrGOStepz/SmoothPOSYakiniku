@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'models/product_item_model.dart';
+import 'models/product_model.dart';
 
 void main() => runApp(TestApp());
 
@@ -42,10 +42,10 @@ class _TestAppState extends State<TestApp> {
     _riceId = 1;
   }
 
-  List<Widget>? generateRadio(List<ProductItem> productItems, bool isMeal) {
+  List<Widget>? generateRadio(List<Product> productItems, bool isMeal) {
     List<Widget> widgets = [];
     String meal = isMeal ? "Meal" : "Rice";
-    for (ProductItem productItem in productItems) {
+    for (Product productItem in productItems) {
       widgets.add(
         Radio(
             value: productItem.id,

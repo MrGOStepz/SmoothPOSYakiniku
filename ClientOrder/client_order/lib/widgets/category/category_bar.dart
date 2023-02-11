@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/product_item_model.dart';
+import '../../models/product_model.dart';
 import '../../providers/products_provider.dart';
 import 'category_bar_item.dart';
 
@@ -16,7 +16,7 @@ class CategoryMenuBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Products>(context, listen: false);
-    List<ProductItem> lstProductItem = product.items
+    List<Product> lstProductItem = product.items
         .where((item) => item.category == currentCategory)
         .toList();
 

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/product_item_model.dart';
+import '../../models/product_model.dart';
 import '../../providers/products_provider.dart';
 import 'dish_menu_item.dart';
 
@@ -13,9 +13,9 @@ class DishMenu extends StatelessWidget {
   DishMenu({Key? key, required this.currentCategory, required this.currentPage})
       : super(key: key);
 
-  Widget generateExpanded(List<ProductItem> productItems, int row, int column) {
+  Widget generateExpanded(List<Product> productItems, int row, int column) {
     try {
-      ProductItem productItem = productItems
+      Product productItem = productItems
           .where((value) =>
               value.tableMenu.row == row && value.tableMenu.column == column)
           .first;
@@ -32,7 +32,7 @@ class DishMenu extends StatelessWidget {
     var sizeScreen = MediaQuery.of(context).size;
     var itemHeight = sizeScreen.height;
     var itemWidth = sizeScreen.width / 2;
-    List<ProductItem> productItem = product.items
+    List<Product> productItem = product.items
         .where((item) =>
             item.category == currentCategory && item.page == currentPage)
         .toList();

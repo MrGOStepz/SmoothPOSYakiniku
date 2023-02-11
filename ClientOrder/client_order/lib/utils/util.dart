@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../models/product_item_model.dart';
+import '../models/product_model.dart';
 
 class Utils {
 
