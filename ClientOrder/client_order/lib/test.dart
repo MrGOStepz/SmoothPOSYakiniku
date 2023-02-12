@@ -84,7 +84,7 @@ class _TestAppState extends State<TestApp> {
                       child: Column(
                         children: [
                           Text("Rice"),
-                          ...generateRadio(productItems, isMeal),
+                          // ...generateRadio(productItems, isMeal),
                           // ListTile(
                           //   title: const Text('Lafayette'),
                           //   leading: Radio<SingingCharacter>(

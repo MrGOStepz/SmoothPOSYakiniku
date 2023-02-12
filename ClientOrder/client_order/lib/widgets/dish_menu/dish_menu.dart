@@ -17,7 +17,7 @@ class DishMenu extends StatelessWidget {
     try {
       Product productItem = productItems
           .where((value) =>
-              value.tableMenu.row == row && value.tableMenu.column == column)
+      value.row == row && value.column == column)
           .first;
       return ProductMenuItem(
           id: productItem.id, price: productItem.price, name: productItem.name);
@@ -29,13 +29,13 @@ class DishMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Products>(context, listen: false);
-    var sizeScreen = MediaQuery.of(context).size;
+    var sizeScreen = MediaQuery
+        .of(context)
+        .size;
     var itemHeight = sizeScreen.height;
     var itemWidth = sizeScreen.width / 2;
-    List<Product> productItem = product.items
-        .where((item) =>
-            item.category == currentCategory && item.page == currentPage)
-        .toList();
+    List<Product> productItem = product.getProductsByCategoryAndPage(
+        currentCategory, currentPage);
 
     return Container(
         width: double.infinity,

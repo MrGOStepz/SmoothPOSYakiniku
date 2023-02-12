@@ -42,7 +42,7 @@ class _MenuScreenState extends State<MenuScreen> {
             height: size.height * 0.1,
             child: CategoryMenuBar(
               currentCategory: widget.currentCategorySelected,
-              selectMenubar: widget.selectMenubar,
+              selectedMenubar: widget.selectMenubar,
             )),
         Container(
             alignment: Alignment.topCenter,

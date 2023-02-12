@@ -1,5 +1,4 @@
 import 'food_type_model.dart';
-import 'table_menu_model.dart';
 
 class Product {
   final int id;
@@ -7,10 +6,11 @@ class Product {
   final double price;
   final FoodType foodType;
   final int categoryId;
+  final List<int> subProductId;
   final int page;
-  final TableMenu tableMenu;
-  final List<int> listProduct;
-  final int order;
+  final int row;
+  final int column;
+  final int stock;
   final bool isAvailable;
 
   Product(
@@ -19,9 +19,10 @@ class Product {
       this.price,
       this.foodType,
       this.categoryId,
+      this.subProductId,
       this.page,
-      this.tableMenu,
-      this.listProduct,
-      this.order,
+      this.row,
+      this.column,
+      this.stock,
       this.isAvailable);
 }
