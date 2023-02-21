@@ -2,11 +2,19 @@ import 'product_model.dart';
 
 class CartItem {
   final int id;
-  final List<Product> products;
-  final int quality;
+  final String title;
+  final String description;
+  final int quantity;
   final double price;
 
-  CartItem(this.id, this.products, this.quality, this.price);
+  CartItem({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.price,
+    required this.quantity,
+  });
 }
+
 
 

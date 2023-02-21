@@ -66,8 +66,8 @@ class _ProductMenuItemState extends State<ProductMenuItem> {
     return InkWell(
       //Add Description
       onTap: () {
-        _displayTextInputDialog(context);
-        // cart.addItem(widget.id, widget.price, widget.name, "");
+        // _displayTextInputDialog(context);
+        cart.addItem(widget.id, widget.price, widget.name, "");
       },
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(15),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/carts_provider.dart';
 
 class CartSection extends StatefulWidget {
   const CartSection(
@@ -10,27 +13,32 @@ class CartSection extends StatefulWidget {
       required this.quantity})
       : super(key: key);
 
-  final int? id;
-  final String? title;
-  final String? description;
-  final double? price;
-  final int? quantity;
+  final int id;
+  final String title;
+  final String description;
+  final double price;
+  final int quantity;
 
   @override
   State<CartSection> createState() => _CartSectionState();
 }
 
 class _CartSectionState extends State<CartSection> {
-  int _countItem = 0;
+  int _quantity = 0;
 
   void _addItemNumber(int value) {
     setState(() {
-      _countItem = _countItem + value;
+      if (_quantity > 0) {
+        _quantity = _quantity + value;
+        Provider.of<Cart>(context, listen: false)
+            .addOrRemoveItem(widget.id, value);
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    _quantity = widget.quantity;
     return Container(
       color: Colors.grey,
       height: 50,
@@ -38,8 +46,8 @@ class _CartSectionState extends State<CartSection> {
       child: Row(
         children: [
           Expanded(
-            flex: 7,
-            child: Text("Title"),
+            flex: 5,
+            child: Text(widget.title.toString()),
           ),
           Expanded(
             flex: 3,
@@ -47,12 +55,12 @@ class _CartSectionState extends State<CartSection> {
               children: [
                 TextButton(
                   onPressed: () => _addItemNumber(-1),
-                  child: Text("-"),
+                  child: const Text("-"),
                 ),
-                Text(_countItem.toString()),
+                Text(_quantity.toString()),
                 TextButton(
                   onPressed: () => _addItemNumber(1),
-                  child: Text("+"),
+                  child: const Text("+"),
                 ),
               ],
             ),

@@ -4,14 +4,32 @@ import 'package:provider/provider.dart';
 
 import 'cart_item.dart';
 
-class CartMenu extends StatelessWidget {
+class CartMenu extends StatefulWidget {
   const CartMenu({Key? key}) : super(key: key);
+
+  @override
+  State<CartMenu> createState() => _CartMenuState();
+}
+
+class _CartMenuState extends State<CartMenu> {
+  int _countItem = 1;
+
+  void _addItemNumber(int value) {
+    setState(() {
+      if (_countItem > 0) {
+        _countItem = _countItem + value;
+        if (_countItem == 0) {
+          debugPrint("Remove Item");
+          Provider.of<Cart>(context, listen: true).removeItem(value);
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<Cart>(context, listen: true);
     Size size = MediaQuery.of(context).size;
-    debugPrint("ITEM QUANTITY ${cartProvider.items[1]?.quantity}");
     if (cartProvider.itemCount == 0) {
       return Text("EMPTY");
     } else {
