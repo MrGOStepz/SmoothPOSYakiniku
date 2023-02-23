@@ -86,7 +86,22 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height,
                 // child: Text("Test"),
-                child: CartMenu(),
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Text("Tabel"),
+                    ),
+                    Expanded(
+                      flex: 8,
+                      child: CartMenu(),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Text("Send"),
+                    )
+                  ],
+                ),
               ),
             ),
           ],

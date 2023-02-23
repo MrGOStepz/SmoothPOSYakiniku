@@ -12,19 +12,6 @@ class CartMenu extends StatefulWidget {
 }
 
 class _CartMenuState extends State<CartMenu> {
-  int _countItem = 1;
-
-  void _addItemNumber(int value) {
-    setState(() {
-      if (_countItem > 0) {
-        _countItem = _countItem + value;
-        if (_countItem == 0) {
-          debugPrint("Remove Item");
-          Provider.of<Cart>(context, listen: true).removeItem(value);
-        }
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
