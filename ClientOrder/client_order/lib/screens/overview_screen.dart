@@ -1,4 +1,5 @@
 import 'package:client_order/widgets/cart/cart.dart';
+import 'package:client_order/widgets/cart/send_order.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -98,7 +99,7 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
                     ),
                     Expanded(
                       flex: 1,
-                      child: Text("Send"),
+                      child: SendOrder(),
                     )
                   ],
                 ),

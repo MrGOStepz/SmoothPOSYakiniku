@@ -58,7 +58,7 @@ class Cart with ChangeNotifier {
 
     var quantity = _items[productId]?.quantity as int;
     quantity = quantity + value;
-    if (quantity > 1) {
+    if (quantity > 0) {
       items.update(
           productId,
           (existingCartItem) => CartItem(
@@ -70,6 +70,13 @@ class Cart with ChangeNotifier {
     } else {
       _items.remove(productId);
     }
+    notifyListeners();
+  }
+
+  void sendOrder(){
+    //TODO Send to Backend
+
+    _items.clear();
     notifyListeners();
   }
 }

@@ -46,11 +46,11 @@ class _CartSectionState extends State<CartSection> {
       child: Row(
         children: [
           Expanded(
-            flex: 5,
+            flex: 1,
             child: Text(widget.title.toString()),
           ),
           Expanded(
-            flex: 3,
+            flex: 1,
             child: Row(
               children: [
                 TextButton(

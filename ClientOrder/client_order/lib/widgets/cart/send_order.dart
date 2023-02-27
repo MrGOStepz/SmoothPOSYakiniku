@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SendOrder extends StatelessWidget {
+import '../../providers/carts_provider.dart';
+
+class SendOrder extends StatefulWidget {
   const SendOrder({Key? key}) : super(key: key);
 
   @override
+  State<SendOrder> createState() => _SendOrderState();
+}
+
+class _SendOrderState extends State<SendOrder> {
+
+  void _sendOrder() {
+    setState(() {
+      Provider.of<Cart>(context, listen: false).sendOrder();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container();
+    return TextButton(
+      onPressed: _sendOrder,
+      child: const Text("Send"),
+    );
   }
 }
