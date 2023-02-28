@@ -1,6 +1,10 @@
+import 'package:client_order/models/requests/send_order_request.dart';
 import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 
 import '../models/cart_item_model.dart';
+import '../widgets/cart/send_order.dart';
+import 'config_provider.dart';
 
 class Cart with ChangeNotifier {
   // Map<String, CartItem> _items = { '1': CartItem(id: '1', title: 'Test1', price: 20, quantity: 1), '2': CartItem(id: '2', title: 'Title2', price: 10, quantity: 1)};
@@ -76,6 +80,16 @@ class Cart with ChangeNotifier {
   void sendOrder(){
     //TODO Send to Backend
 
+    List<CartItem> cartItems = [];
+    _items.forEach((key, value) {
+      cartItems.add(value);
+    });
+
+    cartItems.forEach((element) {
+      debugPrint(element.title);
+    });
+
+    CartRequest cartRequest = CartRequest(POSConfig.tableName, cartItems);
     _items.clear();
     notifyListeners();
   }
