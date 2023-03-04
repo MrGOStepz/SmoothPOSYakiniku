@@ -46,6 +46,8 @@ class TableProvider with ChangeNotifier {
       OrderItemDetail(2, "Rice 20"),
       OrderItemDetail(3, "Water 20")
     ]));
+
+    debugPrint('Queue Total = ${queueTable.length.toString()}');
   }
 
   Queue<TableDetail> get items {
@@ -61,6 +63,10 @@ class TableProvider with ChangeNotifier {
   }
 
   TableDetail popTableDetail() {
-    return queueTable.removeFirst();
+    if(queueTable.isEmpty) {
+      return TableDetail(0, "EMPTY", 'FREE', []);
+    } else {
+      return queueTable.removeFirst();
+    }
   }
 }

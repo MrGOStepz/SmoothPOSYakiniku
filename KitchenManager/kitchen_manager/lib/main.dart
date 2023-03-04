@@ -45,27 +45,27 @@ class _MainHomePageState extends State<MainHomePage>
     with WidgetsBindingObserver {
   final List<TableDetail> tableDetails = [];
 
-  late TableDetail columnTable1 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
-  late TableDetail columnTable2 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
-  late TableDetail columnTable3 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
-
-  void tableDetailForColumn(int columnNumber) {
-    setState(() {
-      switch(columnNumber) {
-        case 1:
-          columnTable1 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
-          break;
-        case 2:
-          columnTable2 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
-          break;
-        case 3:
-          columnTable3 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
-          break;
-        default:
-          break;
-      }
-    });
-  }
+  // late TableDetail columnTable1 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
+  // late TableDetail columnTable2 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
+  // late TableDetail columnTable3 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
+  //
+  // void tableDetailForColumn(int columnNumber) {
+  //   setState(() {
+  //     switch(columnNumber) {
+  //       case 1:
+  //         columnTable1 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
+  //         break;
+  //       case 2:
+  //         columnTable2 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
+  //         break;
+  //       case 3:
+  //         columnTable3 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -73,34 +73,36 @@ class _MainHomePageState extends State<MainHomePage>
       title: Text(widget.title),
     );
 
-    return Scaffold(
-      appBar: appBar,
-      body: SafeArea(
-        child: Table(border: TableBorder.all(), children: [
-          TableRow(
-            children: [
-              ListChecker(
-                appBar: appBar,
-                tableDetail: columnTable1,
-                addNewTable: tableDetailForColumn,
-                columnNumber: 1,
-              ),
-              ListChecker(
-                appBar: appBar,
-                tableDetail: columnTable2,
-                addNewTable: tableDetailForColumn,
-                columnNumber: 2,
-              ),
-              ListChecker(
-                appBar: appBar,
-                tableDetail: columnTable3,
-                addNewTable: tableDetailForColumn,
-                columnNumber: 3,
-              ),
-              Text('Table 4') // TODO Clean List,
-            ],
-          ),
-        ]),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: TableProvider()),
+      ],
+      child: Scaffold(
+        appBar: appBar,
+        body: SafeArea(
+          child: Table(border: TableBorder.all(), children: [
+            TableRow(
+              children: [
+                ListChecker(
+                  appBar: appBar,
+                  // addNewTable: tableDetailForColumn,
+                  columnNumber: 1,
+                ),
+                ListChecker(
+                  appBar: appBar,
+                  // addNewTable: tableDetailForColumn,
+                  columnNumber: 2,
+                ),
+                ListChecker(
+                  appBar: appBar,
+                  // addNewTable: tableDetailForColumn,
+                  columnNumber: 3,
+                ),
+                Text('Table 4') // TODO Clean List,
+              ],
+            ),
+          ]),
+        ),
       ),
     );
   }

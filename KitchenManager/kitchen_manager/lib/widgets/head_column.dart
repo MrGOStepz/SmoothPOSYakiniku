@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:kitchen_manager/models/table_detail.dart';
+import 'package:kitchen_manager/providers/table_providers.dart';
+import 'package:provider/provider.dart';
 
 class HeadColumnTable extends StatefulWidget {
   final AppBar appBar;
   final TableDetail tableDetail;
-  final Function addNewTable;
-  final int columnNumber;
 
-  const HeadColumnTable({required this.appBar, required this.tableDetail, required this.addNewTable, required this.columnNumber,Key? key})
+  // final Function addNewTable;
+  final int columnNumber;
+  final VoidCallback getNextOrder;
+
+  const HeadColumnTable(
+      {required this.appBar,
+      required this.tableDetail,
+      // required this.addNewTable,
+      required this.columnNumber,
+      required this.getNextOrder,
+      Key? key})
       : super(key: key);
 
   @override
@@ -19,45 +29,48 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Card(
-      child: SizedBox(
-          height: (mediaQuery.size.height -
-              widget.appBar.preferredSize.height -
-              mediaQuery.padding.top) *
-              0.1,
-          width: double.infinity,
-          child: Column(
-            children: [
-              Text(widget.tableDetail.tableName),
-              Row(
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: TextButton(
-                        onPressed: null,
-                        style: TextButton.styleFrom(
-                          primary: Colors.blue,
-                        ),
-                        child: const Text('Call'),
-                      )),
-                  Expanded(
-                      flex: 1,
-                      child: TextButton(
-                        // onPressed: null,
-                        onPressed: () => widget.addNewTable(widget.columnNumber),
-                        style: TextButton.styleFrom(
-                          primary: Colors.blue,
-                        ),
-                        child: const Text('Done'),
-                      ))
-                ],
-              )
-            ],
-          )),
+      child: InkWell(
+        onTap: widget.getNextOrder,
+        child: SizedBox(
+            height: (mediaQuery.size.height -
+                    widget.appBar.preferredSize.height -
+                    mediaQuery.padding.top) *
+                0.1,
+            width: double.infinity,
+            child: Column(
+              children: [
+                Text(widget.tableDetail.tableName),
+                Row(
+                  children: [
+                    Expanded(
+                        flex: 1,
+                        child: TextButton(
+                          onPressed: null,
+                          style: TextButton.styleFrom(
+                            primary: Colors.blue,
+                          ),
+                          child: const Text('Call'),
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: TextButton(
+                          // onPressed: null,
+                          onPressed: () => Provider.of<TableProvider>(context, listen:false).initMock(),
+                          // onPressed: () => widget.getNextOrder,
+                          // widget.addNewTable(widget.columnNumber),
+                          style: TextButton.styleFrom(
+                            primary: Colors.blue,
+                          ),
+                          child: const Text('Done'),
+                        ))
+                  ],
+                )
+              ],
+            )),
+      ),
     );
   }
 }
-
-
 
 // class HeadColumn extends StatelessWidget {
 //   final AppBar appBar;
