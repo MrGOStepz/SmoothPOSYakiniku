@@ -6,6 +6,6 @@ class TableDetail {
   final String status;
   final List<OrderItemDetail> items;
 
-  TableDetail({required this.id,required this.tableName, required this.status, required this.items});
+  TableDetail(this.id, this.tableName, this.status, this.items);
 }
 

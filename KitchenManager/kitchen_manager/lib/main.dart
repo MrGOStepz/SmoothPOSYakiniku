@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kitchen_manager/models/table_detail.dart';
+import 'package:kitchen_manager/providers/table_providers.dart';
 import 'package:kitchen_manager/services/product_service.dart';
 import 'package:kitchen_manager/widgets/list_checker.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   runApp(const KitchenManager());
@@ -42,27 +44,22 @@ class MainHomePage extends StatefulWidget {
 class _MainHomePageState extends State<MainHomePage>
     with WidgetsBindingObserver {
   final List<TableDetail> tableDetails = [];
-  final ProductService productService = ProductService();
 
-  late TableDetail columnTable1 = getNextTable;
-  late TableDetail columnTable2 = getNextTable;
-  late TableDetail columnTable3 = getNextTable;
-
-  TableDetail get getNextTable {
-    return productService.getNextTable();
-  }
+  late TableDetail columnTable1 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
+  late TableDetail columnTable2 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
+  late TableDetail columnTable3 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
 
   void tableDetailForColumn(int columnNumber) {
     setState(() {
       switch(columnNumber) {
         case 1:
-          columnTable1 = getNextTable;
+          columnTable1 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
           break;
         case 2:
-          columnTable2 = getNextTable;
+          columnTable2 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
           break;
         case 3:
-          columnTable3 = getNextTable;
+          columnTable3 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
           break;
         default:
           break;

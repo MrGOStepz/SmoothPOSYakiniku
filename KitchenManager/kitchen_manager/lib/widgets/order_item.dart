@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kitchen_manager/models/table_detail.dart';
+
+import '../models/order_item_detail.dart';
 
 class OrderItem extends StatefulWidget {
   final OrderItemDetail orderItemDetail;

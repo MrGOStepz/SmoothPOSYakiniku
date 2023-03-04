@@ -85,10 +85,6 @@ class Cart with ChangeNotifier {
       cartItems.add(value);
     });
 
-    cartItems.forEach((element) {
-      debugPrint(element.title);
-    });
-
     CartRequest cartRequest = CartRequest(POSConfig.tableName, cartItems);
     _items.clear();
     notifyListeners();

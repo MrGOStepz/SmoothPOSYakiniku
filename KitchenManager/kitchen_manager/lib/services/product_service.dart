@@ -1,16 +1,13 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:kitchen_manager/mock_input.dart';
 import 'package:kitchen_manager/models/table_detail.dart';
 
 class ProductService {
-  MockInput mockInput = MockInput();
   Queue<TableDetail> tableQueue = Queue<TableDetail>();
 
   ProductService() {
     //TODO Initial Table Detail
-    tableQueue.addAll(mockInput.listTable);
   }
 
   TableDetail getNextTable() {
@@ -18,7 +15,7 @@ class ProductService {
       TableDetail popTableDetail = tableQueue.removeFirst();
       return popTableDetail;
     } else {
-      return TableDetail(id: 0, tableName: "", status: "FREE", items: []);
+      return TableDetail(0, "", "FREE", []);
     }
   }
 
