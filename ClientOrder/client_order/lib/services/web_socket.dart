@@ -1,16 +1,18 @@
-import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:stomp_dart_client/stomp.dart';
 import 'package:stomp_dart_client/stomp_config.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
 
+String url = 'http://localhost:8080/gs-guide-websocket';
+
 void onConnect(StompFrame frame) {
-  stompClient2.subscribe(
+  stompClient.subscribe(
     destination: '/topic/ordering',
     callback: (frame) {
       dynamic result = json.decode(frame.body!);
-      print(result);
+      debugPrint(result.toString());
     },
   );
 
@@ -22,13 +24,14 @@ void onConnect(StompFrame frame) {
   // });
 }
 
-final stompClient2 = StompClient(
-          config: StompConfig.SockJS(
-            url: 'http://localhost:8080/gs-guide-websocket',
-            onConnect: onConnect,
-            onWebSocketError: (dynamic error) => print(error.toString()),
-          ));
+final stompClient = StompClient(
+  config: StompConfig.SockJS(
+    url: url,
+    onConnect: onConnect,
+    onWebSocketError: (dynamic error) => debugPrint(error.toString()),
+  ),
+);
 
 void main() {
-  stompClient2.activate();
+  stompClient.activate();
 }

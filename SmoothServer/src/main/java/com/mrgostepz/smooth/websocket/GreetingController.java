@@ -1,7 +1,7 @@
 package com.mrgostepz.smooth.websocket;
 import com.mrgostepz.smooth.model.Greeting;
 import com.mrgostepz.smooth.model.HelloMessage;
-import com.mrgostepz.smooth.model.OrderMessage;
+import com.mrgostepz.smooth.model.request.CartRequest;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,11 @@ public class GreetingController {
 
     @MessageMapping("/order")
     @SendTo("/topic/ordering")
-    public OrderMessage ordering(OrderMessage orderMessage) throws Exception {
-        return orderMessage;
+    public CartRequest ordering(CartRequest cartRequest) throws Exception {
+
+        return cartRequest;
     }
+//    public OrderMessage ordering(OrderMessage orderMessage) throws Exception {
+//        return orderMessage;
+//    }
 }
