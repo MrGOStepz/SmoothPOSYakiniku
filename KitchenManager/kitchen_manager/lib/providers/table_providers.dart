@@ -63,7 +63,7 @@ class TableProvider with ChangeNotifier {
   }
 
   TableDetail popTableDetail() {
-    if(queueTable.isEmpty) {
+    if (queueTable.isEmpty) {
       return TableDetail(0, "EMPTY", 'FREE', []);
     } else {
       return queueTable.removeFirst();

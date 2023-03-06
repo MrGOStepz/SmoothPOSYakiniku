@@ -6,15 +6,12 @@ import 'package:provider/provider.dart';
 class HeadColumnTable extends StatefulWidget {
   final AppBar appBar;
   final TableDetail tableDetail;
-
-  // final Function addNewTable;
   final int columnNumber;
   final VoidCallback getNextOrder;
 
   const HeadColumnTable(
       {required this.appBar,
       required this.tableDetail,
-      // required this.addNewTable,
       required this.columnNumber,
       required this.getNextOrder,
       Key? key})
@@ -28,97 +25,49 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+    double heightSize = (mediaQuery.size.height -
+            widget.appBar.preferredSize.height -
+            mediaQuery.padding.top) *
+        0.1;
     return Card(
       child: InkWell(
         onTap: widget.getNextOrder,
         child: SizedBox(
-            height: (mediaQuery.size.height -
-                    widget.appBar.preferredSize.height -
-                    mediaQuery.padding.top) *
-                0.1,
-            width: double.infinity,
-            child: Column(
-              children: [
-                Text(widget.tableDetail.tableName),
-                Row(
-                  children: [
-                    Expanded(
-                        flex: 1,
-                        child: TextButton(
-                          onPressed: null,
-                          style: TextButton.styleFrom(
-                            primary: Colors.blue,
-                          ),
-                          child: const Text('Call'),
-                        )),
-                    Expanded(
-                        flex: 1,
-                        child: TextButton(
-                          // onPressed: null,
-                          onPressed: () => Provider.of<TableProvider>(context, listen:false).initMock(),
-                          // onPressed: () => widget.getNextOrder,
-                          // widget.addNewTable(widget.columnNumber),
-                          style: TextButton.styleFrom(
-                            primary: Colors.blue,
-                          ),
-                          child: const Text('Done'),
-                        ))
-                  ],
-                )
-              ],
-            )),
+          height: heightSize,
+          width: double.infinity,
+          child: Column(
+            children: [
+              Text(widget.tableDetail.tableName),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: TextButton(
+                      onPressed: null,
+                      style: TextButton.styleFrom(
+                        primary: Colors.blue,
+                      ),
+                      child: const Text('Call'),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: TextButton(
+                      onPressed: () =>
+                          Provider.of<TableProvider>(context, listen: false)
+                              .initMock(),
+                      style: TextButton.styleFrom(
+                        primary: Colors.blue,
+                      ),
+                      child: const Text('Done'),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
 }
-
-// class HeadColumn extends StatelessWidget {
-//   final AppBar appBar;
-//   final TableDetail tableDetail;
-//   final Function addNewTable;
-//   final int columnNumber;
-//
-//   const HeadColumn({required this.appBar, required this.tableDetail, required this.addNewTable, required this.columnNumber,Key? key})
-//       : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final mediaQuery = MediaQuery.of(context);
-//     return Card(
-//       child: SizedBox(
-//           height: (mediaQuery.size.height -
-//                   appBar.preferredSize.height -
-//                   mediaQuery.padding.top) *
-//               0.1,
-//           width: double.infinity,
-//           child: Column(
-//             children: [
-//               Text(tableDetail.tableName),
-//               Row(
-//                 children: [
-//                   Expanded(
-//                       flex: 1,
-//                       child: TextButton(
-//                         onPressed: null,
-//                         style: TextButton.styleFrom(
-//                           primary: Colors.blue,
-//                         ),
-//                         child: const Text('Call'),
-//                       )),
-//                   Expanded(
-//                       flex: 1,
-//                       child: TextButton(
-//                         onPressed: null,
-//                         // onPressed: addNewTable(columnNumber),
-//                         style: TextButton.styleFrom(
-//                           primary: Colors.blue,
-//                         ),
-//                         child: const Text('Done'),
-//                       ))
-//                 ],
-//               )
-//             ],
-//           )),
-//     );
-//   }
-// }

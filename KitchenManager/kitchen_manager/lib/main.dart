@@ -45,28 +45,6 @@ class _MainHomePageState extends State<MainHomePage>
     with WidgetsBindingObserver {
   final List<TableDetail> tableDetails = [];
 
-  // late TableDetail columnTable1 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
-  // late TableDetail columnTable2 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
-  // late TableDetail columnTable3 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
-  //
-  // void tableDetailForColumn(int columnNumber) {
-  //   setState(() {
-  //     switch(columnNumber) {
-  //       case 1:
-  //         columnTable1 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
-  //         break;
-  //       case 2:
-  //         columnTable2 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
-  //         break;
-  //       case 3:
-  //         columnTable3 = Provider.of<TableProvider>(context, listen: false).popTableDetail();
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     final AppBar appBar = AppBar(
