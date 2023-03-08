@@ -63,17 +63,14 @@ class _MainHomePageState extends State<MainHomePage>
               children: [
                 ListChecker(
                   appBar: appBar,
-                  // addNewTable: tableDetailForColumn,
                   columnNumber: 1,
                 ),
                 ListChecker(
                   appBar: appBar,
-                  // addNewTable: tableDetailForColumn,
                   columnNumber: 2,
                 ),
                 ListChecker(
                   appBar: appBar,
-                  // addNewTable: tableDetailForColumn,
                   columnNumber: 3,
                 ),
                 Text('Table 4') // TODO Clean List,

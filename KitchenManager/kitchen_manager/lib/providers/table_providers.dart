@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/foundation.dart';
 
 import '../models/order_item_detail.dart';
+import '../models/order_model.dart';
 import '../models/table_detail.dart';
 
 class TableProvider with ChangeNotifier {
@@ -60,6 +61,12 @@ class TableProvider with ChangeNotifier {
     } catch (error) {
       //TODO Something
     }
+  }
+
+  Future<void> addNewTable(Order order) async{
+    TableDetail tableDetail = TableDetail(0, order.tableName, 'FREE', order.cartItems);
+
+
   }
 
   TableDetail popTableDetail() {
