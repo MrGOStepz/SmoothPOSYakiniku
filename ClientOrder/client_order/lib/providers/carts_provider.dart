@@ -1,9 +1,11 @@
+import 'dart:convert';
+
 import 'package:client_order/models/requests/send_order_request.dart';
 import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/cupertino.dart';
 
+import '../services/web_socket.dart';
 import '../models/cart_item_model.dart';
-import '../widgets/cart/send_order.dart';
 import 'config_provider.dart';
 
 class Cart with ChangeNotifier {
@@ -77,16 +79,36 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
-  void sendOrder(){
-    //TODO Send to Backend
+  void sendToWebSocket(CartRequest cartRequest) {
+    var stompClient =  stompClient2;
+    if (stompClient == null) {
+      stompClient.activate();
+      debugPrint("STOMP= NULL");
+    } else {
+      debugPrint("STOMP!= NULL");
+    }
 
+    stompClient.activate();
+    var request = jsonEncode(cartRequest.toJson());
+    stompClient.send(
+      destination: '/app/order',
+      body: request,
+    );
+  }
+
+  void sendOrder() {
+    //TODO Send to Backend
     List<CartItem> cartItems = [];
     _items.forEach((key, value) {
       cartItems.add(value);
     });
 
     CartRequest cartRequest = CartRequest(POSConfig.tableName, cartItems);
+    sendToWebSocket(cartRequest);
+
     _items.clear();
     notifyListeners();
   }
+
+
 }

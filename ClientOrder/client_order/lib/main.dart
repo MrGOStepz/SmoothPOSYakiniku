@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:client_order/providers/carts_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,14 +7,19 @@ import 'package:provider/provider.dart';
 import 'providers/categories_provider.dart';
 import 'providers/products_provider.dart';
 import 'screens/overview_screen.dart';
+import 'services/web_socket.dart';
 
 void main() => runApp(ClientOrderApp());
+
 
 class ClientOrderApp extends StatelessWidget {
   const ClientOrderApp({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+
+    stompClient2.activate();
     return MultiProvider(
         providers: [
           ChangeNotifierProvider.value(
