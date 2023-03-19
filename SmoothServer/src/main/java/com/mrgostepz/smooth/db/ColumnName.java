@@ -34,7 +34,7 @@ public class ColumnName {
     public static final String COL_ORDER_DETAIL_ID = "ORDER_DETAIL_ID";
     public static final String COL_PRODUCT_QTY = "PRODUCT_QRY";
 
-    public static final String COL_QUALITY = "QUALITY";
+    public static final String COL_QUANTITY = "QUANTITY";
     public static final String COL_AMOUNT = "AMOUNT";
     public static final String COL_COMMENT = "COMMENT";
     public static final String COL_ORDER_STATUS_ID = "ORDER_STATUS_ID";
@@ -77,6 +77,7 @@ public class ColumnName {
     public static final String COL_SECTION_NAME = "SECTION_NAME";
     public static final String COL_TABLE_SECTION_ID = "TABLE_SECTION_ID";
     public static final String COL_TABLE_SECTION_NAME = "TABLE_SECTION_NAME";
+    public static final String COL_TABLE_CURRENT_STATE_ID = "TABLE_CURRENT_STATE_ID";
     public static final String COL_U_NAME = "U_NAME";
     public static final String COL_NAME = "NAME";
     public static final String COL_TABLE_ID = "TABLE_ID";
@@ -96,4 +97,11 @@ public class ColumnName {
     public static final String COL_LOCATION_TAB_NAME = "LOCATION_NAME";
     public static final String COL_LOCATION_ORDER = "LOCATION_ORDER";
     public static final String COL_ID = "ID";
+    public static final String COL_LOCATION_PAGE = "LOCATION_PAGE";
+    public static final String COL_LOCATION_ROW = "LOCATION_ROW";
+    public static final String COL_LOCATION_COLUMN = "LOCATION_COLUMN";
+    public static final String COL_IMAGE_PATH = "LOCATION_IMAGE_PATH";
+    public static final String COL_CATEGORY_ID = "CATEGORY_ID";
+    public static final String COL_LAST_UPDATED_TIME = "LAST_UPDATED_TIME";
+    public static final String COL_RECEIPT_JSON = "RECEIPT_JSON";
 }

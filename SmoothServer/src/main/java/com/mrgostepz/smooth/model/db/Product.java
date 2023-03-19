@@ -9,11 +9,14 @@ import java.util.List;
 public class Product {
     private Integer id;
     private String name;
-    private FoodType foodType;
     private String description;
-    private Integer stock;
     private Double price;
-    private List<Integer> listProductIds;
-    private Boolean isAvailable;
+    private FoodType foodType;
+    private Integer categoryId;
+    private Integer locationPage;
+    private Integer locationRow;
+    private Integer locationColumn;
+    private Integer stock;
+    private String imagePath;
     private Boolean isActive;
 }

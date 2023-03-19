@@ -64,7 +64,7 @@ public class ProductDAO implements ProductRepository {
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_PRODUCT, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
-            statement.setInt(3, product.getIsAvailable() ? 1 : 0);
+            statement.setInt(3, Boolean.TRUE.equals(product.getIsAvailable()) ? 1 : 0);
             statement.setInt(4, product.getStock());
             statement.setDouble(5, product.getPrice());
             statement.setString(6, product.getFoodType().getValueString());

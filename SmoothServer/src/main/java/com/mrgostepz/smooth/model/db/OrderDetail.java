@@ -9,7 +9,7 @@ public class OrderDetail {
     private Integer productId;
     private Integer orderId;
     private Status status;
-    private Integer Quality;
+    private Integer quality;
     private Double price;
     private String comment;
     private Boolean isActive;

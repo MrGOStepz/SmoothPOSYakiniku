@@ -10,7 +10,7 @@ import lombok.Data;
 public class OrderMenu {
     private Integer id;
     private Integer tableId;
-    private String orderDetail;
+    private String receiptJson;
     private OrderType orderType;
     private Status status;
     private Double amount;
