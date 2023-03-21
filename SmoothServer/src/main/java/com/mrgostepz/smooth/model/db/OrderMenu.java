@@ -11,8 +11,9 @@ public class OrderMenu {
     private Integer id;
     private Integer tableId;
     private String receiptJson;
-    private OrderType orderType;
     private Status status;
+    private OrderType orderType;
     private Double amount;
     private Date startTime;
+    private Date lastUpdatedTime;
 }

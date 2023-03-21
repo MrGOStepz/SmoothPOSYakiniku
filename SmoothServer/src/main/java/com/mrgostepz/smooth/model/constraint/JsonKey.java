@@ -1,10 +1,5 @@
 package com.mrgostepz.smooth.model.constraint;
 
-import com.mrgostepz.smooth.model.enumtype.OrderType;
-import com.mrgostepz.smooth.model.enumtype.Status;
-
-import java.sql.Date;
-
 public class JsonKey {
     public static String ID = "id";
     public static String NAME = "name";
@@ -22,4 +17,9 @@ public class JsonKey {
     public static String AMOUNT = "amount";
     public static String START_TIME = "startTime";
     public static String ORDER_ID = "orderId";
+    public static String CATEGORY_ID = "categoryId";
+    public static String LOCATION_PAGE = "locationPage";
+    public static String LOCATION_ROW = "locationRow";
+    public static String LOCATION_COLUMN = "locationColumn";
+    public static String IMAGE_PATH = "imagePath";
 }

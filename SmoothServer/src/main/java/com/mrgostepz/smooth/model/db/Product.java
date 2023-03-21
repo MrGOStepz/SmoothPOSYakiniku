@@ -18,5 +18,5 @@ public class Product {
     private Integer locationColumn;
     private Integer stock;
     private String imagePath;
-    private Boolean isActive;
+    private Boolean isAvailable;
 }

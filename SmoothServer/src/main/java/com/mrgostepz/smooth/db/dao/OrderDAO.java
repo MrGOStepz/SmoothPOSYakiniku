@@ -49,11 +49,12 @@ public class OrderDAO implements OrderRepository {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_ORDER, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, orderMenu.getTableId());
-            statement.setString(2, orderMenu.getOrderDetail());
-            statement.setDouble(3, orderMenu.getAmount());
-            statement.setDate(4, orderMenu.getStartTime());
+            statement.setString(2, orderMenu.getReceiptJson());
+            statement.setString(3, orderMenu.getOrderType().getValueString());
+            statement.setDouble(4, orderMenu.getAmount());
             statement.setString(5, orderMenu.getStatus().getValueString());
-            statement.setString(6, orderMenu.getOrderType().getValueString());
+            statement.setDate(6, orderMenu.getStartTime());
+            statement.setDate(7, orderMenu.getLastUpdatedTime());
 
             int affectedRows = statement.executeUpdate();
 
@@ -81,11 +82,12 @@ public class OrderDAO implements OrderRepository {
         try {
             int result = jdbcTemplate.update(SQL_UPDATE_ORDER,
                     orderMenu.getTableId(),
-                    orderMenu.getOrderDetail(),
-                    orderMenu.getAmount(),
-                    orderMenu.getStartTime(),
-                    orderMenu.getStartTime(),
+                    orderMenu.getReceiptJson(),
                     orderMenu.getOrderType().getValueString(),
+                    orderMenu.getAmount(),
+                    orderMenu.getStatus(),
+                    orderMenu.getStartTime(),
+                    orderMenu.getLastUpdatedTime(),
                     orderMenu.getId());
             return result == 1;
         } catch (DataAccessException ex) {

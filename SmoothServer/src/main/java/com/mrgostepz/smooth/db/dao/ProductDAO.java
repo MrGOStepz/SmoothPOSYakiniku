@@ -4,7 +4,6 @@ import com.mrgostepz.smooth.db.repository.ProductRepository;
 import com.mrgostepz.smooth.db.rowmapper.ProductRowMapper;
 import com.mrgostepz.smooth.model.db.Product;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataAccessException;
@@ -12,25 +11,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
-import java.util.StringJoiner;
 
-import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_ADD_PRODUCT;
-import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_DELETE_PRODUCT;
-import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_GET_ALL_PRODUCT;
-import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_GET_PRODUCT_BY_COLUMN;
-import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_GET_PRODUCT_BY_ID;
-import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_UPDATE_PRODUCT;
+import static com.mrgostepz.smooth.db.sql.ProductSQL.*;
 
 @Service
 @RequiredArgsConstructor
 public class ProductDAO implements ProductRepository {
-
 
     private static final Logger logger = LogManager.getLogger(ProductDAO.class);
 
@@ -64,21 +52,15 @@ public class ProductDAO implements ProductRepository {
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_PRODUCT, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
-            statement.setInt(3, Boolean.TRUE.equals(product.getIsAvailable()) ? 1 : 0);
-            statement.setInt(4, product.getStock());
-            statement.setDouble(5, product.getPrice());
-            statement.setString(6, product.getFoodType().getValueString());
-            if (product.getListProductIds() != null) {
-                StringJoiner listProducts = new StringJoiner(",");
-                for (Integer id : product.getListProductIds()) {
-                    listProducts.add(id.toString());
-                }
-                statement.setString(7, listProducts.toString());
-            } else {
-                statement.setString(7, null);
-            }
-
-            statement.setInt(8, product.getIsActive() ? 1 : 0);
+            statement.setDouble(3, product.getPrice());
+            statement.setString(4, product.getFoodType().getValueString());
+            statement.setInt(5, product.getCategoryId());
+            statement.setInt(6, product.getLocationPage());
+            statement.setInt(7, product.getLocationRow());
+            statement.setInt(8, product.getLocationColumn());
+            statement.setInt(9, product.getStock());
+            statement.setString(10, product.getImagePath());
+            statement.setInt(11, Boolean.TRUE.equals(product.getIsAvailable()) ? 1 : 0);
 
             int affectedRows = statement.executeUpdate();
 
@@ -107,12 +89,15 @@ public class ProductDAO implements ProductRepository {
             int result = jdbcTemplate.update(SQL_UPDATE_PRODUCT,
                     product.getName(),
                     product.getDescription(),
-                    product.getIsAvailable(),
-                    product.getStock(),
                     product.getPrice(),
                     product.getFoodType(),
-                    product.getListProductIds(),
-                    product.getIsActive(),
+                    product.getCategoryId(),
+                    product.getLocationPage(),
+                    product.getLocationRow(),
+                    product.getLocationColumn(),
+                    product.getIsAvailable(),
+                    product.getImagePath(),
+                    product.getStock(),
                     product.getId());
             return result == 1;
         } catch (DataAccessException ex) {

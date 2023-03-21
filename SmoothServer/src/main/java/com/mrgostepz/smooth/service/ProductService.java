@@ -44,7 +44,7 @@ public class ProductService {
             logger.info("Add new product Successfully: {}", product);
         } else {
             logger.warn("Cannot add new product: {}", product);
-            throw new InsertRecordException("Cannot Create");
+            throw new InsertRecordException("Cannot Create a Product");
         }
     }
 

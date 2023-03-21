@@ -15,12 +15,13 @@ public class OrderRowMapper implements RowMapper<OrderMenu> {
     public OrderMenu mapRow(ResultSet rs, int rowNum) throws SQLException {
         OrderMenu order = new OrderMenu();
         order.setId(rs.getInt(COL_ID));
-        order.setOrderDetail(rs.getString(COL_ORDER_DETAIL));
         order.setTableId(rs.getInt(COL_TABLE_ID));
-        order.setAmount(rs.getDouble(COL_AMOUNT));
+        order.setReceiptJson(rs.getString(COL_RECEIPT_JSON));
         order.setStatus(Status.fromString(rs.getString(COL_STATUS)));
         order.setOrderType(OrderType.fromString(rs.getString(COL_ORDER_TYPE)));
-        order.setStartTime(rs.getDate(COL_ORDER_AT));
+        order.setAmount(rs.getDouble(COL_AMOUNT));
+        order.setStartTime(rs.getDate(COL_START_TIME));
+        order.setLastUpdatedTime(rs.getDate(COL_LAST_UPDATED_TIME));
         return order;
     }
 }

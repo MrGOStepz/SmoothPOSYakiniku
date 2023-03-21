@@ -27,6 +27,7 @@ CREATE TABLE `order` (
   `table_id` int NOT NULL,
   `receipt` json NOT NULL,
   `amount` float NOT NULL DEFAULT '0',
+  `order_type` varchar(255) NOT NULL DEFAULT 'Dine-In',
   `start_time` datetime NOT NULL,
   `status` varchar(45) NOT NULL,
   `last_updated_time` datetime NOT NULL,
