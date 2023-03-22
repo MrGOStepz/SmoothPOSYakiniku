@@ -3,14 +3,17 @@ package com.mrgostepz.smooth.model.db;
 import com.mrgostepz.smooth.model.enumtype.Status;
 import lombok.Data;
 
+import java.sql.Date;
+
 @Data
 public class OrderDetail {
-    private Integer id;
-    private Integer productId;
+    private Integer orderDetailId;
     private Integer orderId;
-    private Status status;
-    private Integer quality;
+    private Integer productId;
+    private Integer quantity;
     private Double price;
     private String comment;
-    private Boolean isActive;
+    private Status status;
+    private Date orderTime;
+    private Date lastUpdatedTime;
 }

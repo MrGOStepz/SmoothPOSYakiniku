@@ -15,7 +15,6 @@ import java.sql.*;
 import java.util.List;
 
 import static com.mrgostepz.smooth.db.sql.OrderDetailSQL.*;
-import static com.mrgostepz.smooth.db.sql.OrderSQL.*;
 
 @Service
 @RequiredArgsConstructor
@@ -49,48 +48,50 @@ public class OrderDetailDAO implements OrderDetailRepository {
         assert dataSource != null;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_ORDER_DETAIL, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(1, orderDetail.getId());
-            statement.setInt(2, orderDetail.getProductId());
-            statement.setInt(3, orderDetail.getOrderId());
-            statement.setString(4, orderDetail.getStatus().getValueString());
-            statement.setInt(5, orderDetail.getQuality());
-            statement.setDouble(6, orderDetail.getPrice());
-            statement.setString(7, orderDetail.getComment());
-            statement.setBoolean(8, orderDetail.getIsActive());
+            statement.setInt(1, orderDetail.getOrderDetailId());
+            statement.setInt(2, orderDetail.getOrderId());
+            statement.setInt(3, orderDetail.getProductId());
+            statement.setInt(4, orderDetail.getQuantity());
+            statement.setDouble(5, orderDetail.getPrice());
+            statement.setString(6, orderDetail.getComment());
+            statement.setString(7, orderDetail.getStatus().getValueString());
+            statement.setDate(8, orderDetail.getOrderTime());
+            statement.setDate(9, orderDetail.getLastUpdatedTime());
 
             int affectedRows = statement.executeUpdate();
 
             if (affectedRows == 0) {
-                throw new SQLException("Creating order menu failed, no rows affected.");
+                throw new SQLException("Creating order detail menu failed, no rows affected.");
             }
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    orderDetail.setId(generatedKeys.getInt(1));
+                    orderDetail.setOrderDetailId(generatedKeys.getInt(1));
                 } else {
-                    throw new SQLException("Creating order menu failed, no ID obtained.");
+                    throw new SQLException("Creating order detail menu failed, no ID obtained.");
                 }
             }
-            return orderDetail.getId();
+            return orderDetail.getOrderDetailId();
         } catch (DataAccessException | SQLException ex) {
             logger.error(ex.getMessage());
             return -1;
         } finally {
-            logger.info("Create new Order: {}", orderDetail);
+            logger.info("Create new Order Detail: {}", orderDetail);
         }
     }
 
     @Override
     public Boolean update(OrderDetail orderDetail) {
         try {
-            int result = jdbcTemplate.update(SQL_UPDATE_ORDER,
-                    orderDetail.getProductId(),
+            int result = jdbcTemplate.update(SQL_UPDATE_ORDER_DETAIL,
                     orderDetail.getOrderId(),
-                    orderDetail.getStatus().getValueString(),
-                    orderDetail.getQuality(),
+                    orderDetail.getProductId(),
+                    orderDetail.getQuantity(),
                     orderDetail.getPrice(),
                     orderDetail.getComment(),
-                    orderDetail.getIsActive(),
-                    orderDetail.getId());
+                    orderDetail.getStatus().getValueString(),
+                    orderDetail.getOrderTime(),
+                    orderDetail.getLastUpdatedTime(),
+                    orderDetail.getOrderDetailId());
             return result == 1;
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
@@ -101,7 +102,7 @@ public class OrderDetailDAO implements OrderDetailRepository {
     @Override
     public Boolean deleteById(Integer id) {
         try {
-            int result = jdbcTemplate.update(SQL_DELETE_ORDER, id);
+            int result = jdbcTemplate.update(SQL_DELETE_ORDER_DETAIL, id);
             return result == 1;
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());

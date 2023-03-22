@@ -12,6 +12,7 @@ import com.mrgostepz.smooth.until.SmoothUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -65,14 +66,14 @@ class OrderController {
     @PostMapping(path = "/add")
     @ResponseBody
     public ResponseEntity<String> addNewOrder(@RequestBody String jsonReq) {
-        OrderMenu order = convertJsonToOrder(jsonReq);
+        OrderMenu order = (OrderMenu) SmoothUtil.convertJsonToObject(jsonReq, OrderMenu.class);
         orderService.addOrder(order);
         return new ResponseEntity<>(String.format("Add new order successfully: %s", order.toString()), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/update")
     public String updateOrder(@RequestBody String jsonReq) {
-        OrderMenu order = convertJsonToOrder(jsonReq);
+        OrderMenu order = (OrderMenu) SmoothUtil.convertJsonToObject(jsonReq, OrderMenu.class);
         orderService.updateOrder(order);
         return String.format("Update Order: %s completed.", order);
     }
@@ -83,24 +84,24 @@ class OrderController {
         return String.format("Delete Order Id: %d completed.", id);
     }
 
-    private OrderMenu convertJsonToOrder(String json){
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            Map<String, Object> map = mapper.readValue(json, Map.class);
-            OrderMenu orderMenu = new OrderMenu();
-            orderMenu.setId((Integer) map.get(ID));
-            orderMenu.setTableId((Integer) map.get(TABLE_ID));
-            orderMenu.setOrderDetail((String) map.get(ORDER_DETAIL));
-            orderMenu.setOrderType(OrderType.fromString((String) map.get(ORDER_TYPE)));
-            orderMenu.setStatus(Status.fromString((String) map.get(STATUS)));
-            orderMenu.setAmount((Double) map.get(AMOUNT));
-            orderMenu.setStartTime((Date) map.get(START_TIME));
-            return orderMenu;
-        } catch (Exception ex) {
-            logger.error(ex.getMessage());
-            return null;
-        }
-    }
+//    private OrderMenu convertJsonToOrder(String json){
+//        try {
+//            ObjectMapper mapper = new ObjectMapper();
+//            Map<String, Object> map = mapper.readValue(json, Map.class);
+//            OrderMenu orderMenu = new OrderMenu();
+//            orderMenu.setId((Integer) map.get(ID));
+//            orderMenu.setTableId((Integer) map.get(TABLE_ID));
+//            orderMenu.setOrderDetail((String) map.get(ORDER_DETAIL));
+//            orderMenu.setOrderType(OrderType.fromString((String) map.get(ORDER_TYPE)));
+//            orderMenu.setStatus(Status.fromString((String) map.get(STATUS)));
+//            orderMenu.setAmount((Double) map.get(AMOUNT));
+//            orderMenu.setStartTime((Date) map.get(START_TIME));
+//            return orderMenu;
+//        } catch (Exception ex) {
+//            logger.error(ex.getMessage());
+//            return null;
+//        }
+//    }
 
 
 }

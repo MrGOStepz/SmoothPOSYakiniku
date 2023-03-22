@@ -31,8 +31,9 @@ public class ColumnName {
     public static final String COL_INGREDIENT_IMAGE_PATH = "INGREDIENT_IMAGE_PATH";
     public static final String COL_ORDER_ID = "ORDER_ID";
     public static final String COL_ORDER_AT = "ORDER_AT";
+    public static final String COL_ORDER_TIME = "ORDER_TIME";
     public static final String COL_ORDER_DETAIL_ID = "ORDER_DETAIL_ID";
-    public static final String COL_PRODUCT_QTY = "PRODUCT_QRY";
+    public static final String COL_PRODUCT_QTY = "PRODUCT_QTY";
 
     public static final String COL_QUANTITY = "QUANTITY";
     public static final String COL_AMOUNT = "AMOUNT";

@@ -1,7 +1,6 @@
 package com.mrgostepz.smooth.service;
 
 import com.mrgostepz.smooth.db.repository.OrderDetailRepository;
-import com.mrgostepz.smooth.db.repository.OrderRepository;
 import com.mrgostepz.smooth.exception.InsertRecordException;
 import com.mrgostepz.smooth.exception.RecordNotFoundException;
 import com.mrgostepz.smooth.model.db.OrderDetail;
@@ -40,7 +39,7 @@ public class OrderDetailService {
 
     public void addOrder(OrderDetail orderDetail) {
         int orderDetailId = orderDetailRepository.add(orderDetail);
-        orderDetail.setId(orderDetailId);
+        orderDetail.setOrderDetailId(orderDetailId);
         if (orderDetailId > 0) {
             logger.info("Add new orderDetail Successfully: {}", orderDetail);
         } else {
