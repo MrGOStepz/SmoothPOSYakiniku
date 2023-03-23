@@ -52,9 +52,7 @@ public class OrderService {
 
     public void addOrder(OrderRequest orderRequest) {
         List<OrderDetail> orderDetail = generateOrderDetail(orderRequest);
-        OrderMenu order = generateOrder(orderDetail, orderRequest.getTableName());
-
-
+        OrderMenu order = generateOrderMenu(orderDetail, orderRequest.getTableId());
 
         int orderId = orderRepository.add(order);
 
@@ -84,11 +82,11 @@ public class OrderService {
         }
         return orderDetailList;
     }
-    private OrderMenu generateOrderMenu(List<OrderDetail> orderDetail, String tableName)  {
+    private OrderMenu generateOrderMenu(List<OrderDetail> orderDetail, int tableId)  {
         OrderMenu order = new OrderMenu();
         ReceiptInfo receiptInfo = new ReceiptInfo();
         receiptInfo.setOrderDetails(orderDetail);
-        order.setTableId();
+        order.setTableId(tableId);
         order.setOrderType(OrderType.DINE_IN);
         order.setStatus(Status.COOK);
         order.setReceiptJson(receiptInfo.toString());
