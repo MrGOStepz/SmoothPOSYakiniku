@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -19,8 +20,22 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
+    public static Map<Integer, Product> products;
+
+    public void init() {
+        List<Product> productList = productRepository.getAll();
+       updateProductCache(productList);
+    }
+
+    private void updateProductCache(List<Product> productList) {
+        for(Product product: productList) {
+            products.put(product.getId(), product);
+        }
+    }
+
     public List<Product> getAllProduct() {
         List<Product> productList = productRepository.getAll();
+        updateProductCache(productList);
         if (productList == null) {
             throw new RecordNotFoundException("There is no record in product table.");
         }

@@ -13,9 +13,9 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TableCurrentStateService {
+public class TableService {
 
-    private static final Logger logger = LogManager.getLogger(TableCurrentStateService.class);
+    private static final Logger logger = LogManager.getLogger(TableService.class);
 
     private final TableCurrentStateRepository tableCurrentStateRepository;
 
@@ -39,7 +39,7 @@ public class TableCurrentStateService {
 
     public void addTableCurrentState(TableCurrentState tableCurrentState) {
         int tableCurrentStateReId = tableCurrentStateRepository.add(tableCurrentState);
-        tableCurrentState.setId(tableCurrentStateReId);
+        tableCurrentState.setTableCurrentStateId(tableCurrentStateReId);
         if (tableCurrentStateReId > 0) {
             logger.info("Add new tableCurrentState Successfully: {}", tableCurrentState);
         } else {

@@ -53,7 +53,7 @@ public class TableCurrentStateDAO implements TableCurrentStateRepository {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_TABLE_CURRENT_STATE, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, tableCurrentState.getTableCurrentStateId());
-            statement.setInt(2, tableCurrentState.getTableName());
+            statement.setInt(2, tableCurrentState.getTableId());
             statement.setInt(3, tableCurrentState.getOrderId());
             statement.setString(4, tableCurrentState.getStatus().getValueString());
 
@@ -82,7 +82,7 @@ public class TableCurrentStateDAO implements TableCurrentStateRepository {
     public Boolean update(TableCurrentState tableCurrentState) {
         try {
             int result = jdbcTemplate.update(SQL_UPDATE_TABLE_CURRENT_STATE,
-                    tableCurrentState.getTableName(),
+                    tableCurrentState.getTableId(),
                     tableCurrentState.getOrderId(),
                     tableCurrentState.getStatus().getValueString(),
                     tableCurrentState.getTableCurrentStateId());

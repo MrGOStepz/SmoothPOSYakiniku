@@ -7,6 +7,7 @@ import com.mrgostepz.smooth.model.db.Product;
 import com.mrgostepz.smooth.model.enumtype.FoodType;
 import com.mrgostepz.smooth.model.enumtype.OrderType;
 import com.mrgostepz.smooth.model.enumtype.Status;
+import com.mrgostepz.smooth.model.request.OrderRequest;
 import com.mrgostepz.smooth.service.OrderService;
 import com.mrgostepz.smooth.until.SmoothUtil;
 import lombok.RequiredArgsConstructor;
@@ -63,12 +64,20 @@ class OrderController {
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
+    @PostMapping(path = "/order")
+    @ResponseBody
+    public ResponseEntity<String> addNewOrder(@RequestBody String jsonReq) {
+        OrderRequest orderRequest = (OrderRequest) SmoothUtil.convertJsonToObject(jsonReq, OrderRequest.class);
+        orderService.addOrder(orderRequest);
+        return new ResponseEntity<>(String.format("Add new order successfully: %s", orderRequest.toString()), HttpStatus.CREATED);
+    }
+
     @PostMapping(path = "/add")
     @ResponseBody
     public ResponseEntity<String> addNewOrder(@RequestBody String jsonReq) {
-        OrderMenu order = (OrderMenu) SmoothUtil.convertJsonToObject(jsonReq, OrderMenu.class);
-        orderService.addOrder(order);
-        return new ResponseEntity<>(String.format("Add new order successfully: %s", order.toString()), HttpStatus.CREATED);
+        OrderMenu orderMenu = (OrderMenu) SmoothUtil.convertJsonToObject(jsonReq, OrderMenu.class);
+        orderService.add(orderMenu);
+        return new ResponseEntity<>(String.format("Add new order successfully: %s", orderMenu.toString()), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/update")

@@ -10,6 +10,7 @@ public class OrderDetail {
     private Integer orderDetailId;
     private Integer orderId;
     private Integer productId;
+    private String productName;
     private Integer quantity;
     private Double price;
     private String comment;

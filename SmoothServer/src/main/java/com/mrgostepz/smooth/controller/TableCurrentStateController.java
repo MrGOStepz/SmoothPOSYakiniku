@@ -2,10 +2,8 @@ package com.mrgostepz.smooth.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mrgostepz.smooth.model.db.TableCurrentState;
-import com.mrgostepz.smooth.model.enumtype.OrderType;
 import com.mrgostepz.smooth.model.enumtype.Status;
-import com.mrgostepz.smooth.service.OrderService;
-import com.mrgostepz.smooth.service.TableCurrentStateService;
+import com.mrgostepz.smooth.service.TableService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -30,18 +27,18 @@ class TableCurrentStateController {
 
     private static final Logger logger = LogManager.getLogger(TableCurrentStateController.class);
 
-    private final TableCurrentStateService tableCurrentStateService;
+    private final TableService tableService;
 
     @GetMapping(path = "/all")
     @ResponseBody
     public ResponseEntity<List<TableCurrentState>> getAllTableCurrentState() {
-        return new ResponseEntity<>(tableCurrentStateService.getAllTableCurrentState(), HttpStatus.OK);
+        return new ResponseEntity<>(tableService.getAllTableCurrentState(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
     @ResponseBody
     public ResponseEntity<TableCurrentState> getTableCurrentStateById(@PathVariable int id) {
-        TableCurrentState tableCurrentState = tableCurrentStateService.getTableCurrentStateById(id);
+        TableCurrentState tableCurrentState = tableService.getTableCurrentStateById(id);
         return new ResponseEntity<>(tableCurrentState, HttpStatus.OK);
     }
 
@@ -49,20 +46,20 @@ class TableCurrentStateController {
     @ResponseBody
     public ResponseEntity<String> addNewTableCurrentState(@RequestBody String jsonReq) {
         TableCurrentState tableCurrentState = convertJsonToTableCurrentState(jsonReq);
-        tableCurrentStateService.addTableCurrentState(tableCurrentState);
+        tableService.addTableCurrentState(tableCurrentState);
         return new ResponseEntity<>(String.format("Add new tableCurrentState successfully: %s", tableCurrentState.toString()), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/update")
     public String updateTableCurrentState(@RequestBody String jsonReq) {
         TableCurrentState tableCurrentState = convertJsonToTableCurrentState(jsonReq);
-        tableCurrentStateService.updateTableCurrentState(tableCurrentState);
+        tableService.updateTableCurrentState(tableCurrentState);
         return String.format("Update TableCurrentState: %s completed.", tableCurrentState);
     }
 
     @DeleteMapping("/{id}")
     public String deleteTableCurrentState(@PathVariable int id) {
-        tableCurrentStateService.deleteTableCurrentState(id);
+        tableService.deleteTableCurrentState(id);
         return String.format("Delete TableCurrentState Id: %d completed.", id);
     }
 

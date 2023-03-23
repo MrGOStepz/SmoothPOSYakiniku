@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class TableCurrentState {
     private Integer tableCurrentStateId;
-    private Integer tableName;
+    private Integer tableId;
     private Integer orderId;
     private Status status;
 }
