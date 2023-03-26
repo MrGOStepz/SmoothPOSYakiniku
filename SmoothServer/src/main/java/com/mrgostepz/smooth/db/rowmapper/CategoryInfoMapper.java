@@ -13,7 +13,7 @@ public class CategoryInfoMapper implements RowMapper<CategoryInfo> {
     @Override
     public CategoryInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
         CategoryInfo CategoryInfo = new CategoryInfo();
-        CategoryInfo.setCategoryInfoId(rs.getInt(COL_CATEGORY_ID));
+        CategoryInfo.setCategoryInfoId(rs.getInt(COL_CATEGORY_INFO_ID));
         CategoryInfo.setName(rs.getString(COL_NAME));
         return CategoryInfo;
     }

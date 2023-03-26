@@ -20,6 +20,37 @@ class Categories with ChangeNotifier {
     return [..._items];
   }
 
+  Future<void> fetchData() async {
+
+    final url = Uri.https('http://localhost:8080', 'v1/api/category/all');
+    final response = await http.get(url);
+    final List<Category> loadedCategory = [];
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    if (extractedData == null) {
+      return;
+    }
+    extractedData.forEach((orderId, orderData) {
+      loadedCategory.add(
+        Category(
+          id: erId,
+          amount: orderData['amount'],
+          dateTime: DateTime.parse(orderData['dateTime']),
+          products: (orderData['products'] as List<dynamic>)
+              .map(
+                (item) => CartItem(
+              id: item['id'],
+              price: item['price'],
+              quantity: item['quantity'],
+              title: item['title'],
+            ),
+          )
+              .toList(),
+        ),
+      );
+    });
+    _orders = loadedOrders.reversed.toList();
+    notifyListeners();  }
+
   Category findById(int id) {
     return _items.firstWhere((item) => item.id == id);
   }

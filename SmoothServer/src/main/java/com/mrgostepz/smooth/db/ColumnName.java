@@ -105,4 +105,5 @@ public class ColumnName {
     public static final String COL_CATEGORY_ID = "CATEGORY_ID";
     public static final String COL_LAST_UPDATED_TIME = "LAST_UPDATED_TIME";
     public static final String COL_RECEIPT_JSON = "RECEIPT_JSON";
+    public static final String COL_CATEGORY_INFO_ID = "CATEGORY_INFO_ID";
 }

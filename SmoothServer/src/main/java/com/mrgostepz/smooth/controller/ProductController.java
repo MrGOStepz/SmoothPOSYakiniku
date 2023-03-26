@@ -2,6 +2,7 @@ package com.mrgostepz.smooth.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mrgostepz.smooth.model.Products;
 import com.mrgostepz.smooth.model.db.Product;
 import com.mrgostepz.smooth.model.enumtype.FoodType;
 import com.mrgostepz.smooth.service.ProductService;
@@ -71,6 +72,19 @@ class ProductController {
         }
         productService.addProduct(product);
         return new ResponseEntity<>(String.format("Add new product successfully: %s", product), HttpStatus.CREATED);
+    }
+
+    @PostMapping(path = "/adds")
+    @ResponseBody
+    public ResponseEntity<String> addNewProducts(@RequestBody String jsonReq) {
+        List<Product> productList = (List<Product>) SmoothUtil.convertJsonToObject(jsonReq, Products.class);
+        if (productList == null) {
+            return new ResponseEntity<>("Cannot Create Product", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        for(Product product: productList) {
+            productService.addProduct(product);
+        }
+        return new ResponseEntity<>(String.format("Add new product successfully: %s", productList), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/update")

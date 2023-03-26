@@ -53,13 +53,13 @@ public class CategoryInfoDAO implements CategoryInfoRepository {
             int affectedRows = statement.executeUpdate();
 
             if (affectedRows == 0) {
-                throw new SQLException("Creating product failed, no rows affected.");
+                throw new SQLException("Creating Category failed, no rows affected.");
             }
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     CategoryInfo.setCategoryInfoId(generatedKeys.getInt(1));
                 } else {
-                    throw new SQLException("Creating product failed, no ID obtained.");
+                    throw new SQLException("Creating Category failed, no ID obtained.");
                 }
             }
             return CategoryInfo.getCategoryInfoId();
@@ -67,7 +67,7 @@ public class CategoryInfoDAO implements CategoryInfoRepository {
             logger.error(ex.getMessage());
             return -1;
         } finally {
-            logger.info("Create new Order: {}", CategoryInfo);
+            logger.info("Create new Category: {}", CategoryInfo);
         }
     }
 
