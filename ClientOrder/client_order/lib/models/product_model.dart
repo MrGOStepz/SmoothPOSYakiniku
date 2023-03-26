@@ -4,13 +4,13 @@ class Product {
   final int id;
   final String name;
   final double price;
-  final FoodType foodType;
+  final String foodType;
   final int categoryId;
-  final List<int> subProductId;
   final int page;
   final int row;
   final int column;
   final int stock;
+  final String imagePath;
   final bool isAvailable;
 
   Product(
@@ -19,10 +19,10 @@ class Product {
       this.price,
       this.foodType,
       this.categoryId,
-      this.subProductId,
       this.page,
       this.row,
       this.column,
       this.stock,
+      this.imagePath,
       this.isAvailable);
 }

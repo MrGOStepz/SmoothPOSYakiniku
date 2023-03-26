@@ -1,3 +1,4 @@
+import 'package:client_order/providers/categories_provider.dart';
 import 'package:client_order/widgets/cart/cart.dart';
 import 'package:client_order/widgets/cart/send_order.dart';
 import 'package:flutter/material.dart';
@@ -31,17 +32,20 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
 
   @override
   void didChangeDependencies() {
-    // if (_isInit) {
-    //   setState(() {
-    //     _isLoading = true;
-    //   });
-    //   Provider.of<Products>(context).fetchAndSetProducts().then((_) {
-    //     setState(() {
-    //       _isLoading = false;
-    //     });
-    //   });
-    // }
-    // _isInit = false;
+    if (_isInit) {
+      //   setState(() {
+      //     _isLoading = true;
+      //   });
+      //   Provider.of<Products>(context).fetchAndSetProducts().then((_) {
+      //     setState(() {
+      //       _isLoading = false;
+      //     });
+      //   });
+
+      Provider.of<Categories>(context).fetchAndSetCategory();
+      Provider.of<Products>(context).fetchAndSetProducts();
+    }
+    _isInit = false;
     super.didChangeDependencies();
   }
 

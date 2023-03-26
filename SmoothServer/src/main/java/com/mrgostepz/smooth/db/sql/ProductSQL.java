@@ -18,7 +18,7 @@ public class ProductSQL {
             + COL_LOCATION_COLUMN + ", "
             + COL_STOCK + ", "
             + COL_IMAGE_PATH + ", "
-            + COL_IS_AVAILABLE + ") VALUE(?,?,?,?,?,?,?,?,?,?);";
+            + COL_IS_AVAILABLE + ") VALUE(?,?,?,?,?,?,?,?,?,?,?);";
     public static final String SQL_UPDATE_PRODUCT = "UPDATE " + TABLE_PRODUCT + " SET "
             + COL_NAME + " = ?, "
             + COL_DESCRIPTION + " = ?, "

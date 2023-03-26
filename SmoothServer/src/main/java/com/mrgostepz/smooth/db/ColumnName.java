@@ -101,7 +101,7 @@ public class ColumnName {
     public static final String COL_LOCATION_PAGE = "LOCATION_PAGE";
     public static final String COL_LOCATION_ROW = "LOCATION_ROW";
     public static final String COL_LOCATION_COLUMN = "LOCATION_COLUMN";
-    public static final String COL_IMAGE_PATH = "LOCATION_IMAGE_PATH";
+    public static final String COL_IMAGE_PATH = "IMAGE_PATH";
     public static final String COL_CATEGORY_ID = "CATEGORY_ID";
     public static final String COL_LAST_UPDATED_TIME = "LAST_UPDATED_TIME";
     public static final String COL_RECEIPT_JSON = "RECEIPT_JSON";

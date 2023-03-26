@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public static Map<Integer, Product> products;
+    public static Map<Integer, Product> products = new HashMap<>();
 
     public void init() {
         List<Product> productList = productRepository.getAll();

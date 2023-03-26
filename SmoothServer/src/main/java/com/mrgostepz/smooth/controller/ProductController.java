@@ -1,10 +1,8 @@
 package com.mrgostepz.smooth.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mrgostepz.smooth.model.Products;
 import com.mrgostepz.smooth.model.db.Product;
-import com.mrgostepz.smooth.model.enumtype.FoodType;
 import com.mrgostepz.smooth.service.ProductService;
 import com.mrgostepz.smooth.until.SmoothUtil;
 import lombok.RequiredArgsConstructor;
@@ -109,7 +107,7 @@ class ProductController {
             product.setName((String) map.get(NAME));
             product.setDescription((String) map.get(DESCRIPTION));
             product.setPrice((Double) map.get(PRICE));
-            product.setFoodType(FoodType.fromString((String) map.get(FOOD_TYPE)));
+            product.setFoodType((String) map.get(FOOD_TYPE));
             product.setCategoryId((Integer) map.get(CATEGORY_ID));
             product.setLocationPage((Integer) map.get(LOCATION_PAGE));
             product.setLocationRow((Integer) map.get(LOCATION_ROW));

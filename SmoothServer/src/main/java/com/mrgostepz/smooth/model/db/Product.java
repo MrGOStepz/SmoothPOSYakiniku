@@ -1,9 +1,6 @@
 package com.mrgostepz.smooth.model.db;
 
-import com.mrgostepz.smooth.model.enumtype.FoodType;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class Product {
@@ -11,7 +8,7 @@ public class Product {
     private String name;
     private String description;
     private Double price;
-    private FoodType foodType;
+    private String foodType;
     private Integer categoryId;
     private Integer locationPage;
     private Integer locationRow;

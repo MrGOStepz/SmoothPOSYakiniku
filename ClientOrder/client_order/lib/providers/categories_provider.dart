@@ -6,50 +6,41 @@ import 'package:http/http.dart' as http;
 import '../models/category_model.dart';
 
 class Categories with ChangeNotifier {
-  final List<Category> _items = [
-    Category(1, "MAIN 1"),
-    Category(2, "MAIN 2"),
-    Category(3, "SET MENU 1"),
-    Category(4, "SET MENU 2"),
-    Category(5, "BEVERAGE 1"),
-    Category(6, "BEVERAGE 2"),
-    Category(7, "DESSERT 1"),
-  ];
+  // List<Category> _items = [
+  //   Category(1, "MAIN 1"),
+  //   Category(2, "MAIN 2"),
+  //   Category(3, "SET MENU 1"),
+  //   Category(4, "SET MENU 2"),
+  //   Category(5, "BEVERAGE 1"),
+  //   Category(6, "BEVERAGE 2"),
+  //   Category(7, "DESSERT 1"),
+  // ];
+  List<Category> _items = [];
 
   List<Category> get items {
     return [..._items];
   }
 
-  Future<void> fetchData() async {
-
-    final url = Uri.https('http://localhost:8080', 'v1/api/category/all');
+  Future<void> fetchAndSetCategory() async {
+    final url = Uri.http('localhost:8080', '/api/v1/categoryInfo/all');
     final response = await http.get(url);
     final List<Category> loadedCategory = [];
-    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    // final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    final extractedData = json.decode(response.body) as List<dynamic>;
     if (extractedData == null) {
       return;
     }
-    extractedData.forEach((orderId, orderData) {
+
+    extractedData.forEach((category) {
       loadedCategory.add(
-        Category(
-          id: erId,
-          amount: orderData['amount'],
-          dateTime: DateTime.parse(orderData['dateTime']),
-          products: (orderData['products'] as List<dynamic>)
-              .map(
-                (item) => CartItem(
-              id: item['id'],
-              price: item['price'],
-              quantity: item['quantity'],
-              title: item['title'],
-            ),
-          )
-              .toList(),
-        ),
+        Category(category["categoryInfoId"], category["name"]),
       );
     });
-    _orders = loadedOrders.reversed.toList();
-    notifyListeners();  }
+
+    _items = loadedCategory.toList();
+    debugPrint(_items.toString());
+    notifyListeners();
+  }
 
   Category findById(int id) {
     return _items.firstWhere((item) => item.id == id);
@@ -65,7 +56,7 @@ class Categories with ChangeNotifier {
     return 1;
   }
 
-  Future<int> updateItem(Category productItem)  async {
+  Future<int> updateItem(Category productItem) async {
     notifyListeners();
     return 1;
   }

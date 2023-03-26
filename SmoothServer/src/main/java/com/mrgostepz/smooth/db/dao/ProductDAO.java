@@ -53,7 +53,7 @@ public class ProductDAO implements ProductRepository {
             statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
             statement.setDouble(3, product.getPrice());
-            statement.setString(4, product.getFoodType().getValueString());
+            statement.setString(4, product.getFoodType());
             statement.setInt(5, product.getCategoryId());
             statement.setInt(6, product.getLocationPage());
             statement.setInt(7, product.getLocationRow());
