@@ -13,8 +13,8 @@ public class TableCurrentStateMapper implements RowMapper<TableCurrentState> {
     @Override
     public TableCurrentState mapRow(ResultSet rs, int rowNum) throws SQLException {
         TableCurrentState tableCurrentState = new TableCurrentState();
-        tableCurrentState.setId(rs.getInt(COL_ID));
-        tableCurrentState.setName(rs.getString(COL_NAME));
+        tableCurrentState.setTableCurrentStateId(rs.getInt(COL_TABLE_CURRENT_STATE_ID));
+        tableCurrentState.setTableId(rs.getInt(COL_TABLE_ID));
         tableCurrentState.setOrderId(rs.getInt(COL_ORDER_ID));
         tableCurrentState.setStatus(Status.fromString(rs.getString(COL_STATUS)));
         return tableCurrentState;

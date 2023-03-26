@@ -3,7 +3,7 @@ package com.mrgostepz.smooth.model.db;
 import lombok.Data;
 
 @Data
-public class Category {
-    private Integer id;
+public class CategoryInfo {
+    private Integer CategoryInfoId;
     private String name;
 }

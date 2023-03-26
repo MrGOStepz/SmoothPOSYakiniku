@@ -52,15 +52,15 @@ public class OrderService {
 
     public void addOrder(OrderRequest orderRequest) {
         List<OrderDetail> orderDetail = generateOrderDetail(orderRequest);
-        OrderMenu order = generateOrderMenu(orderDetail, orderRequest.getTableId());
+        OrderMenu orderMenu = generateOrderMenu(orderDetail, orderRequest.getTableId());
 
-        int orderId = orderRepository.add(order);
+        int orderId = orderRepository.add(orderMenu);
 
-        order.setId(orderId);
+        orderMenu.setId(orderId);
         if (orderId > 0) {
-            logger.info("Add new order Successfully: {}", order);
+            logger.info("Add new order Successfully: {}", orderMenu);
         } else {
-            logger.warn("Cannot add new order: {}", order);
+            logger.warn("Cannot add new order: {}", orderMenu);
             throw new InsertRecordException("Cannot Create");
         }
     }

@@ -30,5 +30,6 @@ public final class TableName {
     public static final String TABLE_STAFF_TIME_SHEET = "STAFF_TIME_SHEET";
     public static final String TABLE_TABLE_SECTION = "TABLE_SECTION";
     public static final String TABLE_SET_MENU = "SET_MENU";
+    public static final String TABLE_CATEGORY_INFO = "CATEGORY_INFO";
 
 }

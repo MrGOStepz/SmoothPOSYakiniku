@@ -11,6 +11,7 @@ public class JsonKey {
     public static String IS_AVAILABLE = "isAvailable";
     public static String IS_ACTIVE = "isActive";
     public static String TABLE_ID = "tableId";
+    public static String TABLE_CURRENT_STATE_ID = "tableCurrentStateId";
     public static String ORDER_DETAIL = "orderDetail";
     public static String ORDER_TYPE = "orderType";
     public static String STATUS = "status";

@@ -74,7 +74,7 @@ class OrderController {
 
     @PostMapping(path = "/add")
     @ResponseBody
-    public ResponseEntity<String> addNewOrder(@RequestBody String jsonReq) {
+    public ResponseEntity<String> add(@RequestBody String jsonReq) {
         OrderMenu orderMenu = (OrderMenu) SmoothUtil.convertJsonToObject(jsonReq, OrderMenu.class);
         orderService.add(orderMenu);
         return new ResponseEntity<>(String.format("Add new order successfully: %s", orderMenu.toString()), HttpStatus.CREATED);

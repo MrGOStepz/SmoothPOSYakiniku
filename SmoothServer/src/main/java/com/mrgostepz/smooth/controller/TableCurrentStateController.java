@@ -68,8 +68,8 @@ class TableCurrentStateController {
             ObjectMapper mapper = new ObjectMapper();
             Map<String, Object> map = mapper.readValue(json, Map.class);
             TableCurrentState tableCurrentState = new TableCurrentState();
-            tableCurrentState.setId((Integer) map.get(ID));
-            tableCurrentState.setName((String) map.get(NAME));
+            tableCurrentState.setTableCurrentStateId((Integer) map.get(TABLE_CURRENT_STATE_ID));
+            tableCurrentState.setTableId((Integer) map.get(TABLE_ID));
             tableCurrentState.setOrderId((Integer) map.get(ORDER_ID));
             tableCurrentState.setStatus(Status.fromString((String) map.get(STATUS)));
             return tableCurrentState;
