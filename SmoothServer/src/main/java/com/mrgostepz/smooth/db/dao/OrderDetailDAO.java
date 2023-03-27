@@ -54,7 +54,7 @@ public class OrderDetailDAO implements OrderDetailRepository {
             statement.setInt(4, orderDetail.getQuantity());
             statement.setDouble(5, orderDetail.getPrice());
             statement.setString(6, orderDetail.getComment());
-            statement.setString(7, orderDetail.getStatus().getValueString());
+            statement.setString(7, orderDetail.getStatus());
             statement.setDate(8, orderDetail.getOrderTime());
             statement.setDate(9, orderDetail.getLastUpdatedTime());
 
@@ -88,7 +88,7 @@ public class OrderDetailDAO implements OrderDetailRepository {
                     orderDetail.getQuantity(),
                     orderDetail.getPrice(),
                     orderDetail.getComment(),
-                    orderDetail.getStatus().getValueString(),
+                    orderDetail.getStatus(),
                     orderDetail.getOrderTime(),
                     orderDetail.getLastUpdatedTime(),
                     orderDetail.getOrderDetailId());

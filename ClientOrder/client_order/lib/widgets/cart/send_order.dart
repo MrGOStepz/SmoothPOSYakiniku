@@ -14,7 +14,7 @@ class _SendOrderState extends State<SendOrder> {
 
   void _sendOrder() {
     setState(() {
-      Provider.of<Cart>(context, listen: false).sendOrder();
+      Provider.of<Cart>(context, listen: false).sendOrderToBackEnd();
     });
   }
 

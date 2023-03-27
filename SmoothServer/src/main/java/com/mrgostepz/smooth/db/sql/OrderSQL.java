@@ -13,15 +13,15 @@ public class OrderSQL {
             + COL_RECEIPT_JSON + ", "
             + COL_ORDER_TYPE + ", "
             + COL_AMOUNT + ", "
-            + COL_STATUS + ", "
+            + COL_CURRENT_STATUS + ", "
             + COL_START_TIME + ", "
-            + COL_LAST_UPDATED_TIME +") VALUE(?,?,?,?,?,?);";
+            + COL_LAST_UPDATED_TIME + ") VALUE(?,?,?,?,?,?,?);";
     public static final String SQL_UPDATE_ORDER = "UPDATE " + TABLE_ORDER + " SET "
             + COL_TABLE_ID + " = ?, "
             + COL_RECEIPT_JSON + " = ?, "
             + COL_ORDER_TYPE + ", "
             + COL_AMOUNT + " = ?, "
-            + COL_STATUS + " = ?, "
+            + COL_CURRENT_STATUS + " = ?, "
             + COL_START_TIME + " = ?, "
             + COL_LAST_UPDATED_TIME + " = ? WHERE "
             + COL_ORDER_ID + " = ?;";

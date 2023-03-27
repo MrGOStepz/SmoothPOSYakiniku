@@ -1,19 +1,19 @@
 import '../cart_item_model.dart';
 
 class CartRequest {
-  String? tableName;
+  int? tableId;
   List<CartItem>? cartItems;
 
-  CartRequest(this.tableName, this.cartItems);
+  CartRequest(this.tableId, this.cartItems);
 
   CartRequest.fromJson(Map<String, dynamic> json) {
-    tableName = json['tableName'];
+    tableId = json['tableId'];
     cartItems = json['cartItems'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['tableName'] = tableName;
+    data['tableId'] = tableId;
     data['cartItems'] = cartItems;
     return data;
   }

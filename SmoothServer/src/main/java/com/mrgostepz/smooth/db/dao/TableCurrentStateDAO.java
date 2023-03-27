@@ -55,7 +55,7 @@ public class TableCurrentStateDAO implements TableCurrentStateRepository {
             statement.setInt(1, tableCurrentState.getTableCurrentStateId());
             statement.setInt(2, tableCurrentState.getTableId());
             statement.setInt(3, tableCurrentState.getOrderId());
-            statement.setString(4, tableCurrentState.getStatus().getValueString());
+            statement.setString(4, tableCurrentState.getStatus());
 
             int affectedRows = statement.executeUpdate();
 
@@ -84,7 +84,7 @@ public class TableCurrentStateDAO implements TableCurrentStateRepository {
             int result = jdbcTemplate.update(SQL_UPDATE_TABLE_CURRENT_STATE,
                     tableCurrentState.getTableId(),
                     tableCurrentState.getOrderId(),
-                    tableCurrentState.getStatus().getValueString(),
+                    tableCurrentState.getStatus(),
                     tableCurrentState.getTableCurrentStateId());
             return result == 1;
         } catch (DataAccessException ex) {

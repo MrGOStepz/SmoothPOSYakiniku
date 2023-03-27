@@ -14,7 +14,7 @@ public class OrderDetail {
     private Integer quantity;
     private Double price;
     private String comment;
-    private Status status;
+    private String status;
     private Date orderTime;
     private Date lastUpdatedTime;
 }

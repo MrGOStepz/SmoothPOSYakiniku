@@ -50,9 +50,9 @@ public class OrderDAO implements OrderRepository {
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_ORDER, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, orderMenu.getTableId());
             statement.setString(2, orderMenu.getReceiptJson());
-            statement.setString(3, orderMenu.getOrderType().getValueString());
+            statement.setString(3, orderMenu.getOrderType());
             statement.setDouble(4, orderMenu.getAmount());
-            statement.setString(5, orderMenu.getStatus().getValueString());
+            statement.setString(5, orderMenu.getStatus());
             statement.setDate(6, orderMenu.getStartTime());
             statement.setDate(7, orderMenu.getLastUpdatedTime());
 
@@ -83,7 +83,7 @@ public class OrderDAO implements OrderRepository {
             int result = jdbcTemplate.update(SQL_UPDATE_ORDER,
                     orderMenu.getTableId(),
                     orderMenu.getReceiptJson(),
-                    orderMenu.getOrderType().getValueString(),
+                    orderMenu.getOrderType(),
                     orderMenu.getAmount(),
                     orderMenu.getStatus(),
                     orderMenu.getStartTime(),

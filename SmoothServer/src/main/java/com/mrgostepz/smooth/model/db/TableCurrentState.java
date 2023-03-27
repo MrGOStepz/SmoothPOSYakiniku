@@ -8,5 +8,5 @@ public class TableCurrentState {
     private Integer tableCurrentStateId;
     private Integer tableId;
     private Integer orderId;
-    private Status status;
+    private String status;
 }

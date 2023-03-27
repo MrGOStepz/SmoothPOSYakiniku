@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:client_order/models/requests/send_order_request.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
-import '../services/web_socket.dart';
 import '../models/cart_item_model.dart';
+import '../services/web_socket.dart';
 import 'config_provider.dart';
 
 class Cart with ChangeNotifier {
@@ -28,25 +29,28 @@ class Cart with ChangeNotifier {
     return total;
   }
 
-  void addItem(int productId, double price, String title, String description) {
+  void addItem(int productId, double price, String title, String description,
+      String comment) {
     if (_items.containsKey(productId)) {
       _items.update(
           productId,
           (existingCartItem) => CartItem(
-              id: existingCartItem.id,
-              title: existingCartItem.title,
+              productId: existingCartItem.productId,
+              name: existingCartItem.name,
               description: existingCartItem.description,
               price: existingCartItem.price,
-              quantity: existingCartItem.quantity + 1));
+              quantity: existingCartItem.quantity + 1,
+              comment: existingCartItem.comment));
     } else {
       _items.putIfAbsent(
         productId,
         () => CartItem(
-            id: productId,
-            title: title,
+            productId: productId,
+            name: title,
             description: description,
             price: price,
-            quantity: 1),
+            quantity: 1,
+            comment: comment),
       );
     }
     notifyListeners();
@@ -68,11 +72,12 @@ class Cart with ChangeNotifier {
       items.update(
           productId,
           (existingCartItem) => CartItem(
-              id: existingCartItem.id,
-              title: existingCartItem.title,
+              productId: existingCartItem.productId,
+              name: existingCartItem.name,
               description: existingCartItem.description,
               price: existingCartItem.price,
-              quantity: existingCartItem.quantity + value));
+              quantity: existingCartItem.quantity + value,
+              comment: existingCartItem.comment));
     } else {
       _items.remove(productId);
     }
@@ -80,7 +85,7 @@ class Cart with ChangeNotifier {
   }
 
   void sendToWebSocket(CartRequest cartRequest) {
-    var stompClient =  stompClient2;
+    var stompClient = stompClient2;
     if (stompClient == null) {
       stompClient.activate();
       debugPrint("STOMP= NULL");
@@ -103,12 +108,31 @@ class Cart with ChangeNotifier {
       cartItems.add(value);
     });
 
-    CartRequest cartRequest = CartRequest(POSConfig.tableName, cartItems);
+    CartRequest cartRequest = CartRequest(POSConfig.tableId, cartItems);
     sendToWebSocket(cartRequest);
 
     _items.clear();
     notifyListeners();
   }
 
+  Future<void> sendOrderToBackEnd() async {
+    final url = Uri.http('localhost:8080', '/api/v1/order/order');
+    List<CartItem> cartItems = [];
+    _items.forEach((key, value) {
+      cartItems.add(value);
+    });
 
+    CartRequest cartRequest = CartRequest(POSConfig.tableId, cartItems);
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode(cartRequest),
+      );
+      _items.clear();
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw error;
+    }
+  }
 }

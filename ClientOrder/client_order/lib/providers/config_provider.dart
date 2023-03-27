@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class POSConfig {
-  static String tableName = "0";
+  static int tableId = 1;
 
   void initialConfig() {
     //TODO Call API to Set config

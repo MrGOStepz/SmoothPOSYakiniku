@@ -71,7 +71,7 @@ class TableCurrentStateController {
             tableCurrentState.setTableCurrentStateId((Integer) map.get(TABLE_CURRENT_STATE_ID));
             tableCurrentState.setTableId((Integer) map.get(TABLE_ID));
             tableCurrentState.setOrderId((Integer) map.get(ORDER_ID));
-            tableCurrentState.setStatus(Status.fromString((String) map.get(STATUS)));
+            tableCurrentState.setStatus((String) map.get(STATUS));
             return tableCurrentState;
         } catch (Exception ex) {
             logger.error(ex.getMessage());

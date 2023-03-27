@@ -34,36 +34,40 @@ import 'product_model.dart';
 //   }
 // }
 class CartItem {
-  late final int id;
-  late final String title;
+  late final int productId;
+  late final String name;
   late final String description;
   late final int quantity;
   late final double price;
+  late final String comment;
 
   CartItem({
-    required this.id,
-    required this.title,
+    required this.productId,
+    required this.name,
     required this.description,
     required this.price,
     required this.quantity,
+    required this.comment,
   });
 
-  CartItem.fromJson(Map<String, dynamic> json, this.id, this.title,
-      this.description, this.quantity, this.price) {
-    id = json['id'];
-    title = json['name'];
+  CartItem.fromJson(Map<String, dynamic> json, this.productId, this.name,
+      this.description, this.quantity, this.price, this.comment) {
+    productId = json['productId'];
+    name = json['name'];
     description = json['address'];
     quantity = json['quantity'];
     price = json['price'];
+    comment = json['comment'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
+    data['productId'] = this.productId;
+    data['name'] = this.name;
     data['description'] = this.description;
     data['quantity'] = this.quantity;
     data['price'] = this.price;
+    data['comment'] = this.comment;
     return data;
   }
 }

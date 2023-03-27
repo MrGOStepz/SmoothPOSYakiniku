@@ -67,7 +67,7 @@ class _ProductMenuItemState extends State<ProductMenuItem> {
       //Add Description
       onTap: () {
         // _displayTextInputDialog(context);
-        cart.addItem(widget.id, widget.price, widget.name, "");
+        cart.addItem(widget.id, widget.price, widget.name, '', '');
       },
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(15),

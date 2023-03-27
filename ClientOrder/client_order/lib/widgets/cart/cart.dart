@@ -24,8 +24,8 @@ class _CartMenuState extends State<CartMenu> {
         builder: (ctx, cart, _) => ListView.builder(
           itemCount: cart.itemCount,
           itemBuilder: (ctx, i) => CartSection(
-            id: cart.items.values.toList()[i].id,
-            title: cart.items.values.toList()[i].title,
+            id: cart.items.values.toList()[i].productId,
+            title: cart.items.values.toList()[i].name,
             description: cart.items.values.toList()[i].description,
             price: cart.items.values.toList()[i].price,
             quantity: cart.items.values.toList()[i].quantity,

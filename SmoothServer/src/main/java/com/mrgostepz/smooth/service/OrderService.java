@@ -75,22 +75,30 @@ public class OrderService {
             orderDetail.setQuantity(cartItem.getQuantity());
             orderDetail.setComment(cartItem.getComment());
             orderDetail.setPrice(cartItem.getPrice());
-            orderDetail.setStatus(Status.COOK);
+            orderDetail.setStatus(Status.COOK.getValueString());
             orderDetail.setOrderTime(dateTimeNow);
             orderDetail.setLastUpdatedTime(dateTimeNow);
             orderDetailList.add(orderDetail);
         }
         return orderDetailList;
     }
-    private OrderMenu generateOrderMenu(List<OrderDetail> orderDetail, int tableId)  {
+    private OrderMenu generateOrderMenu(List<OrderDetail> orderDetails, int tableId)  {
         OrderMenu order = new OrderMenu();
         ReceiptInfo receiptInfo = new ReceiptInfo();
-        receiptInfo.setOrderDetails(orderDetail);
+        Double amount = 0.0;
+        Date dateTimeNow = new Date(System.currentTimeMillis());
+        receiptInfo.setOrderDetails(orderDetails);
         order.setTableId(tableId);
-        order.setOrderType(OrderType.DINE_IN);
-        order.setStatus(Status.COOK);
+        order.setOrderType(OrderType.DINE_IN.getValueString());
+        order.setStatus(Status.COOK.getValueString());
         order.setReceiptJson(receiptInfo.toString());
+        order.setStartTime(dateTimeNow);
+        order.setLastUpdatedTime(dateTimeNow);
+        for(OrderDetail orderDetail: orderDetails) {
+            amount += orderDetail.getPrice();
+        }
 
+        order.setAmount(amount);
         return order;
     }
     public void add(OrderMenu order) {

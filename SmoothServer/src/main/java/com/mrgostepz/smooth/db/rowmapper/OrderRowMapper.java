@@ -17,8 +17,8 @@ public class OrderRowMapper implements RowMapper<OrderMenu> {
         order.setId(rs.getInt(COL_ID));
         order.setTableId(rs.getInt(COL_TABLE_ID));
         order.setReceiptJson(rs.getString(COL_RECEIPT_JSON));
-        order.setStatus(Status.fromString(rs.getString(COL_STATUS)));
-        order.setOrderType(OrderType.fromString(rs.getString(COL_ORDER_TYPE)));
+        order.setStatus(rs.getString(COL_CURRENT_STATUS));
+        order.setOrderType(rs.getString(COL_ORDER_TYPE));
         order.setAmount(rs.getDouble(COL_AMOUNT));
         order.setStartTime(rs.getDate(COL_START_TIME));
         order.setLastUpdatedTime(rs.getDate(COL_LAST_UPDATED_TIME));

@@ -19,7 +19,7 @@ public class OrderDetailRowMapper implements RowMapper<OrderDetail> {
         orderDetail.setQuantity(rs.getInt(COL_QUANTITY));
         orderDetail.setPrice(rs.getDouble(COL_PRICE));
         orderDetail.setComment(rs.getString(COL_COMMENT));
-        orderDetail.setStatus(Status.fromString(rs.getString(COL_STATUS)));
+        orderDetail.setStatus(rs.getString(COL_CURRENT_STATUS));
         orderDetail.setOrderTime(rs.getDate(COL_ORDER_TIME));
         orderDetail.setLastUpdatedTime(rs.getDate(COL_LAST_UPDATED_TIME));
         return orderDetail;
