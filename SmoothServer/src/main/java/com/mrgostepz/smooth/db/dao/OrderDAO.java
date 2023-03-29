@@ -46,6 +46,7 @@ public class OrderDAO implements OrderRepository {
     public Integer add(OrderMenu orderMenu) {
         DataSource dataSource = jdbcTemplate.getDataSource();
         assert dataSource != null;
+        orderMenu.setReceiptJson("");
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_ORDER, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, orderMenu.getTableId());
@@ -53,8 +54,8 @@ public class OrderDAO implements OrderRepository {
             statement.setString(3, orderMenu.getOrderType());
             statement.setDouble(4, orderMenu.getAmount());
             statement.setString(5, orderMenu.getStatus());
-            statement.setDate(6, orderMenu.getStartTime());
-            statement.setDate(7, orderMenu.getLastUpdatedTime());
+            statement.setTimestamp(6, orderMenu.getStartTime());
+            statement.setTimestamp(7, orderMenu.getLastUpdatedTime());
 
             int affectedRows = statement.executeUpdate();
 

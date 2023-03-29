@@ -12,7 +12,7 @@ public final class TableName {
 
     public static final String TABLE_TABLE_CURRENT_STATE = "TABLE_CURRENT_STATE";
     public static final String TABLE_TABLE_DETAIL = "TABLE_DETAIL";
-    public static final String TABLE_ORDER = "ORDER";
+    public static final String TABLE_ORDER_INFO = "ORDER_INFO";
     public static final String TABLE_ORDER_DETAIL = "ORDER_DETAIL";
     public static final String TABLE_ORDER_STATUS = "ORDER_STATUS";
     public static final String TABLE_ORDER_TYPE = "ORDER_TYPE";

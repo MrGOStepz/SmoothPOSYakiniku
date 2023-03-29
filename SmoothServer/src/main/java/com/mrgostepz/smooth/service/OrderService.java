@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -86,7 +87,7 @@ public class OrderService {
         OrderMenu order = new OrderMenu();
         ReceiptInfo receiptInfo = new ReceiptInfo();
         Double amount = 0.0;
-        Date dateTimeNow = new Date(System.currentTimeMillis());
+        Timestamp dateTimeNow = new Timestamp(System.currentTimeMillis());
         receiptInfo.setOrderDetails(orderDetails);
         order.setTableId(tableId);
         order.setOrderType(OrderType.DINE_IN.getValueString());

@@ -1,6 +1,7 @@
 package com.mrgostepz.smooth.model.db;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import com.mrgostepz.smooth.model.enumtype.OrderType;
 import com.mrgostepz.smooth.model.enumtype.Status;
@@ -14,6 +15,6 @@ public class OrderMenu {
     private String status;
     private String orderType;
     private Double amount;
-    private Date startTime;
-    private Date lastUpdatedTime;
+    private Timestamp startTime;
+    private Timestamp lastUpdatedTime;
 }
