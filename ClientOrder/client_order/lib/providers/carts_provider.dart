@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:client_order/models/requests/send_order_request.dart';
+import 'package:client_order/models/requests/order_request.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
