@@ -1,18 +1,17 @@
 class CartItem {
-  final int id;
-  final String title;
-  final String description;
-  final int quantity;
-  final double price;
+  int? productId;
+  String? name;
+  String? description;
+  int? quantity;
+  double? price;
+  String? comment;
 
-  CartItem({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.price,
-    required this.quantity,
-  });
+  CartItem(
+    this.productId,
+    this.name,
+    this.description,
+    this.price,
+    this.quantity,
+    this.comment,
+  );
 }
-
-
-

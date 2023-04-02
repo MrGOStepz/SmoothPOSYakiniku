@@ -5,13 +5,13 @@ import 'package:provider/provider.dart';
 
 class HeadColumnTable extends StatefulWidget {
   final AppBar appBar;
-  final TableDetail tableDetail;
+  final TableItem tableItem;
   final int columnNumber;
   final VoidCallback getNextOrder;
 
   const HeadColumnTable(
       {required this.appBar,
-      required this.tableDetail,
+      required this.tableItem,
       required this.columnNumber,
       required this.getNextOrder,
       Key? key})
@@ -37,7 +37,7 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
           width: double.infinity,
           child: Column(
             children: [
-              Text(widget.tableDetail.tableName),
+              Text(widget.tableItem.tableName as String),
               Row(
                 children: [
                   Expanded(

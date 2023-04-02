@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:kitchen_manager/models/table_detail.dart';
 
 class ProductService {
-  Queue<TableDetail> tableQueue = Queue<TableDetail>();
+  Queue<TableItem> tableQueue = Queue<TableItem>();
 
   ProductService() {
     //TODO Initial Table Detail
   }
 
-  TableDetail getNextTable() {
+  TableItem getNextTable() {
     if (tableQueue.isNotEmpty) {
-      TableDetail popTableDetail = tableQueue.removeFirst();
+      TableItem popTableDetail = tableQueue.removeFirst();
       return popTableDetail;
     } else {
-      return TableDetail(0, "", "FREE", []);
+      return TableItem(0, "", "FREE", []);
     }
   }
 

@@ -21,11 +21,11 @@ class ListChecker extends StatefulWidget {
 }
 
 class _ListCheckerState extends State<ListChecker> {
-  TableDetail _tableDetail = TableDetail(0, 'EMPTY', 'FREE', []);
+  TableItem _tableItem = TableItem(0, 'EMPTY', 'FREE', []);
 
   void getNextTable() {
     setState(() {
-      _tableDetail =
+      _tableItem =
           Provider.of<TableProvider>(context, listen: false).popTableDetail();
     });
   }
@@ -41,13 +41,13 @@ class _ListCheckerState extends State<ListChecker> {
       children: [
         HeadColumnTable(
           appBar: widget.appBar,
-          tableDetail: _tableDetail,
+          tableItem: _tableItem,
           columnNumber: widget.columnNumber,
           getNextOrder: getNextTable,
         ),
         Container(
           height: heightSize,
-          child: OrderList(orders: _tableDetail.items),
+          child: OrderList(tableItem: _tableItem),
         )
       ],
     );

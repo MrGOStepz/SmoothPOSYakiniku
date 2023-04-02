@@ -43,7 +43,7 @@ class MainHomePage extends StatefulWidget {
 
 class _MainHomePageState extends State<MainHomePage>
     with WidgetsBindingObserver {
-  final List<TableDetail> tableDetails = [];
+  final List<TableItem> tableDetails = [];
 
   @override
   Widget build(BuildContext context) {

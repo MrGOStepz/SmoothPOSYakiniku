@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:kitchen_manager/models/table_detail.dart';
 
-import '../models/order_item_detail.dart';
 import 'order_item.dart';
 
 class OrderList extends StatelessWidget {
-  final List<OrderItemDetail> orders;
+  final TableItem tableItem;
 
-  const OrderList({required this.orders, Key? key}) : super(key: key);
+  const OrderList({required this.tableItem, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: orders
+      children: tableItem.items
           .map((item) =>
-              OrderItem(key: ValueKey(item.id), orderItemDetail: item))
+              OrderItem(key: ValueKey(tableItem.orderInfoId), cartItem: item))
           .toList(),
     );
   }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
-import '../models/order_item_detail.dart';
+import 'package:kitchen_manager/models/cart_item_model.dart';
 
 class OrderItem extends StatefulWidget {
-  final OrderItemDetail orderItemDetail;
+  final CartItem cartItem;
 
-  const OrderItem({required this.orderItemDetail, Key? key}) : super(key: key);
+  const OrderItem({required this.cartItem, Key? key}) : super(key: key);
 
   @override
   State<OrderItem> createState() => _OrderItemState();
@@ -29,7 +28,7 @@ class _OrderItemState extends State<OrderItem> {
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: ListTile(
         title: Text(
-          widget.orderItemDetail.name,
+          widget.cartItem.name as String,
           style: textItemStyle,
         ),
         trailing: IconButton(
