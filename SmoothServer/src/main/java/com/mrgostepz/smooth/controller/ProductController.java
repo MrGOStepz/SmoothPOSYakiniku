@@ -1,6 +1,5 @@
 package com.mrgostepz.smooth.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mrgostepz.smooth.model.Products;
 import com.mrgostepz.smooth.model.db.Product;
 import com.mrgostepz.smooth.service.ProductService;
@@ -22,9 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
-import static com.mrgostepz.smooth.model.constraint.JsonKey.*;
 
 //https://mkyong.com/spring-boot/spring-rest-error-handling-example/
 //http://localhost:8080/spring-mvc-basics/foos?id=abc
@@ -63,7 +60,6 @@ class ProductController {
     @PostMapping(path = "/add")
     @ResponseBody
     public ResponseEntity<String> addNewProduct(@RequestBody String jsonReq) {
-//        Product product = convertJsonToProduct(jsonReq);
         Product product = (Product) SmoothUtil.convertJsonToObject(jsonReq, Product.class);
         if (product == null) {
             return new ResponseEntity<>("Cannot Create Product", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -97,30 +93,4 @@ class ProductController {
         productService.deleteProduct(id);
         return String.format("Delete Product Id: %d completed.", id);
     }
-
-    private Product convertJsonToProduct(String json){
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            Map<String, Object> map = mapper.readValue(json, Map.class);
-            Product product = new Product();
-            product.setId((Integer) map.get(ID));
-            product.setName((String) map.get(NAME));
-            product.setDescription((String) map.get(DESCRIPTION));
-            product.setPrice((Double) map.get(PRICE));
-            product.setFoodType((String) map.get(FOOD_TYPE));
-            product.setCategoryId((Integer) map.get(CATEGORY_ID));
-            product.setLocationPage((Integer) map.get(LOCATION_PAGE));
-            product.setLocationRow((Integer) map.get(LOCATION_ROW));
-            product.setLocationColumn((Integer) map.get(LOCATION_COLUMN));
-            product.setImagePath((String) map.get(IMAGE_PATH));
-            product.setStock((Integer) map.get(STOCK));
-            product.setIsAvailable(map.get(IS_AVAILABLE).equals(1));
-            return product;
-        } catch (Exception ex) {
-            logger.error(ex.getMessage());
-            return null;
-        }
-    }
-
-
 }

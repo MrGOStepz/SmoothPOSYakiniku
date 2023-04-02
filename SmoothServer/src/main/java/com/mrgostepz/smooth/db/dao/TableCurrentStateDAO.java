@@ -1,10 +1,7 @@
 package com.mrgostepz.smooth.db.dao;
 
-import com.mrgostepz.smooth.db.repository.OrderRepository;
 import com.mrgostepz.smooth.db.repository.TableCurrentStateRepository;
-import com.mrgostepz.smooth.db.rowmapper.OrderRowMapper;
 import com.mrgostepz.smooth.db.rowmapper.TableCurrentStateMapper;
-import com.mrgostepz.smooth.model.db.TableCurrentState;
 import com.mrgostepz.smooth.model.db.TableCurrentState;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +14,6 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
-import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_UPDATE_PRODUCT;
 import static com.mrgostepz.smooth.db.sql.TableCurrentStateSQL.*;
 
 @Service
@@ -52,9 +48,9 @@ public class TableCurrentStateDAO implements TableCurrentStateRepository {
         assert dataSource != null;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_TABLE_CURRENT_STATE, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(1, tableCurrentState.getTableCurrentStateId());
-            statement.setInt(2, tableCurrentState.getTableId());
-            statement.setInt(3, tableCurrentState.getOrderId());
+            statement.setInt(1, tableCurrentState.getId());
+            statement.setInt(2, tableCurrentState.getTableInfoId());
+            statement.setInt(3, tableCurrentState.getOrderInfoId());
             statement.setString(4, tableCurrentState.getStatus());
 
             int affectedRows = statement.executeUpdate();
@@ -64,12 +60,12 @@ public class TableCurrentStateDAO implements TableCurrentStateRepository {
             }
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    tableCurrentState.setTableCurrentStateId(generatedKeys.getInt(1));
+                    tableCurrentState.setId(generatedKeys.getInt(1));
                 } else {
                     throw new SQLException("Creating product failed, no ID obtained.");
                 }
             }
-            return tableCurrentState.getTableCurrentStateId();
+            return tableCurrentState.getId();
         } catch (DataAccessException | SQLException ex) {
             logger.error(ex.getMessage());
             return -1;
@@ -82,10 +78,10 @@ public class TableCurrentStateDAO implements TableCurrentStateRepository {
     public Boolean update(TableCurrentState tableCurrentState) {
         try {
             int result = jdbcTemplate.update(SQL_UPDATE_TABLE_CURRENT_STATE,
-                    tableCurrentState.getTableId(),
-                    tableCurrentState.getOrderId(),
+                    tableCurrentState.getTableInfoId(),
+                    tableCurrentState.getOrderInfoId(),
                     tableCurrentState.getStatus(),
-                    tableCurrentState.getTableCurrentStateId());
+                    tableCurrentState.getId());
             return result == 1;
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());

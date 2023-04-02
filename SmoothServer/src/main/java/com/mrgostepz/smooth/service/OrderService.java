@@ -6,7 +6,7 @@ import com.mrgostepz.smooth.exception.RecordNotFoundException;
 import com.mrgostepz.smooth.model.CartItem;
 import com.mrgostepz.smooth.model.ReceiptInfo;
 import com.mrgostepz.smooth.model.db.OrderDetail;
-import com.mrgostepz.smooth.model.db.OrderMenu;
+import com.mrgostepz.smooth.model.db.OrderInfo;
 import com.mrgostepz.smooth.model.enumtype.OrderType;
 import com.mrgostepz.smooth.model.enumtype.Status;
 import com.mrgostepz.smooth.model.request.OrderRequest;
@@ -17,12 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.fasterxml.jackson.databind.type.LogicalType.DateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -33,8 +29,8 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderDetailService orderDetailService;
 
-    public List<OrderMenu> getAllOrder() {
-        List<OrderMenu> orderList = orderRepository.getAll();
+    public List<OrderInfo> getAllOrder() {
+        List<OrderInfo> orderList = orderRepository.getAll();
         if (orderList == null) {
             throw new RecordNotFoundException("There is no record in order table.");
         }
@@ -42,8 +38,8 @@ public class OrderService {
         return orderRepository.getAll();
     }
 
-    public OrderMenu getOrderById(int id) {
-        OrderMenu order = orderRepository.getById(id);
+    public OrderInfo getOrderById(int id) {
+        OrderInfo order = orderRepository.getById(id);
         if (order == null) {
             throw new RecordNotFoundException("There is no order in this id.");
         }
@@ -53,22 +49,22 @@ public class OrderService {
 
     public void addOrder(OrderRequest orderRequest) {
         List<OrderDetail> orderDetail = generateOrderDetail(orderRequest);
-        OrderMenu orderMenu = generateOrderMenu(orderDetail, orderRequest.getTableId());
+        OrderInfo orderInfo = generateOrderMenu(orderDetail, orderRequest.getTableId());
 
-        int orderId = orderRepository.add(orderMenu);
+        int orderId = orderRepository.add(orderInfo);
 
-        orderMenu.setId(orderId);
+        orderInfo.setId(orderId);
         if (orderId > 0) {
-            logger.info("Add new order Successfully: {}", orderMenu);
+            logger.info("Add new order Successfully: {}", orderInfo);
         } else {
-            logger.warn("Cannot add new order: {}", orderMenu);
+            logger.warn("Cannot add new order: {}", orderInfo);
             throw new InsertRecordException("Cannot Create");
         }
     }
 
     private List<OrderDetail> generateOrderDetail(OrderRequest orderRequest) {
         List<OrderDetail> orderDetailList = new ArrayList<>();
-        Date dateTimeNow = new Date(System.currentTimeMillis());
+        Timestamp dateTimeNow = new Timestamp(System.currentTimeMillis());
         for(CartItem cartItem: orderRequest.getCartItems()) {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setProductId(cartItem.getProductId());
@@ -77,23 +73,23 @@ public class OrderService {
             orderDetail.setComment(cartItem.getComment());
             orderDetail.setPrice(cartItem.getPrice());
             orderDetail.setStatus(Status.COOK.getValueString());
-            orderDetail.setOrderTime(dateTimeNow);
+            orderDetail.setStartedTime(dateTimeNow);
             orderDetail.setLastUpdatedTime(dateTimeNow);
             orderDetailList.add(orderDetail);
         }
         return orderDetailList;
     }
-    private OrderMenu generateOrderMenu(List<OrderDetail> orderDetails, int tableId)  {
-        OrderMenu order = new OrderMenu();
+    private OrderInfo generateOrderMenu(List<OrderDetail> orderDetails, int tableId)  {
+        OrderInfo order = new OrderInfo();
         ReceiptInfo receiptInfo = new ReceiptInfo();
         Double amount = 0.0;
         Timestamp dateTimeNow = new Timestamp(System.currentTimeMillis());
         receiptInfo.setOrderDetails(orderDetails);
-        order.setTableId(tableId);
+        order.setTableInfoId(tableId);
         order.setOrderType(OrderType.DINE_IN.getValueString());
         order.setStatus(Status.COOK.getValueString());
         order.setReceiptJson(receiptInfo.toString());
-        order.setStartTime(dateTimeNow);
+        order.setStartedTime(dateTimeNow);
         order.setLastUpdatedTime(dateTimeNow);
         for(OrderDetail orderDetail: orderDetails) {
             amount += orderDetail.getPrice();
@@ -102,7 +98,7 @@ public class OrderService {
         order.setAmount(amount);
         return order;
     }
-    public void add(OrderMenu order) {
+    public void add(OrderInfo order) {
         int orderId = orderRepository.add(order);
         order.setId(orderId);
         if (orderId > 0) {
@@ -113,7 +109,7 @@ public class OrderService {
         }
     }
 
-    public void updateOrder(OrderMenu order) {
+    public void updateOrder(OrderInfo order) {
         if (Boolean.TRUE.equals(orderRepository.update(order))) {
             logger.info("Update order Successfully: {}", order);
         } else {

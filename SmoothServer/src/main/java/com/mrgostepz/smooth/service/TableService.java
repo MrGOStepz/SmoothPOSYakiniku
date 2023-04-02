@@ -39,7 +39,7 @@ public class TableService {
 
     public void addTableCurrentState(TableCurrentState tableCurrentState) {
         int tableCurrentStateReId = tableCurrentStateRepository.add(tableCurrentState);
-        tableCurrentState.setTableCurrentStateId(tableCurrentStateReId);
+        tableCurrentState.setId(tableCurrentStateReId);
         if (tableCurrentStateReId > 0) {
             logger.info("Add new tableCurrentState Successfully: {}", tableCurrentState);
         } else {

@@ -54,7 +54,7 @@ public class ProductDAO implements ProductRepository {
             statement.setString(2, product.getDescription());
             statement.setDouble(3, product.getPrice());
             statement.setString(4, product.getFoodType());
-            statement.setInt(5, product.getCategoryId());
+            statement.setInt(5, product.getCategoryInfoId());
             statement.setInt(6, product.getLocationPage());
             statement.setInt(7, product.getLocationRow());
             statement.setInt(8, product.getLocationColumn());
@@ -91,7 +91,7 @@ public class ProductDAO implements ProductRepository {
                     product.getDescription(),
                     product.getPrice(),
                     product.getFoodType(),
-                    product.getCategoryId(),
+                    product.getCategoryInfoId(),
                     product.getLocationPage(),
                     product.getLocationRow(),
                     product.getLocationColumn(),

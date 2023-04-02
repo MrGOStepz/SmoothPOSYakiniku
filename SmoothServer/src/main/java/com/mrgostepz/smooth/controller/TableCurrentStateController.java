@@ -1,9 +1,8 @@
 package com.mrgostepz.smooth.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mrgostepz.smooth.model.db.TableCurrentState;
-import com.mrgostepz.smooth.model.enumtype.Status;
 import com.mrgostepz.smooth.service.TableService;
+import com.mrgostepz.smooth.until.SmoothUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
-import static com.mrgostepz.smooth.model.constraint.JsonKey.*;
 
 //https://mkyong.com/spring-boot/spring-rest-error-handling-example/
 //http://localhost:8080/spring-mvc-basics/foos?id=abc
@@ -45,14 +42,14 @@ class TableCurrentStateController {
     @PostMapping(path = "/add")
     @ResponseBody
     public ResponseEntity<String> addNewTableCurrentState(@RequestBody String jsonReq) {
-        TableCurrentState tableCurrentState = convertJsonToTableCurrentState(jsonReq);
+        TableCurrentState tableCurrentState = (TableCurrentState) SmoothUtil.convertJsonToObject(jsonReq, TableCurrentState.class);
         tableService.addTableCurrentState(tableCurrentState);
         return new ResponseEntity<>(String.format("Add new tableCurrentState successfully: %s", tableCurrentState.toString()), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/update")
     public String updateTableCurrentState(@RequestBody String jsonReq) {
-        TableCurrentState tableCurrentState = convertJsonToTableCurrentState(jsonReq);
+        TableCurrentState tableCurrentState = (TableCurrentState) SmoothUtil.convertJsonToObject(jsonReq, TableCurrentState.class);
         tableService.updateTableCurrentState(tableCurrentState);
         return String.format("Update TableCurrentState: %s completed.", tableCurrentState);
     }
@@ -62,22 +59,5 @@ class TableCurrentStateController {
         tableService.deleteTableCurrentState(id);
         return String.format("Delete TableCurrentState Id: %d completed.", id);
     }
-
-    private TableCurrentState convertJsonToTableCurrentState(String json){
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            Map<String, Object> map = mapper.readValue(json, Map.class);
-            TableCurrentState tableCurrentState = new TableCurrentState();
-            tableCurrentState.setTableCurrentStateId((Integer) map.get(TABLE_CURRENT_STATE_ID));
-            tableCurrentState.setTableId((Integer) map.get(TABLE_ID));
-            tableCurrentState.setOrderId((Integer) map.get(ORDER_ID));
-            tableCurrentState.setStatus((String) map.get(STATUS));
-            return tableCurrentState;
-        } catch (Exception ex) {
-            logger.error(ex.getMessage());
-            return null;
-        }
-    }
-
 
 }

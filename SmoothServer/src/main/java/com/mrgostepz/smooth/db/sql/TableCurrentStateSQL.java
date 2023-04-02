@@ -9,12 +9,12 @@ public class TableCurrentStateSQL {
     public static final String SQL_GET_TABLE_CURRENT_STATE_BY_COLUMN = "SELECT ? FROM " + TABLE_TABLE_CURRENT_STATE + " WHERE ? = ?";
     public static final String SQL_ADD_TABLE_CURRENT_STATE = "INSERT INTO " + TABLE_TABLE_CURRENT_STATE + " ("
             + COL_TABLE_CURRENT_STATE_ID + ", "
-            + COL_TABLE_ID + ", "
+            + COL_TABLE_INFO_ID + ", "
             + COL_ORDER_ID + ", "
             + COL_CURRENT_STATUS + ") VALUE(?,?,?,?);";
     public static final String SQL_UPDATE_TABLE_CURRENT_STATE = "UPDATE " + TABLE_TABLE_CURRENT_STATE + " SET "
             + COL_TABLE_CURRENT_STATE_ID + " = ?, "
-            + COL_TABLE_ID + " = ?, "
+            + COL_TABLE_INFO_ID + " = ?, "
             + COL_ORDER_ID + " = ?, "
             + COL_CURRENT_STATUS + " = ? WHERE "
             + COL_TABLE_CURRENT_STATE_ID + " = ?;";

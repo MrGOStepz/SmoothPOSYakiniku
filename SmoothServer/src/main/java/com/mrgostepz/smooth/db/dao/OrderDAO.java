@@ -2,7 +2,7 @@ package com.mrgostepz.smooth.db.dao;
 
 import com.mrgostepz.smooth.db.repository.OrderRepository;
 import com.mrgostepz.smooth.db.rowmapper.OrderRowMapper;
-import com.mrgostepz.smooth.model.db.OrderMenu;
+import com.mrgostepz.smooth.model.db.OrderInfo;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
-import static com.mrgostepz.smooth.db.sql.OrderSQL.*;
+import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.*;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +23,7 @@ public class OrderDAO implements OrderRepository {
 
     private final JdbcTemplate jdbcTemplate;
     @Override
-    public List<OrderMenu> getAll() {
+    public List<OrderInfo> getAll() {
         try {
             return jdbcTemplate.query(SQL_GET_ALL_ORDER, new OrderRowMapper());
         } catch (DataAccessException ex) {
@@ -33,7 +33,7 @@ public class OrderDAO implements OrderRepository {
     }
 
     @Override
-    public OrderMenu getById(Integer id) {
+    public OrderInfo getById(Integer id) {
         try {
             return jdbcTemplate.queryForObject(SQL_GET_ORDER_BY_ID, new OrderRowMapper(), id);
         } catch (DataAccessException ex) {
@@ -43,19 +43,19 @@ public class OrderDAO implements OrderRepository {
     }
 
     @Override
-    public Integer add(OrderMenu orderMenu) {
+    public Integer add(OrderInfo orderInfo) {
         DataSource dataSource = jdbcTemplate.getDataSource();
         assert dataSource != null;
-        orderMenu.setReceiptJson("");
+        orderInfo.setReceiptJson("");
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_ORDER, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(1, orderMenu.getTableId());
-            statement.setString(2, orderMenu.getReceiptJson());
-            statement.setString(3, orderMenu.getOrderType());
-            statement.setDouble(4, orderMenu.getAmount());
-            statement.setString(5, orderMenu.getStatus());
-            statement.setTimestamp(6, orderMenu.getStartTime());
-            statement.setTimestamp(7, orderMenu.getLastUpdatedTime());
+            statement.setInt(1, orderInfo.getTableInfoId());
+            statement.setString(2, orderInfo.getReceiptJson());
+            statement.setString(3, orderInfo.getOrderType());
+            statement.setDouble(4, orderInfo.getAmount());
+            statement.setString(5, orderInfo.getStatus());
+            statement.setTimestamp(6, orderInfo.getStartedTime());
+            statement.setTimestamp(7, orderInfo.getLastUpdatedTime());
 
             int affectedRows = statement.executeUpdate();
 
@@ -64,32 +64,32 @@ public class OrderDAO implements OrderRepository {
             }
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    orderMenu.setId(generatedKeys.getInt(1));
+                    orderInfo.setId(generatedKeys.getInt(1));
                 } else {
                     throw new SQLException("Creating order menu failed, no ID obtained.");
                 }
             }
-            return orderMenu.getId();
+            return orderInfo.getId();
         } catch (DataAccessException | SQLException ex) {
             logger.error(ex.getMessage());
             return -1;
         } finally {
-            logger.info("Create new Order: {}", orderMenu);
+            logger.info("Create new Order: {}", orderInfo);
         }
     }
 
     @Override
-    public Boolean update(OrderMenu orderMenu) {
+    public Boolean update(OrderInfo orderInfo) {
         try {
             int result = jdbcTemplate.update(SQL_UPDATE_ORDER,
-                    orderMenu.getTableId(),
-                    orderMenu.getReceiptJson(),
-                    orderMenu.getOrderType(),
-                    orderMenu.getAmount(),
-                    orderMenu.getStatus(),
-                    orderMenu.getStartTime(),
-                    orderMenu.getLastUpdatedTime(),
-                    orderMenu.getId());
+                    orderInfo.getTableInfoId(),
+                    orderInfo.getReceiptJson(),
+                    orderInfo.getOrderType(),
+                    orderInfo.getAmount(),
+                    orderInfo.getStatus(),
+                    orderInfo.getStartedTime(),
+                    orderInfo.getLastUpdatedTime(),
+                    orderInfo.getId());
             return result == 1;
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());

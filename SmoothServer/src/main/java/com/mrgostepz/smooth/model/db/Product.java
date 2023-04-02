@@ -9,7 +9,7 @@ public class Product {
     private String description;
     private Double price;
     private String foodType;
-    private Integer categoryId;
+    private Integer categoryInfoId;
     private Integer locationPage;
     private Integer locationRow;
     private Integer locationColumn;

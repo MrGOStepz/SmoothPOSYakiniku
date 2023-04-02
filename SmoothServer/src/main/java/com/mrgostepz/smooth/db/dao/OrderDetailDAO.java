@@ -49,14 +49,14 @@ public class OrderDetailDAO implements OrderDetailRepository {
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_ORDER_DETAIL, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, orderDetail.getOrderDetailId());
-            statement.setInt(2, orderDetail.getOrderId());
+            statement.setInt(2, orderDetail.getOrderInfoId());
             statement.setInt(3, orderDetail.getProductId());
             statement.setInt(4, orderDetail.getQuantity());
             statement.setDouble(5, orderDetail.getPrice());
             statement.setString(6, orderDetail.getComment());
             statement.setString(7, orderDetail.getStatus());
-            statement.setDate(8, orderDetail.getOrderTime());
-            statement.setDate(9, orderDetail.getLastUpdatedTime());
+            statement.setTimestamp(8, orderDetail.getStartedTime());
+            statement.setTimestamp(9, orderDetail.getLastUpdatedTime());
 
             int affectedRows = statement.executeUpdate();
 
@@ -83,13 +83,13 @@ public class OrderDetailDAO implements OrderDetailRepository {
     public Boolean update(OrderDetail orderDetail) {
         try {
             int result = jdbcTemplate.update(SQL_UPDATE_ORDER_DETAIL,
-                    orderDetail.getOrderId(),
+                    orderDetail.getOrderInfoId(),
                     orderDetail.getProductId(),
                     orderDetail.getQuantity(),
                     orderDetail.getPrice(),
                     orderDetail.getComment(),
                     orderDetail.getStatus(),
-                    orderDetail.getOrderTime(),
+                    orderDetail.getStartedTime(),
                     orderDetail.getLastUpdatedTime(),
                     orderDetail.getOrderDetailId());
             return result == 1;

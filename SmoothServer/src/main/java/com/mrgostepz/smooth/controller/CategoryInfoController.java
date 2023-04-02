@@ -1,8 +1,6 @@
 package com.mrgostepz.smooth.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mrgostepz.smooth.model.db.CategoryInfo;
-import com.mrgostepz.smooth.model.enumtype.Status;
 import com.mrgostepz.smooth.service.CategoryInfoService;
 import com.mrgostepz.smooth.until.SmoothUtil;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
-import static com.mrgostepz.smooth.model.constraint.JsonKey.*;
 
 //https://mkyong.com/spring-boot/spring-rest-error-handling-example/
 //http://localhost:8080/spring-mvc-basics/foos?id=abc
@@ -63,22 +59,5 @@ class CategoryInfoController {
         categoryInfoService.deleteCategoryInfo(id);
         return String.format("Delete CategoryInfo Id: %d completed.", id);
     }
-
-//    private CategoryInfo convertJsonToCategoryInfo(String json){
-//        try {
-//            ObjectMapper mapper = new ObjectMapper();
-//            Map<String, Object> map = mapper.readValue(json, Map.class);
-//            CategoryInfo categoryInfo = new CategoryInfo();
-//            categoryInfo.setCategoryInfoId((Integer) map.get(TABLE_CURRENT_STATE_ID));
-//            categoryInfo.setTableId((Integer) map.get(TABLE_ID));
-//            categoryInfo.setOrderId((Integer) map.get(ORDER_ID));
-//            categoryInfo.setStatus(Status.fromString((String) map.get(STATUS)));
-//            return categoryInfo;
-//        } catch (Exception ex) {
-//            logger.error(ex.getMessage());
-//            return null;
-//        }
-//    }
-
 
 }
