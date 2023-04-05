@@ -18,31 +18,26 @@ class TableProvider with ChangeNotifier {
   ];
 
   void initMock() {
-    queueTable.add(
-        TableItem(1, "2", "Cook", [
-          CartItem(1, "Beef 50", "", 50.0, 1, ""),
-          CartItem(2, "Beef 100", "", 50.0, 1, "")
-        ]));
-    queueTable.add(
-        TableItem(2, "3", "Cook", [
-          CartItem(1, "Beef 60", "", 50.0, 1, ""),
-          CartItem(2, "Beef 100", "", 50.0, 1, "")
-        ]));
-    queueTable.add(
-        TableItem(3, "4", "Cook", [
-          CartItem(1, "Beef 70", "", 50.0, 1, ""),
-          CartItem(2, "Beef 100", "", 50.0, 1, "")
-        ]));
-    queueTable.add(
-        TableItem(4, "5", "Cook", [
-          CartItem(1, "Beef 70", "", 50.0, 1, ""),
-          CartItem(2, "Beef 100", "", 50.0, 1, "")
-        ]));
-    queueTable.add(
-        TableItem(5, "6", "Cook", [
-          CartItem(1, "Beef 80", "", 50.0, 1, ""),
-          CartItem(2, "Beef 100", "", 50.0, 1, "")
-        ]));
+    queueTable.add(TableItem(1, "2", "Cook", [
+      CartItem(1, "Beef 50", "", 50.0, 1, ""),
+      CartItem(2, "Beef 100", "", 50.0, 1, "")
+    ]));
+    queueTable.add(TableItem(2, "3", "Cook", [
+      CartItem(1, "Beef 60", "", 50.0, 1, ""),
+      CartItem(2, "Beef 100", "", 50.0, 1, "")
+    ]));
+    queueTable.add(TableItem(3, "4", "Cook", [
+      CartItem(1, "Beef 70", "", 50.0, 1, ""),
+      CartItem(2, "Beef 100", "", 50.0, 1, "")
+    ]));
+    queueTable.add(TableItem(4, "5", "Cook", [
+      CartItem(1, "Beef 70", "", 50.0, 1, ""),
+      CartItem(2, "Beef 100", "", 50.0, 1, "")
+    ]));
+    queueTable.add(TableItem(5, "6", "Cook", [
+      CartItem(1, "Beef 80", "", 50.0, 1, ""),
+      CartItem(2, "Beef 100", "", 50.0, 1, "")
+    ]));
     //
     // debugPrint('Queue Total = ${queueTable.length.toString()}');
   }
@@ -51,13 +46,27 @@ class TableProvider with ChangeNotifier {
     return queueTable;
   }
 
+  String tempTableName = '1';
+
+  void addItem() {
+    tempTableName += tempTableName;
+    tableItems.add(TableItem(
+        3, tempTableName, 'Cook', [CartItem(2, "Beef 100", "", 50.0, 1, "")]));
+  }
+
   Future<void> fetchAndSetTableDetail() async {
     try {
-      //TODO Subscribe to service.
-      // queueTable.add(tableItem);
+      initMock();
+      tableItems = queueTable.toList();
+      notifyListeners();
     } catch (error) {
       debugPrint(error.toString());
     }
+  }
+
+  void cleanTable(int index) {
+    tableItems.removeAt(index);
+    notifyListeners();
   }
 
   TableItem popTableDetail() {

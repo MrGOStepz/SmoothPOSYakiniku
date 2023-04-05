@@ -8,11 +8,13 @@ import 'order_list.dart';
 
 class ListChecker extends StatefulWidget {
   final AppBar appBar;
+  final TableItem tableItem;
   final int columnNumber;
 
   const ListChecker({
     required this.appBar,
     required this.columnNumber,
+    required this.tableItem,
     Key? key,
   }) : super(key: key);
 
