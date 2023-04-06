@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kitchen_manager/models/table_detail.dart';
 import 'package:kitchen_manager/providers/table_providers.dart';
 import 'package:kitchen_manager/screens/main_screen.dart';
+import 'package:kitchen_manager/screens/overview_screen.dart';
 import 'package:kitchen_manager/services/product_service.dart';
 import 'package:kitchen_manager/widgets/list_checker.dart';
 import 'package:provider/provider.dart';
@@ -46,23 +47,16 @@ class _MainHomePageState extends State<MainHomePage>
     with WidgetsBindingObserver {
   final List<TableItem> tableDetails = [];
 
+
+
   @override
   Widget build(BuildContext context) {
-    final AppBar appBar = AppBar(
-      title: Text(widget.title),
-    );
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: TableProvider()),
       ],
-      child: Scaffold(
-        appBar: appBar,
-        body: SafeArea(
-          child: MainScreen(
-            appBar: appBar,
-          ),
-        ),
-      ),
+      child: KitchenOverviewScreen(title: widget.title),
     );
   }
 }

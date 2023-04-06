@@ -6,12 +6,15 @@ import 'package:provider/provider.dart';
 class HeadColumnTable extends StatefulWidget {
   final AppBar appBar;
   final TableItem tableItem;
-  final VoidCallback getNextOrder;
+  final int columnNumber;
+
+  // final VoidCallback getNextOrder;
 
   const HeadColumnTable(
       {required this.appBar,
       required this.tableItem,
-      required this.getNextOrder,
+      // required this.getNextOrder,
+      required this.columnNumber,
       Key? key})
       : super(key: key);
 
@@ -20,6 +23,13 @@ class HeadColumnTable extends StatefulWidget {
 }
 
 class _HeadColumnTableState extends State<HeadColumnTable> {
+  void getNextTable() {
+    setState(() {
+      Provider.of<TableProvider>(context, listen: false)
+          .cleanTable(widget.columnNumber);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -29,7 +39,7 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
         0.1;
     return Card(
       child: InkWell(
-        onTap: widget.getNextOrder,
+        onTap: getNextTable,
         child: SizedBox(
           height: heightSize,
           width: double.infinity,
@@ -51,9 +61,7 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
                   Expanded(
                     flex: 1,
                     child: TextButton(
-                      onPressed: () =>
-                          Provider.of<TableProvider>(context, listen: false)
-                              .initMock(),
+                      onPressed: getNextTable,
                       style: TextButton.styleFrom(
                         primary: Colors.blue,
                       ),

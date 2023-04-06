@@ -23,12 +23,12 @@ class ListChecker extends StatefulWidget {
 }
 
 class _ListCheckerState extends State<ListChecker> {
-  void getNextTable() {
-    setState(() {
-      Provider.of<TableProvider>(context, listen: false)
-          .cleanTable(widget.columnNumber);
-    });
-  }
+  // void getNextTable() {
+  //   setState(() {
+  //     Provider.of<TableProvider>(context, listen: false)
+  //         .cleanTable(widget.columnNumber);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,8 @@ class _ListCheckerState extends State<ListChecker> {
         HeadColumnTable(
           appBar: widget.appBar,
           tableItem: widget.tableItem,
-          getNextOrder: getNextTable,
+          columnNumber: widget.columnNumber,
+          // getNextOrder: getNextTable,
         ),
         Container(
           height: heightSize,
