@@ -6,13 +6,11 @@ import 'package:provider/provider.dart';
 class HeadColumnTable extends StatefulWidget {
   final AppBar appBar;
   final TableItem tableItem;
-  final int columnNumber;
   final VoidCallback getNextOrder;
 
   const HeadColumnTable(
       {required this.appBar,
       required this.tableItem,
-      required this.columnNumber,
       required this.getNextOrder,
       Key? key})
       : super(key: key);

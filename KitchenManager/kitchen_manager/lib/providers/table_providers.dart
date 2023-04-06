@@ -7,34 +7,30 @@ import 'package:kitchen_manager/models/cart_item_model.dart';
 import '../models/table_detail.dart';
 
 class TableProvider with ChangeNotifier {
-  final Queue<TableItem> queueTable = Queue();
-
   List<TableItem> tableItems = [
-    // TableDetail(1, "1", "Order", [
-    //   OrderItemDetail(1, "Beef 50"),
-    //   OrderItemDetail(2, "Rice 20"),
-    //   OrderItemDetail(3, "Water 20")
-    // ])
+    TableItem(0, "Waiting Order", "PENDING", []),
+    TableItem(0, "Waiting Order", "PENDING", []),
+    TableItem(0, "Waiting Order", "PENDING", [])
   ];
 
   void initMock() {
-    queueTable.add(TableItem(1, "2", "Cook", [
+    tableItems.add(TableItem(1, "2", "Cook", [
       CartItem(1, "Beef 50", "", 50.0, 1, ""),
       CartItem(2, "Beef 100", "", 50.0, 1, "")
     ]));
-    queueTable.add(TableItem(2, "3", "Cook", [
+    tableItems.add(TableItem(2, "3", "Cook", [
       CartItem(1, "Beef 60", "", 50.0, 1, ""),
       CartItem(2, "Beef 100", "", 50.0, 1, "")
     ]));
-    queueTable.add(TableItem(3, "4", "Cook", [
+    tableItems.add(TableItem(3, "4", "Cook", [
       CartItem(1, "Beef 70", "", 50.0, 1, ""),
       CartItem(2, "Beef 100", "", 50.0, 1, "")
     ]));
-    queueTable.add(TableItem(4, "5", "Cook", [
+    tableItems.add(TableItem(4, "5", "Cook", [
       CartItem(1, "Beef 70", "", 50.0, 1, ""),
       CartItem(2, "Beef 100", "", 50.0, 1, "")
     ]));
-    queueTable.add(TableItem(5, "6", "Cook", [
+    tableItems.add(TableItem(5, "6", "Cook", [
       CartItem(1, "Beef 80", "", 50.0, 1, ""),
       CartItem(2, "Beef 100", "", 50.0, 1, "")
     ]));
@@ -42,13 +38,13 @@ class TableProvider with ChangeNotifier {
     // debugPrint('Queue Total = ${queueTable.length.toString()}');
   }
 
-  Queue<TableItem> get items {
-    return queueTable;
+  List<TableItem> get items {
+    return tableItems;
   }
 
   String tempTableName = '1';
 
-  void addItem() {
+  void addTempItem() {
     tempTableName += tempTableName;
     tableItems.add(TableItem(
         3, tempTableName, 'Cook', [CartItem(2, "Beef 100", "", 50.0, 1, "")]));
@@ -57,23 +53,34 @@ class TableProvider with ChangeNotifier {
   Future<void> fetchAndSetTableDetail() async {
     try {
       initMock();
-      tableItems = queueTable.toList();
+      TableItem tempItem = TableItem(
+          3, tempTableName, 'Cook', [CartItem(2, "Beef 100", "", 50.0, 1, "")]);
+
+      addItem(tempItem);
       notifyListeners();
     } catch (error) {
       debugPrint(error.toString());
     }
   }
 
-  void cleanTable(int index) {
-    tableItems.removeAt(index);
-    notifyListeners();
+  void addItem(TableItem tableItem) {
+    if (tableItems[0].orderInfoId == 0) {
+      tableItems[0] = tableItem;
+    } else if (tableItems[1].orderInfoId == 0) {
+      tableItems[1] = tableItem;
+    } else if (tableItems[2].orderInfoId == 0) {
+      tableItems[2] = tableItem;
+    } else {
+      tableItems.add(tableItem);
+    }
   }
 
-  TableItem popTableDetail() {
-    if (queueTable.isEmpty) {
-      return TableItem(0, "EMPTY", 'FREE', []);
+  void cleanTable(int index) {
+    if (tableItems.length > 3) {
+      tableItems.removeAt(index);
     } else {
-      return queueTable.removeFirst();
+      tableItems.add(TableItem(0, "Waiting Order", "PENDING", []));
     }
+    notifyListeners();
   }
 }

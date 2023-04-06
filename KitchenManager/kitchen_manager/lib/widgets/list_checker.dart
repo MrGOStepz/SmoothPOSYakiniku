@@ -13,8 +13,8 @@ class ListChecker extends StatefulWidget {
 
   const ListChecker({
     required this.appBar,
-    required this.columnNumber,
     required this.tableItem,
+    required this.columnNumber,
     Key? key,
   }) : super(key: key);
 
@@ -23,12 +23,10 @@ class ListChecker extends StatefulWidget {
 }
 
 class _ListCheckerState extends State<ListChecker> {
-  TableItem _tableItem = TableItem(0, 'EMPTY', 'FREE', []);
-
   void getNextTable() {
     setState(() {
-      _tableItem =
-          Provider.of<TableProvider>(context, listen: false).popTableDetail();
+      Provider.of<TableProvider>(context, listen: false)
+          .cleanTable(widget.columnNumber);
     });
   }
 
@@ -39,17 +37,21 @@ class _ListCheckerState extends State<ListChecker> {
             widget.appBar.preferredSize.height -
             mediaQuery.padding.top) *
         0.9;
+
+    debugPrint('Column Number: ${widget.columnNumber}');
+    debugPrint('Order: ${widget.tableItem.orderInfoId}');
+    debugPrint('Table Name: ${widget.tableItem.tableName}');
+
     return Column(
       children: [
         HeadColumnTable(
           appBar: widget.appBar,
-          tableItem: _tableItem,
-          columnNumber: widget.columnNumber,
+          tableItem: widget.tableItem,
           getNextOrder: getNextTable,
         ),
         Container(
           height: heightSize,
-          child: OrderList(tableItem: _tableItem),
+          child: OrderList(tableItem: widget.tableItem),
         )
       ],
     );

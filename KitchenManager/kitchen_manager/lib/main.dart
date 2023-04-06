@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kitchen_manager/models/table_detail.dart';
 import 'package:kitchen_manager/providers/table_providers.dart';
+import 'package:kitchen_manager/screens/main_screen.dart';
 import 'package:kitchen_manager/services/product_service.dart';
 import 'package:kitchen_manager/widgets/list_checker.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,6 @@ class _MainHomePageState extends State<MainHomePage>
     final AppBar appBar = AppBar(
       title: Text(widget.title),
     );
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: TableProvider()),
@@ -58,25 +58,9 @@ class _MainHomePageState extends State<MainHomePage>
       child: Scaffold(
         appBar: appBar,
         body: SafeArea(
-          child: Table(border: TableBorder.all(), children: [
-            TableRow(
-              children: [
-                ListChecker(
-                  appBar: appBar,
-                  columnNumber: 1,
-                ),
-                ListChecker(
-                  appBar: appBar,
-                  columnNumber: 2,
-                ),
-                ListChecker(
-                  appBar: appBar,
-                  columnNumber: 3,
-                ),
-                Text('Table 4') // TODO Clean List,
-              ],
-            ),
-          ]),
+          child: MainScreen(
+            appBar: appBar,
+          ),
         ),
       ),
     );
