@@ -6,7 +6,9 @@ import '../providers/table_providers.dart';
 
 class KitchenOverviewScreen extends StatefulWidget {
   final String title;
-  const KitchenOverviewScreen({required this.title, Key? key}) : super(key: key);
+
+  const KitchenOverviewScreen({required this.title, Key? key})
+      : super(key: key);
 
   @override
   State<KitchenOverviewScreen> createState() => _KitchenOverviewScreenState();
@@ -14,6 +16,7 @@ class KitchenOverviewScreen extends StatefulWidget {
 
 class _KitchenOverviewScreenState extends State<KitchenOverviewScreen> {
   bool _isInit = true;
+
   @override
   void initState() {
     super.initState();
@@ -30,13 +33,12 @@ class _KitchenOverviewScreenState extends State<KitchenOverviewScreen> {
       //       _isLoading = false;
       //     });
       //   });
-
-      Provider.of<TableProvider>(context, listen: false)
-          .fetchAndSetTableDetail();
+      Provider.of<TableProvider>(context).fetchAndSetTableDetail();
     }
     _isInit = false;
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
 

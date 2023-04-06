@@ -30,6 +30,14 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
     });
   }
 
+  void testAddTable() {
+
+    setState(() {
+      Provider.of<TableProvider>(context, listen: false)
+          .addTempItem();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -39,7 +47,7 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
         0.1;
     return Card(
       child: InkWell(
-        onTap: getNextTable,
+        onTap: testAddTable,
         child: SizedBox(
           height: heightSize,
           width: double.infinity,

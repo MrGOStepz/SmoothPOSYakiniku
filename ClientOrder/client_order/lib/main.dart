@@ -16,10 +16,6 @@ class ClientOrderApp extends StatelessWidget {
   const ClientOrderApp({super.key});
 
   @override
-
-
-
-  @override
   Widget build(BuildContext context) {
 
     stompClient2.activate();

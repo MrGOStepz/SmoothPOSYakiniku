@@ -19,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final tableProvider = Provider.of<TableProvider>(context, listen: false);
+    final tableProvider = Provider.of<TableProvider>(context, listen: true);
     tableItems = tableProvider.items;
     return Table(border: TableBorder.all(), children: [
       TableRow(

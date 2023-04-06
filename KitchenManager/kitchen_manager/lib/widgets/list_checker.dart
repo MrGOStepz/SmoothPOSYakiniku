@@ -38,10 +38,6 @@ class _ListCheckerState extends State<ListChecker> {
             mediaQuery.padding.top) *
         0.9;
 
-    debugPrint('Column Number: ${widget.columnNumber}');
-    debugPrint('Order: ${widget.tableItem.orderInfoId}');
-    debugPrint('Table Name: ${widget.tableItem.tableName}');
-
     return Column(
       children: [
         HeadColumnTable(
