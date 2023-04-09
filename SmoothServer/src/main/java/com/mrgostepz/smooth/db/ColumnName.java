@@ -40,7 +40,7 @@ public class ColumnName {
     public static final String COL_COMMENT = "COMMENT";
     public static final String COL_ORDER_STATUS_ID = "ORDER_STATUS_ID";
     public static final String COL_STATUS_ID = "STATUS_ID";
-    public static final String COL_CURRENT_STATUS = "CURRENT_STATUS";
+    public static final String COL_STATUS = "STATUS";
 
     public static final String COL_ORDER_STATUS_NAME = "ORDER_STATUS_NAME";
     public static final String COL_ORDER_TYPE_ID = "ORDER_TYPE_ID";

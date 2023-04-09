@@ -45,7 +45,7 @@ class Products with ChangeNotifier {
   }
 
   Future<void> fetchAndSetProducts() async {
-    final url = Uri.http('localhost:8080', '/api/v1/product/all');
+    final url = Uri.http('10.0.2.2:8080', '/api/v1/product/all');
     final response = await http.get(url);
     final List<Product> loadedProduct = [];
     final extractedData = json.decode(response.body) as List<dynamic>;
@@ -60,7 +60,7 @@ class Products with ChangeNotifier {
             value["name"],
             value["price"],
             value["foodType"],
-            value["categoryId"],
+            value["categoryInfoId"],
             value["locationPage"],
             value["locationRow"],
             value["locationColumn"],
@@ -91,21 +91,21 @@ class Products with ChangeNotifier {
   }
 
   List<Product> getProductsByCategory(int categoryId) {
-    return _items.where((item) => item.categoryId == categoryId).toList();
+    return _items.where((item) => item.categoryInfoId == categoryId).toList();
   }
 
   Set<int> getNumberOfPageByCategory(int categoryId) {
     var pageNumber = <int>{};
     List<Product> tempProduct = getProductsByCategory(categoryId);
     tempProduct
-        .where((pageProduct) => pageNumber.add(pageProduct.page))
+        .where((pageProduct) => pageNumber.add(pageProduct.locationPage))
         .toList();
     return pageNumber;
   }
 
   List<Product> getProductsByCategoryAndPage(int categoryId, int page) {
     return _items
-        .where((item) => item.categoryId == categoryId && item.page == page)
+        .where((item) => item.categoryInfoId == categoryId && item.locationPage == page)
         .toList();
   }
 }

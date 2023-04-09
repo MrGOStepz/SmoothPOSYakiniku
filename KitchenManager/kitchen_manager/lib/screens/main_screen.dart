@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kitchen_manager/providers/table_providers.dart';
 import 'package:provider/provider.dart';
 
-import '../models/table_detail.dart';
+import '../models/table_item_model.dart';
 import '../widgets/list_checker.dart';
 
 class MainScreen extends StatefulWidget {

@@ -17,7 +17,7 @@ class DishMenu extends StatelessWidget {
     try {
       Product productItem = productItems
           .where((value) =>
-      value.row == row && value.column == column)
+      value.locationRow == row && value.locationColumn == column)
           .first;
       return ProductMenuItem(
           id: productItem.id, price: productItem.price, name: productItem.name);

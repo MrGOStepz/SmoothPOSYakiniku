@@ -1,7 +1,6 @@
 package com.mrgostepz.smooth.db.rowmapper;
 
 import com.mrgostepz.smooth.model.db.OrderDetail;
-import com.mrgostepz.smooth.model.enumtype.Status;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -19,7 +18,7 @@ public class OrderDetailRowMapper implements RowMapper<OrderDetail> {
         orderDetail.setQuantity(rs.getInt(COL_QUANTITY));
         orderDetail.setPrice(rs.getDouble(COL_PRICE));
         orderDetail.setComment(rs.getString(COL_COMMENT));
-        orderDetail.setStatus(rs.getString(COL_CURRENT_STATUS));
+        orderDetail.setStatus(rs.getString(COL_STATUS));
         orderDetail.setStartedTime(rs.getTimestamp(COL_ORDER_TIME));
         orderDetail.setLastUpdatedTime(rs.getTimestamp(COL_LAST_UPDATED_TIME));
         return orderDetail;

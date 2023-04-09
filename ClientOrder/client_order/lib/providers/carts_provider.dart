@@ -84,7 +84,7 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
-  void sendToWebSocket(CartRequest cartRequest) {
+  void sendToWebSocket() {
     var stompClient = stompClient2;
     if (stompClient == null) {
       stompClient.activate();
@@ -92,6 +92,12 @@ class Cart with ChangeNotifier {
     } else {
       debugPrint("STOMP!= NULL");
     }
+    List<CartItem> cartItems = [];
+    _items.forEach((key, value) {
+      cartItems.add(value);
+    });
+
+    CartRequest cartRequest = CartRequest(POSConfig.tableId, cartItems);
 
     stompClient.activate();
     var request = jsonEncode(cartRequest.toJson());
@@ -109,14 +115,15 @@ class Cart with ChangeNotifier {
     });
 
     CartRequest cartRequest = CartRequest(POSConfig.tableId, cartItems);
-    sendToWebSocket(cartRequest);
+    // sendToWebSocket(cartRequest);
 
     _items.clear();
     notifyListeners();
   }
 
   Future<void> sendOrderToBackEnd() async {
-    final url = Uri.http('localhost:8080', '/api/v1/order/order');
+    final url = Uri.http('10.0.2.2:8080', '/api/v1/order/order');
+    // final url = Uri.http('localhost:8080', '/api/v1/order/order');
     List<CartItem> cartItems = [];
     _items.forEach((key, value) {
       cartItems.add(value);

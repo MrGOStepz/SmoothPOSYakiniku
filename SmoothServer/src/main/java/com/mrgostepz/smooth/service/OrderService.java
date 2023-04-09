@@ -47,7 +47,7 @@ public class OrderService {
         return order;
     }
 
-    public void addOrder(OrderRequest orderRequest) {
+    public OrderInfo addOrder(OrderRequest orderRequest) {
         List<OrderDetail> orderDetail = generateOrderDetail(orderRequest);
         OrderInfo orderInfo = generateOrderMenu(orderDetail, orderRequest.getTableId());
 
@@ -60,6 +60,7 @@ public class OrderService {
             logger.warn("Cannot add new order: {}", orderInfo);
             throw new InsertRecordException("Cannot Create");
         }
+        return orderInfo;
     }
 
     private List<OrderDetail> generateOrderDetail(OrderRequest orderRequest) {

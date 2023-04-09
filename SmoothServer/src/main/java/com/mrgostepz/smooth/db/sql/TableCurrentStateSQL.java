@@ -11,12 +11,12 @@ public class TableCurrentStateSQL {
             + COL_TABLE_CURRENT_STATE_ID + ", "
             + COL_TABLE_INFO_ID + ", "
             + COL_ORDER_ID + ", "
-            + COL_CURRENT_STATUS + ") VALUE(?,?,?,?);";
+            + COL_STATUS + ") VALUE(?,?,?,?);";
     public static final String SQL_UPDATE_TABLE_CURRENT_STATE = "UPDATE " + TABLE_TABLE_CURRENT_STATE + " SET "
             + COL_TABLE_CURRENT_STATE_ID + " = ?, "
             + COL_TABLE_INFO_ID + " = ?, "
             + COL_ORDER_ID + " = ?, "
-            + COL_CURRENT_STATUS + " = ? WHERE "
+            + COL_STATUS + " = ? WHERE "
             + COL_TABLE_CURRENT_STATE_ID + " = ?;";
     public static final String SQL_DELETE_TABLE_CURRENT_STATE = "DELETE FROM " + TABLE_TABLE_CURRENT_STATE + " WHERE " + COL_TABLE_CURRENT_STATE_ID + " = ?;";
 }

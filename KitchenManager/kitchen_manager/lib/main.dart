@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kitchen_manager/models/table_detail.dart';
+import 'package:kitchen_manager/models/table_item_model.dart';
 import 'package:kitchen_manager/providers/table_providers.dart';
 import 'package:kitchen_manager/screens/main_screen.dart';
 import 'package:kitchen_manager/screens/overview_screen.dart';

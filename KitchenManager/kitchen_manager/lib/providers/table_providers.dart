@@ -2,13 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kitchen_manager/models/cart_item_model.dart';
 
-import '../models/table_detail.dart';
+import '../models/table_info_model.dart';
+import '../models/table_item_model.dart';
 
 class TableProvider with ChangeNotifier {
   List<TableItem> tableItems = [
-    TableItem(0, "Waiting Order", "PENDING", []),
-    TableItem(0, "Waiting Order", "PENDING", []),
-    TableItem(0, "Waiting Order", "PENDING", [])
+    TableItem(0, TableInfo(0, "Waiting Order"), "PENDING", []),
+    TableItem(0, TableInfo(0, "Waiting Order"), "PENDING", []),
+    TableItem(0, TableInfo(0, "Waiting Order"), "PENDING", [])
   ];
   TableItem vacantTable = TableItem(0, "Waiting Order", "PENDING", []);
 

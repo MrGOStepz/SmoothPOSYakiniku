@@ -13,7 +13,7 @@ public class OrderDetailSQL {
             + COL_QUANTITY + ", "
             + COL_PRICE + ", "
             + COL_COMMENT + ", "
-            + COL_CURRENT_STATUS + ", "
+            + COL_STATUS + ", "
             + COL_ORDER_TIME + ", "
             + COL_LAST_UPDATED_TIME +") VALUE(?,?,?,?,?,?);";
     public static final String SQL_UPDATE_ORDER_DETAIL = "UPDATE " + TABLE_ORDER_DETAIL + " SET "
@@ -22,7 +22,7 @@ public class OrderDetailSQL {
             + COL_QUANTITY + " = ?, "
             + COL_PRICE + " = ?, "
             + COL_COMMENT + " = ?, "
-            + COL_CURRENT_STATUS + " = ?, "
+            + COL_STATUS + " = ?, "
             + COL_ORDER_TIME + " = ?, "
             + COL_LAST_UPDATED_TIME + " = ? WHERE "
             + COL_ORDER_DETAIL_ID + " = ?;";

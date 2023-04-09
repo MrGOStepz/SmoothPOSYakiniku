@@ -1,7 +1,9 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:kitchen_manager/models/table_detail.dart';
+import 'package:kitchen_manager/models/table_item_model.dart';
+
+import '../models/table_info_model.dart';
 
 class ProductService {
   Queue<TableItem> tableQueue = Queue<TableItem>();
@@ -15,7 +17,7 @@ class ProductService {
       TableItem popTableDetail = tableQueue.removeFirst();
       return popTableDetail;
     } else {
-      return TableItem(0, "", "FREE", []);
+      return TableItem(0, TableInfo(0, 'Waiting For Order'), "FREE", []);
     }
   }
 
@@ -25,7 +27,7 @@ class ProductService {
 }
 
 void main() {
-  ProductService productService = ProductService();
-  print(productService.getNextTable().tableName);
-  print(productService.getNextTable().tableName);
+  // ProductService productService = ProductService();
+  // print(productService.getNextTable().tableName);
+  // print(productService.getNextTable().tableName);
 }

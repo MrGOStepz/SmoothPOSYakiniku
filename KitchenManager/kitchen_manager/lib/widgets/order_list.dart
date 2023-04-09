@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kitchen_manager/models/table_detail.dart';
+import 'package:kitchen_manager/models/table_item_model.dart';
 
 import 'order_item.dart';
 

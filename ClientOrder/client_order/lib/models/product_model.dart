@@ -5,10 +5,10 @@ class Product {
   final String name;
   final double price;
   final String foodType;
-  final int categoryId;
-  final int page;
-  final int row;
-  final int column;
+  final int categoryInfoId;
+  final int locationPage;
+  final int locationRow;
+  final int locationColumn;
   final int stock;
   final String imagePath;
   final bool isAvailable;
@@ -18,10 +18,10 @@ class Product {
       this.name,
       this.price,
       this.foodType,
-      this.categoryId,
-      this.page,
-      this.row,
-      this.column,
+      this.categoryInfoId,
+      this.locationPage,
+      this.locationRow,
+      this.locationColumn,
       this.stock,
       this.imagePath,
       this.isAvailable);

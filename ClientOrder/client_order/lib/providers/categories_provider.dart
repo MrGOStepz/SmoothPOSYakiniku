@@ -22,7 +22,8 @@ class Categories with ChangeNotifier {
   }
 
   Future<void> fetchAndSetCategory() async {
-    final url = Uri.http('localhost:8080', '/api/v1/categoryInfo/all');
+    final url = Uri.http('10.0.2.2:8080', '/api/v1/categoryInfo/all');
+    // final url = Uri.http('localhost:8080', '/api/v1/categoryInfo/all');
     final response = await http.get(url);
     final List<Category> loadedCategory = [];
     // final extractedData = json.decode(response.body) as Map<String, dynamic>;
