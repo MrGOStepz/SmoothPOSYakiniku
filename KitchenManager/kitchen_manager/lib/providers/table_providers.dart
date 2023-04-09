@@ -11,15 +11,16 @@ class TableProvider with ChangeNotifier {
     TableItem(0, TableInfo(0, "Waiting Order"), "PENDING", []),
     TableItem(0, TableInfo(0, "Waiting Order"), "PENDING", [])
   ];
-  TableItem vacantTable = TableItem(0, "Waiting Order", "PENDING", []);
+  TableItem vacantTable =
+      TableItem(0, TableInfo(0, 'Waiter Table'), "PENDING", []);
 
   Future<List<TableItem>> initMock() async {
     List<TableItem> tempTable = [];
-    tempTable.add(TableItem(1, "1", "Cook", [
+    tempTable.add(TableItem(1, TableInfo(1, '1'), "Cook", [
       CartItem(1, "Beef 50", "", 50.0, 1, ""),
       CartItem(2, "Beef 100", "", 50.0, 1, "")
     ]));
-    tempTable.add(TableItem(2, "2", "Cook", [
+    tempTable.add(TableItem(2, TableInfo(2,'2'), "Cook", [
       CartItem(1, "Beef 60", "", 50.0, 1, ""),
       CartItem(2, "Beef 100", "", 50.0, 1, "")
     ]));
