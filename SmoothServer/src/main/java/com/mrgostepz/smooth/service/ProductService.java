@@ -7,6 +7,7 @@ import com.mrgostepz.smooth.model.db.Product;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -23,6 +24,7 @@ public class ProductService {
 
     public static Map<Integer, Product> products = new HashMap<>();
 
+    @Autowired
     public void init() {
         List<Product> productList = productRepository.getAll();
        updateProductCache(productList);

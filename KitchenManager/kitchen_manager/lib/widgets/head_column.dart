@@ -30,13 +30,13 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
     });
   }
 
-  void testAddTable() {
-
-    setState(() {
-      Provider.of<TableProvider>(context, listen: false)
-          .addTempItem();
-    });
-  }
+  // void testAddTable() {
+  //
+  //   setState(() {
+  //     Provider.of<TableProvider>(context, listen: false)
+  //         .addTempItem();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +47,13 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
         0.1;
     return Card(
       child: InkWell(
-        onTap: testAddTable,
+        onTap: null,
         child: SizedBox(
           height: heightSize,
           width: double.infinity,
           child: Column(
             children: [
-              Text(widget.tableItem.tableName as String),
+              Text(widget.tableItem.tableInfo.name as String),
               Row(
                 children: [
                   Expanded(

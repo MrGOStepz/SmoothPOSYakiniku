@@ -26,7 +26,6 @@ class OrderController {
     private static final Logger logger = LogManager.getLogger(OrderController.class);
 
     private final OrderService orderService;
-    private final WebSocketController greetingcontroller;
 
     @GetMapping(path = "/all")
     @ResponseBody
@@ -34,6 +33,11 @@ class OrderController {
         return new ResponseEntity<>(orderService.getAllOrder(), HttpStatus.OK);
     }
 
+    @GetMapping(path = "/cook")
+    @ResponseBody
+    public ResponseEntity<List<OrderInfo>> getCookOrder() {
+        return new ResponseEntity<>(orderService.getCookOrder(), HttpStatus.OK);
+    }
     @GetMapping(path = "/{id}")
     @ResponseBody
     public ResponseEntity<OrderInfo> getOrderById(@PathVariable int id) {

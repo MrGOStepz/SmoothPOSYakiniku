@@ -10,6 +10,7 @@ import com.mrgostepz.smooth.model.db.OrderInfo;
 import com.mrgostepz.smooth.model.enumtype.OrderType;
 import com.mrgostepz.smooth.model.enumtype.Status;
 import com.mrgostepz.smooth.model.request.OrderRequest;
+import com.mrgostepz.smooth.model.response.OrderResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,7 +36,16 @@ public class OrderService {
             throw new RecordNotFoundException("There is no record in order table.");
         }
         logger.info(orderList);
-        return orderRepository.getAll();
+        return orderList;
+    }
+
+    public List<OrderInfo> getCookOrder() {
+        List<OrderInfo> orderList = orderRepository.getCookOrder();
+        if (orderList == null) {
+            throw new RecordNotFoundException("There is no record in order table.");
+        }
+        logger.info(orderList);
+        return orderList;
     }
 
     public OrderInfo getOrderById(int id) {
@@ -61,6 +71,10 @@ public class OrderService {
             throw new InsertRecordException("Cannot Create");
         }
         return orderInfo;
+    }
+
+    public OrderResponse orderResult(OrderRequest orderRequest) {
+
     }
 
     private List<OrderDetail> generateOrderDetail(OrderRequest orderRequest) {

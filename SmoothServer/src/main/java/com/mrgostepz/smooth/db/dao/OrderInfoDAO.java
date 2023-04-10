@@ -33,6 +33,16 @@ public class OrderInfoDAO implements OrderRepository {
     }
 
     @Override
+    public List<OrderInfo> getCookOrder() {
+        try {
+            return jdbcTemplate.query(SQL_GET_COOK_ORDER, new OrderRowMapper());
+        } catch (DataAccessException ex) {
+            logger.error(ex.getMessage());
+            throw ex;
+        }
+    }
+
+    @Override
     public OrderInfo getById(Integer id) {
         try {
             return jdbcTemplate.queryForObject(SQL_GET_ORDER_BY_ID, new OrderRowMapper(), id);
@@ -107,4 +117,6 @@ public class OrderInfoDAO implements OrderRepository {
             throw ex;
         }
     }
+
+
 }
