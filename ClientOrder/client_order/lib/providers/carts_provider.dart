@@ -97,7 +97,7 @@ class Cart with ChangeNotifier {
       cartItems.add(value);
     });
 
-    CartRequest cartRequest = CartRequest(POSConfig.tableId, cartItems);
+    CartRequest cartRequest = CartRequest(POSConfig.tableName, cartItems);
 
     stompClient.activate();
     var request = jsonEncode(cartRequest.toJson());
@@ -114,7 +114,7 @@ class Cart with ChangeNotifier {
       cartItems.add(value);
     });
 
-    CartRequest cartRequest = CartRequest(POSConfig.tableId, cartItems);
+    CartRequest cartRequest = CartRequest(POSConfig.tableName, cartItems);
     // sendToWebSocket(cartRequest);
 
     _items.clear();
@@ -129,7 +129,7 @@ class Cart with ChangeNotifier {
       cartItems.add(value);
     });
 
-    CartRequest cartRequest = CartRequest(POSConfig.tableId, cartItems);
+    CartRequest cartRequest = CartRequest(POSConfig.tableName, cartItems);
     try {
       final response = await http.post(
         url,

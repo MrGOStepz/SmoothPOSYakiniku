@@ -17,7 +17,7 @@ class ProductService {
       TableItem popTableDetail = tableQueue.removeFirst();
       return popTableDetail;
     } else {
-      return TableItem(0, TableInfo(0, 'Waiting For Order'), "FREE", []);
+      return TableItem(0, 'Waiting For Order', "FREE", []);
     }
   }
 

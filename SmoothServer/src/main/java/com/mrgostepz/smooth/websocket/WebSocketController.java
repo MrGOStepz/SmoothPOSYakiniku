@@ -29,13 +29,15 @@ public class WebSocketController {
     @SendTo("/topic/ordering")
     public OrderResponse ordering(OrderRequest orderRequest) throws Exception {
         OrderInfo orderInfo = orderService.addOrder(orderRequest);
-        OrderResponse = orde
         OrderResponse orderResponse = new OrderResponse();
         orderResponse.setOrderInfoId(orderInfo.getId());
-        orderResponse.setTableInfo(orderInfo.getTableInfo());
+        orderResponse.setTableName(orderRequest.getTableName());
+        orderResponse.setItems(orderRequest.getCartItems());
+        orderResponse.setOrderInfoId(orderInfo.getTableInfoId());
 
-        logger.info("Order Request: {}", orderRequest.toString());
-        return orderRequest;
+        logger.info("Order Request: {}", orderRequest);
+        logger.info("Order Response: {}", orderResponse);
+        return orderResponse;
     }
 
 }

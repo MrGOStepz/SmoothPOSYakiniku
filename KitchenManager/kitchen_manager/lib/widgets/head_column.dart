@@ -53,7 +53,7 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
           width: double.infinity,
           child: Column(
             children: [
-              Text(widget.tableItem.tableInfo.name as String),
+              Text(widget.tableItem.tableName as String),
               Row(
                 children: [
                   Expanded(
