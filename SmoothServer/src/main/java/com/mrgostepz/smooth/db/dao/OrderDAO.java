@@ -18,8 +18,8 @@ import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.*;
 
 @Service
 @RequiredArgsConstructor
-public class OrderInfoDAO implements OrderRepository {
-    private static final Logger logger = LogManager.getLogger(OrderInfoDAO.class);
+public class OrderDAO implements OrderRepository {
+    private static final Logger logger = LogManager.getLogger(OrderDAO.class);
 
     private final JdbcTemplate jdbcTemplate;
     @Override

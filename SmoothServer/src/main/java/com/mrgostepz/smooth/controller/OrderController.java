@@ -2,6 +2,7 @@ package com.mrgostepz.smooth.controller;
 
 import com.mrgostepz.smooth.model.db.OrderInfo;
 import com.mrgostepz.smooth.model.request.OrderRequest;
+import com.mrgostepz.smooth.model.response.OrderResponse;
 import com.mrgostepz.smooth.service.OrderService;
 import com.mrgostepz.smooth.until.SmoothUtil;
 import lombok.RequiredArgsConstructor;
@@ -34,9 +35,10 @@ class OrderController {
 
     @GetMapping(path = "/cook")
     @ResponseBody
-    public ResponseEntity<List<OrderInfo>> getCookOrder() {
-        return new ResponseEntity<>(orderService.getCookOrder(), HttpStatus.OK);
+    public ResponseEntity<List<OrderResponse>> getCookOrder() {
+        return new ResponseEntity<>(orderService.getListOrderCook(), HttpStatus.OK);
     }
+
     @GetMapping(path = "/{id}")
     @ResponseBody
     public ResponseEntity<OrderInfo> getOrderById(@PathVariable int id) {

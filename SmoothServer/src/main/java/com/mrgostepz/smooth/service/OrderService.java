@@ -15,10 +15,8 @@ import com.mrgostepz.smooth.model.response.OrderResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +29,6 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
-    private final OrderDetailService orderDetailService;
 
     public List<OrderInfo> getAllOrder() {
         List<OrderInfo> orderList = orderRepository.getAll();
@@ -80,36 +77,33 @@ public class OrderService {
         return orderInfo;
     }
 
-    public List<OrderResponse> orderResult(OrderRequest orderRequest) {
+    public List<OrderResponse> getListOrderCook() {
         try {
             List<OrderInfo> orderInfoList;
             List<OrderResponse> orderResponseList = new ArrayList<>();
-            List<OrderDetail> orderDetailList = new ArrayList<>();
+            List<OrderDetail> orderDetailList;
             OrderResponse orderResponse;
             orderInfoList = orderRepository.getCookOrder();
-
-            for (int i = 0; i < orderInfoList.size(); i++) {
-                orderDetailList = new ArrayList<>();
-                orderDetailList = orderDetailRepository.getOrderDetailByOrderInfoId(orderInfoList.get(i).getId());
+            for (OrderInfo orderInfo : orderInfoList) {
+                orderDetailList = orderDetailRepository.getOrderDetailByOrderInfoId(orderInfo.getId());
                 List<CartItem> cartItemList = new ArrayList<>();
-                for (int j = 0; j < orderDetailList.size(); j++) {
+                orderResponse = new OrderResponse();
+                orderResponse.setOrderInfoId(orderInfo.getId());
+                orderResponse.setTableName(orderInfo.getTableName());
+                for (OrderDetail orderDetail : orderDetailList) {
                     CartItem cartItem = new CartItem();
-                    cartItem.setProductId(orderDetailList.get(j).getProductId());
-                    cartItem.setName(orderDetailList.get(j).getProductName());
-                    cartItem.setQuantity(orderDetailList.get(j).getQuantity());
-                    cartItem.setPrice(orderDetailList.get(j).getPrice());
-                    cartItem.setComment(orderDetailList.get(j).getComment());
+                    cartItem.setProductId(orderDetail.getProductId());
+                    cartItem.setName(orderDetail.getProductName());
+                    cartItem.setQuantity(orderDetail.getQuantity());
+                    cartItem.setPrice(orderDetail.getPrice());
+                    cartItem.setComment(orderDetail.getComment());
                     cartItemList.add(cartItem);
                 }
-
-            }
-            for (OrderInfo orderinfo : orderInfoList) {
-                orderResponse = new OrderResponse();
-                orderResponse.setOrderInfoId(orderinfo.getId());
-                orderResponse.setTableName(orderinfo.getTableName());
-                orderResponse.setItems();
+                orderResponse.setItems(cartItemList);
                 orderResponseList.add(orderResponse);
             }
+            return orderResponseList;
+
         } catch (Exception ex) {
             return null;
         }

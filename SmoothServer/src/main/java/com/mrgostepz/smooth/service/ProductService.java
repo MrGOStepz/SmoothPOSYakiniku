@@ -23,20 +23,21 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    private List<Product> products = new ArrayList<>();
+    private Map<Integer, Product> products = new HashMap<>();
+    private List<Product> productList = new ArrayList<>();
 
     @Autowired
     public void init() {
-        List<Product> productList = productRepository.getAll();
-       updateProductCache(productList);
+        productList = productRepository.getAll();
+        updateProductCache(productList);
     }
 
     public List<Product> getProductFromCache() {
-        return products;
+        return productList;
     }
 
     private void updateProductCache(List<Product> productList) {
-        for(Product product: productList) {
+        for (Product product : productList) {
             products.put(product.getId(), product);
         }
     }
