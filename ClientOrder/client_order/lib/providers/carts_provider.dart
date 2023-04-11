@@ -102,23 +102,11 @@ class Cart with ChangeNotifier {
     stompClient.activate();
     var request = jsonEncode(cartRequest.toJson());
     stompClient.send(
-      destination: '/app/order',
+      destination: '/app/cart/order',
       body: request,
     );
-  }
 
-  void sendOrder() {
-    //TODO Send to Backend
-    List<CartItem> cartItems = [];
-    _items.forEach((key, value) {
-      cartItems.add(value);
-    });
-
-    CartRequest cartRequest = CartRequest(POSConfig.tableName, cartItems);
-    // sendToWebSocket(cartRequest);
-
-    _items.clear();
-    notifyListeners();
+    items.clear();
   }
 
   Future<void> sendOrderToBackEnd() async {

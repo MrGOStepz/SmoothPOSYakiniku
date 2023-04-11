@@ -82,6 +82,7 @@ public class ColumnName {
     public static final String COL_U_NAME = "U_NAME";
     public static final String COL_NAME = "NAME";
     public static final String COL_TABLE_INFO_ID = "TABLE_INFO_ID";
+    public static final String COL_TABLE_NAME = "TABLE_NAME";
     public static final String COL_MARGIN_TOP = "MARGIN_TOP";
     public static final String COL_MARGIN_BOTTOM = "MARGIN_BOTTOM";
     public static final String COL_MARGIN_LEFT = "MARGIN_LEFT";
