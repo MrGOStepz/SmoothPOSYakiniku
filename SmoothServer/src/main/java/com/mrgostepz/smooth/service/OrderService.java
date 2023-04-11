@@ -1,7 +1,7 @@
 package com.mrgostepz.smooth.service;
 
 import com.mrgostepz.smooth.db.repository.OrderDetailRepository;
-import com.mrgostepz.smooth.db.repository.OrderRepository;
+import com.mrgostepz.smooth.db.repository.OrderInfoRepository;
 import com.mrgostepz.smooth.exception.InsertRecordException;
 import com.mrgostepz.smooth.exception.RecordNotFoundException;
 import com.mrgostepz.smooth.model.CartItem;
@@ -27,11 +27,11 @@ public class OrderService {
 
     private static final Logger logger = LogManager.getLogger(OrderService.class);
 
-    private final OrderRepository orderRepository;
+    private final OrderInfoRepository orderInfoRepository;
     private final OrderDetailRepository orderDetailRepository;
 
     public List<OrderInfo> getAllOrder() {
-        List<OrderInfo> orderList = orderRepository.getAll();
+        List<OrderInfo> orderList = orderInfoRepository.getAll();
         if (orderList == null) {
             throw new RecordNotFoundException("There is no record in order table.");
         }
@@ -40,7 +40,7 @@ public class OrderService {
     }
 
     public List<OrderInfo> getCookOrder() {
-        List<OrderInfo> orderList = orderRepository.getCookOrder();
+        List<OrderInfo> orderList = orderInfoRepository.getCookOrder();
         if (orderList == null) {
             throw new RecordNotFoundException("There is no record in order table.");
         }
@@ -49,7 +49,7 @@ public class OrderService {
     }
 
     public OrderInfo getOrderById(int id) {
-        OrderInfo order = orderRepository.getById(id);
+        OrderInfo order = orderInfoRepository.getById(id);
         if (order == null) {
             throw new RecordNotFoundException("There is no order in this id.");
         }
@@ -61,7 +61,7 @@ public class OrderService {
         List<OrderDetail> orderDetailList = generateOrderDetail(orderRequest);
         OrderInfo orderInfo = generateOrderMenu(orderDetailList, orderRequest.getTableName());
 
-        int orderId = orderRepository.add(orderInfo);
+        int orderId = orderInfoRepository.add(orderInfo);
         for (OrderDetail order : orderDetailList) {
             order.setOrderInfoId(orderId);
             orderDetailRepository.add(order);
@@ -83,7 +83,7 @@ public class OrderService {
             List<OrderResponse> orderResponseList = new ArrayList<>();
             List<OrderDetail> orderDetailList;
             OrderResponse orderResponse;
-            orderInfoList = orderRepository.getCookOrder();
+            orderInfoList = orderInfoRepository.getCookOrder();
             for (OrderInfo orderInfo : orderInfoList) {
                 orderDetailList = orderDetailRepository.getOrderDetailByOrderInfoId(orderInfo.getId());
                 List<CartItem> cartItemList = new ArrayList<>();
@@ -148,7 +148,7 @@ public class OrderService {
     }
 
     public void add(OrderInfo order) {
-        int orderId = orderRepository.add(order);
+        int orderId = orderInfoRepository.add(order);
         order.setId(orderId);
         if (orderId > 0) {
             logger.info("Add new order Successfully: {}", order);
@@ -159,7 +159,7 @@ public class OrderService {
     }
 
     public void updateOrder(OrderInfo order) {
-        if (Boolean.TRUE.equals(orderRepository.update(order))) {
+        if (Boolean.TRUE.equals(orderInfoRepository.update(order))) {
             logger.info("Update order Successfully: {}", order);
         } else {
             logger.warn("Cannot Update order: {}", order);
@@ -168,7 +168,7 @@ public class OrderService {
     }
 
     public void deleteOrder(int id) {
-        if (Boolean.TRUE.equals(orderRepository.deleteById(id))) {
+        if (Boolean.TRUE.equals(orderInfoRepository.deleteById(id))) {
             logger.info("Delete order Successfully: {}", id);
         } else {
             logger.warn("Cannot Delete order: {}", id);
