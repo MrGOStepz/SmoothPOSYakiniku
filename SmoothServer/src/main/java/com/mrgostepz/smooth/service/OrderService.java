@@ -1,5 +1,6 @@
 package com.mrgostepz.smooth.service;
 
+import com.mrgostepz.smooth.db.repository.OrderDetailRepository;
 import com.mrgostepz.smooth.db.repository.OrderRepository;
 import com.mrgostepz.smooth.exception.InsertRecordException;
 import com.mrgostepz.smooth.exception.RecordNotFoundException;
@@ -14,6 +15,7 @@ import com.mrgostepz.smooth.model.response.OrderResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -28,6 +30,7 @@ public class OrderService {
     private static final Logger logger = LogManager.getLogger(OrderService.class);
 
     private final OrderRepository orderRepository;
+    private final OrderDetailRepository orderDetailRepository;
     private final OrderDetailService orderDetailService;
 
     public List<OrderInfo> getAllOrder() {
@@ -58,10 +61,14 @@ public class OrderService {
     }
 
     public OrderInfo addOrder(OrderRequest orderRequest) {
-        List<OrderDetail> orderDetail = generateOrderDetail(orderRequest);
-        OrderInfo orderInfo = generateOrderMenu(orderDetail, orderRequest.getTableId());
+        List<OrderDetail> orderDetailList = generateOrderDetail(orderRequest);
+        OrderInfo orderInfo = generateOrderMenu(orderDetailList, orderRequest.getTableName());
 
         int orderId = orderRepository.add(orderInfo);
+        for (OrderDetail order : orderDetailList) {
+            order.setOrderInfoId(orderId);
+            orderDetailRepository.add(order);
+        }
 
         orderInfo.setId(orderId);
         if (orderId > 0) {
@@ -73,14 +80,45 @@ public class OrderService {
         return orderInfo;
     }
 
-    public OrderResponse orderResult(OrderRequest orderRequest) {
+    public List<OrderResponse> orderResult(OrderRequest orderRequest) {
+        try {
+            List<OrderInfo> orderInfoList;
+            List<OrderResponse> orderResponseList = new ArrayList<>();
+            List<OrderDetail> orderDetailList = new ArrayList<>();
+            OrderResponse orderResponse;
+            orderInfoList = orderRepository.getCookOrder();
 
+            for (int i = 0; i < orderInfoList.size(); i++) {
+                orderDetailList = new ArrayList<>();
+                orderDetailList = orderDetailRepository.getOrderDetailByOrderInfoId(orderInfoList.get(i).getId());
+                List<CartItem> cartItemList = new ArrayList<>();
+                for (int j = 0; j < orderDetailList.size(); j++) {
+                    CartItem cartItem = new CartItem();
+                    cartItem.setProductId(orderDetailList.get(j).getProductId());
+                    cartItem.setName(orderDetailList.get(j).getProductName());
+                    cartItem.setQuantity(orderDetailList.get(j).getQuantity());
+                    cartItem.setPrice(orderDetailList.get(j).getPrice());
+                    cartItem.setComment(orderDetailList.get(j).getComment());
+                    cartItemList.add(cartItem);
+                }
+
+            }
+            for (OrderInfo orderinfo : orderInfoList) {
+                orderResponse = new OrderResponse();
+                orderResponse.setOrderInfoId(orderinfo.getId());
+                orderResponse.setTableName(orderinfo.getTableName());
+                orderResponse.setItems();
+                orderResponseList.add(orderResponse);
+            }
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     private List<OrderDetail> generateOrderDetail(OrderRequest orderRequest) {
         List<OrderDetail> orderDetailList = new ArrayList<>();
         Timestamp dateTimeNow = new Timestamp(System.currentTimeMillis());
-        for(CartItem cartItem: orderRequest.getCartItems()) {
+        for (CartItem cartItem : orderRequest.getCartItems()) {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setProductId(cartItem.getProductId());
             orderDetail.setProductName(cartItem.getName());
@@ -94,25 +132,27 @@ public class OrderService {
         }
         return orderDetailList;
     }
-    private OrderInfo generateOrderMenu(List<OrderDetail> orderDetails, int tableId)  {
+
+    private OrderInfo generateOrderMenu(List<OrderDetail> orderDetails, String tableName) {
         OrderInfo order = new OrderInfo();
         ReceiptInfo receiptInfo = new ReceiptInfo();
         Double amount = 0.0;
         Timestamp dateTimeNow = new Timestamp(System.currentTimeMillis());
         receiptInfo.setOrderDetails(orderDetails);
-        order.setTableInfoId(tableId);
+        order.setTableName(tableName);
         order.setOrderType(OrderType.DINE_IN.getValueString());
         order.setStatus(Status.COOK.getValueString());
         order.setReceiptJson(receiptInfo.toString());
         order.setStartedTime(dateTimeNow);
         order.setLastUpdatedTime(dateTimeNow);
-        for(OrderDetail orderDetail: orderDetails) {
+        for (OrderDetail orderDetail : orderDetails) {
             amount += orderDetail.getPrice();
         }
 
         order.setAmount(amount);
         return order;
     }
+
     public void add(OrderInfo order) {
         int orderId = orderRepository.add(order);
         order.setId(orderId);

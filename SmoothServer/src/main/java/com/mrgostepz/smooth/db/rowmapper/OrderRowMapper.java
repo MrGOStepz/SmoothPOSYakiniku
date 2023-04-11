@@ -13,12 +13,12 @@ public class OrderRowMapper implements RowMapper<OrderInfo> {
     public OrderInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
         OrderInfo order = new OrderInfo();
         order.setId(rs.getInt(COL_ID));
-        order.setTableInfoId(rs.getInt(COL_TABLE_INFO_ID));
+        order.setTableName(rs.getString(COL_TABLE_SECTION_NAME));
         order.setReceiptJson(rs.getString(COL_RECEIPT_JSON));
         order.setStatus(rs.getString(COL_STATUS));
         order.setOrderType(rs.getString(COL_ORDER_TYPE));
         order.setAmount(rs.getDouble(COL_AMOUNT));
-        order.setStartedTime(rs.getTimestamp(COL_START_TIME));
+        order.setStartedTime(rs.getTimestamp(COL_STARTED_TIME));
         order.setLastUpdatedTime(rs.getTimestamp(COL_LAST_UPDATED_TIME));
         return order;
     }

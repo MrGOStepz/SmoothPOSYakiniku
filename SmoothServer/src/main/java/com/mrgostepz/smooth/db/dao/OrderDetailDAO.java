@@ -48,15 +48,14 @@ public class OrderDetailDAO implements OrderDetailRepository {
         assert dataSource != null;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_ORDER_DETAIL, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(1, orderDetail.getOrderDetailId());
-            statement.setInt(2, orderDetail.getOrderInfoId());
-            statement.setInt(3, orderDetail.getProductId());
-            statement.setInt(4, orderDetail.getQuantity());
-            statement.setDouble(5, orderDetail.getPrice());
-            statement.setString(6, orderDetail.getComment());
-            statement.setString(7, orderDetail.getStatus());
-            statement.setTimestamp(8, orderDetail.getStartedTime());
-            statement.setTimestamp(9, orderDetail.getLastUpdatedTime());
+            statement.setInt(1, orderDetail.getOrderInfoId());
+            statement.setInt(2, orderDetail.getProductId());
+            statement.setInt(3, orderDetail.getQuantity());
+            statement.setDouble(4, orderDetail.getPrice());
+            statement.setString(5, orderDetail.getComment());
+            statement.setString(6, orderDetail.getStatus());
+            statement.setTimestamp(7, orderDetail.getStartedTime());
+            statement.setTimestamp(8, orderDetail.getLastUpdatedTime());
 
             int affectedRows = statement.executeUpdate();
 
@@ -108,5 +107,16 @@ public class OrderDetailDAO implements OrderDetailRepository {
             logger.error(ex.getMessage());
             throw ex;
         }
+    }
+
+    @Override
+    public List<OrderDetail> getOrderDetailByOrderInfoId(int id) {
+        try {
+            return jdbcTemplate.query(SQL_GET_ORDER_DETAIL_BY_ORDER_INFO_ID, new OrderDetailRowMapper(), id);
+        } catch (DataAccessException ex) {
+            logger.error(ex.getMessage());
+            throw ex;
+        }
+
     }
 }

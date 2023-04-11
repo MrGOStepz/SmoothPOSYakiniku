@@ -29,7 +29,7 @@ public class ColumnName {
     public static final String COL_INGREDIENT_ID = "INGREDIENT_ID";
     public static final String COL_INGREDIENT_NAME = "INGREDIENT_NAME";
     public static final String COL_INGREDIENT_IMAGE_PATH = "INGREDIENT_IMAGE_PATH";
-    public static final String COL_ORDER_ID = "ORDER_ID";
+    public static final String COL_ORDER_INFO_ID = "ORDER_INFO_ID";
     public static final String COL_ORDER_AT = "ORDER_AT";
     public static final String COL_ORDER_TIME = "ORDER_TIME";
     public static final String COL_ORDER_DETAIL_ID = "ORDER_DETAIL_ID";
@@ -45,7 +45,7 @@ public class ColumnName {
     public static final String COL_ORDER_STATUS_NAME = "ORDER_STATUS_NAME";
     public static final String COL_ORDER_TYPE_ID = "ORDER_TYPE_ID";
     public static final String COL_ORDER_DETAIL = "ORDER_DETAIL";
-    public static final String COL_START_TIME = "START_TIME";
+    public static final String COL_STARTED_TIME = "STARTED_TIME";
     public static final String COL_ORDER_TYPE_NAME = "ORDER_TYPE_NAME";
     public static final String COL_ORDER_TYPE = "ORDER_TYPE";
     public static final String COL_PAYMENT_TYPE_ID = "PAYMENT_TYPE_ID";

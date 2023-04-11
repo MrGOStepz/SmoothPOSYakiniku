@@ -33,7 +33,6 @@ public class WebSocketController {
         orderResponse.setOrderInfoId(orderInfo.getId());
         orderResponse.setTableName(orderRequest.getTableName());
         orderResponse.setItems(orderRequest.getCartItems());
-        orderResponse.setOrderInfoId(orderInfo.getTableInfoId());
 
         logger.info("Order Request: {}", orderRequest);
         logger.info("Order Response: {}", orderResponse);

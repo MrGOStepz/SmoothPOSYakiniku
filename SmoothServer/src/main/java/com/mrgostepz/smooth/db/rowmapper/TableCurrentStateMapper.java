@@ -14,7 +14,7 @@ public class TableCurrentStateMapper implements RowMapper<TableCurrentState> {
         TableCurrentState tableCurrentState = new TableCurrentState();
         tableCurrentState.setId(rs.getInt(COL_TABLE_CURRENT_STATE_ID));
         tableCurrentState.setTableInfoId(rs.getInt(COL_TABLE_INFO_ID));
-        tableCurrentState.setOrderInfoId(rs.getInt(COL_ORDER_ID));
+        tableCurrentState.setOrderInfoId(rs.getInt(COL_ORDER_INFO_ID));
         tableCurrentState.setStatus(rs.getString(COL_STATUS));
         return tableCurrentState;
     }

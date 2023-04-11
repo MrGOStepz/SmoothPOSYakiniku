@@ -1,7 +1,7 @@
 package com.mrgostepz.smooth.until;
 
-import com.mrgostepz.smooth.model.TableInfo;
 import com.mrgostepz.smooth.model.db.Product;
+import com.mrgostepz.smooth.model.db.TableInfo;
 
 import java.util.HashMap;
 import java.util.List;

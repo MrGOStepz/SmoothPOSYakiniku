@@ -59,7 +59,7 @@ public class OrderInfoDAO implements OrderRepository {
         orderInfo.setReceiptJson("");
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_ORDER, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(1, orderInfo.getTableInfoId());
+            statement.setString(1, orderInfo.getTableName());
             statement.setString(2, orderInfo.getReceiptJson());
             statement.setString(3, orderInfo.getOrderType());
             statement.setDouble(4, orderInfo.getAmount());
@@ -92,7 +92,7 @@ public class OrderInfoDAO implements OrderRepository {
     public Boolean update(OrderInfo orderInfo) {
         try {
             int result = jdbcTemplate.update(SQL_UPDATE_ORDER,
-                    orderInfo.getTableInfoId(),
+                    orderInfo.getTableName(),
                     orderInfo.getReceiptJson(),
                     orderInfo.getOrderType(),
                     orderInfo.getAmount(),

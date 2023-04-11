@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class OrderInfo {
     private Integer id;
-    private Integer tableInfoId;
+    private String tableName;
     private String receiptJson;
     private String status;
     private String orderType;
