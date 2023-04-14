@@ -7,9 +7,10 @@ class ProductMenuItem extends StatefulWidget {
   final int id;
   final String name;
   final double price;
+  final String imagePath;
 
   const ProductMenuItem(
-      {Key? key, required this.id, required this.name, required this.price})
+      {Key? key, required this.id, required this.name, required this.price, required this.imagePath})
       : super(key: key);
 
   @override

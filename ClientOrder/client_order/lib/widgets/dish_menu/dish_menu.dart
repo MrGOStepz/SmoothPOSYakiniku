@@ -20,7 +20,7 @@ class DishMenu extends StatelessWidget {
       value.locationRow == row && value.locationColumn == column)
           .first;
       return ProductMenuItem(
-          id: productItem.id, price: productItem.price, name: productItem.name);
+          id: productItem.id, price: productItem.price, name: productItem.name, imagePath: productItem.imagePath,);
     } catch (e) {
       return const Text("");
     }

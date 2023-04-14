@@ -12,9 +12,10 @@ import static com.mrgostepz.smooth.db.ColumnName.*;
 public class CategoryInfoMapper implements RowMapper<CategoryInfo> {
     @Override
     public CategoryInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
-        CategoryInfo CategoryInfo = new CategoryInfo();
-        CategoryInfo.setCategoryInfoId(rs.getInt(COL_CATEGORY_INFO_ID));
-        CategoryInfo.setName(rs.getString(COL_NAME));
-        return CategoryInfo;
+        CategoryInfo categoryInfo = new CategoryInfo();
+        categoryInfo.setCategoryInfoId(rs.getInt(COL_CATEGORY_INFO_ID));
+        categoryInfo.setName(rs.getString(COL_NAME));
+        categoryInfo.setImagePath(rs.getString(COL_IMAGE_PATH));
+        return categoryInfo;
     }
 }

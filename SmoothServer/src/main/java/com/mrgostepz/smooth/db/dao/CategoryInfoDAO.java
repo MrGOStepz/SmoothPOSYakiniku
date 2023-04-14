@@ -43,12 +43,13 @@ public class CategoryInfoDAO implements CategoryInfoRepository {
     }
 
     @Override
-    public Integer add(CategoryInfo CategoryInfo) {
+    public Integer add(CategoryInfo categoryInfo) {
         DataSource dataSource = jdbcTemplate.getDataSource();
         assert dataSource != null;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_CATEGORY_INFO, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, CategoryInfo.getName());
+            statement.setString(1, categoryInfo.getName());
+            statement.setString(2, categoryInfo.getImagePath());
 
             int affectedRows = statement.executeUpdate();
 
@@ -57,27 +58,28 @@ public class CategoryInfoDAO implements CategoryInfoRepository {
             }
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    CategoryInfo.setCategoryInfoId(generatedKeys.getInt(1));
+                    categoryInfo.setCategoryInfoId(generatedKeys.getInt(1));
                 } else {
                     throw new SQLException("Creating Category failed, no ID obtained.");
                 }
             }
-            return CategoryInfo.getCategoryInfoId();
+            return categoryInfo.getCategoryInfoId();
         } catch (DataAccessException | SQLException ex) {
             logger.error(ex.getMessage());
             return -1;
         } finally {
-            logger.info("Create new Category: {}", CategoryInfo);
+            logger.info("Create new Category: {}", categoryInfo);
         }
     }
 
     @Override
-    public Boolean update(CategoryInfo CategoryInfo) {
+    public Boolean update(CategoryInfo categoryInfo) {
         try {
             int result = jdbcTemplate.update(SQL_UPDATE_CATEGORY_INFO,
-                    CategoryInfo.getCategoryInfoId(),
-                    CategoryInfo.getName(),
-                    CategoryInfo.getCategoryInfoId());
+                    categoryInfo.getCategoryInfoId(),
+                    categoryInfo.getName(),
+                    categoryInfo.getImagePath(),
+                    categoryInfo.getCategoryInfoId());
             return result == 1;
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
