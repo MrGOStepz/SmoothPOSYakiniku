@@ -8,6 +8,7 @@ import com.mrgostepz.smooth.model.CartItem;
 import com.mrgostepz.smooth.model.ReceiptInfo;
 import com.mrgostepz.smooth.model.db.OrderDetail;
 import com.mrgostepz.smooth.model.db.OrderInfo;
+import com.mrgostepz.smooth.model.db.Product;
 import com.mrgostepz.smooth.model.enumtype.OrderType;
 import com.mrgostepz.smooth.model.enumtype.Status;
 import com.mrgostepz.smooth.model.request.OrderRequest;
@@ -29,6 +30,7 @@ public class OrderService {
 
     private final OrderInfoRepository orderInfoRepository;
     private final OrderDetailRepository orderDetailRepository;
+    private final ProductService productService;
 
     public List<OrderInfo> getAllOrder() {
         List<OrderInfo> orderList = orderInfoRepository.getAll();
@@ -92,6 +94,8 @@ public class OrderService {
                 orderResponse.setTableName(orderInfo.getTableName());
                 for (OrderDetail orderDetail : orderDetailList) {
                     CartItem cartItem = new CartItem();
+                    Product tempProduct = productService.getProductByCache(orderDetail.getProductId());
+                    orderDetail.setProductName(tempProduct.getName());
                     cartItem.setProductId(orderDetail.getProductId());
                     cartItem.setName(orderDetail.getProductName());
                     cartItem.setQuantity(orderDetail.getQuantity());

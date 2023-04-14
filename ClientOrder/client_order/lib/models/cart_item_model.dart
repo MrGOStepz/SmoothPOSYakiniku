@@ -1,38 +1,3 @@
-import 'product_model.dart';
-
-// class CartItem {
-//   int? id = 0;
-//   String? title = "";
-//   String? description = "";
-//   int? quantity = 0;
-//   double? price = 0.0;
-//
-//   CartItem({
-//     this.id,
-//     this.title,
-//     this.description,
-//     this.price,
-//     this.quantity,
-//   });
-//
-//   CartItem.fromJson(Map<String, dynamic> json) {
-//     id = json['id'];
-//     title = json['name'];
-//     description = json['address'];
-//     quantity = json['quantity'];
-//     price = json['price'];
-//   }
-//
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = new Map<String, dynamic>();
-//     data['id'] = this.id;
-//     data['title'] = this.title;
-//     data['description'] = this.description;
-//     data['quantity'] = this.quantity;
-//     data['price'] = this.price;
-//     return data;
-//   }
-// }
 class CartItem {
   late final int productId;
   late final String name;
@@ -62,12 +27,12 @@ class CartItem {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['productId'] = this.productId;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['quantity'] = this.quantity;
-    data['price'] = this.price;
-    data['comment'] = this.comment;
+    data['productId'] = productId;
+    data['name'] = name;
+    data['description'] = description;
+    data['quantity'] = quantity;
+    data['price'] = price;
+    data['comment'] = comment;
     return data;
   }
 }

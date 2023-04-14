@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:kitchen_manager/models/table_item_model.dart';
-import 'package:kitchen_manager/providers/table_providers.dart';
 import 'package:provider/provider.dart';
+
+import '../models/table_item_model.dart';
+import '../providers/table_providers.dart';
 
 class HeadColumnTable extends StatefulWidget {
   final AppBar appBar;
   final TableItem tableItem;
   final int columnNumber;
 
-  // final VoidCallback getNextOrder;
-
   const HeadColumnTable(
       {required this.appBar,
       required this.tableItem,
-      // required this.getNextOrder,
       required this.columnNumber,
       Key? key})
       : super(key: key);
@@ -29,14 +27,6 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
           .cleanTable(widget.columnNumber);
     });
   }
-
-  // void testAddTable() {
-  //
-  //   setState(() {
-  //     Provider.of<TableProvider>(context, listen: false)
-  //         .addTempItem();
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {

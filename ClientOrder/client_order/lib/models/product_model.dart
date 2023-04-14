@@ -1,5 +1,3 @@
-import 'food_type_model.dart';
-
 class Product {
   final int id;
   final String name;

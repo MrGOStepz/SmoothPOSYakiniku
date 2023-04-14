@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kitchen_manager/providers/table_providers.dart';
-import 'package:provider/provider.dart';
 
 import '../models/table_item_model.dart';
 import 'head_column.dart';
@@ -23,13 +21,6 @@ class ListChecker extends StatefulWidget {
 }
 
 class _ListCheckerState extends State<ListChecker> {
-  // void getNextTable() {
-  //   setState(() {
-  //     Provider.of<TableProvider>(context, listen: false)
-  //         .cleanTable(widget.columnNumber);
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -44,7 +35,6 @@ class _ListCheckerState extends State<ListChecker> {
           appBar: widget.appBar,
           tableItem: widget.tableItem,
           columnNumber: widget.columnNumber,
-          // getNextOrder: getNextTable,
         ),
         Container(
           height: heightSize,

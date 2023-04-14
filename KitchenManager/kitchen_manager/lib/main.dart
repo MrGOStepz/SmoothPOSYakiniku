@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:kitchen_manager/models/table_item_model.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:kitchen_manager/providers/table_providers.dart';
-import 'package:kitchen_manager/screens/main_screen.dart';
 import 'package:kitchen_manager/screens/overview_screen.dart';
-import 'package:kitchen_manager/services/product_service.dart';
-import 'package:kitchen_manager/widgets/list_checker.dart';
 import 'package:provider/provider.dart';
 
-Future<void> main() async {
+import 'config/add_setting.dart';
+
+void main() {
+  GlobalConfiguration().loadFromMap(appSettings);
   runApp(const KitchenManager());
 }
 

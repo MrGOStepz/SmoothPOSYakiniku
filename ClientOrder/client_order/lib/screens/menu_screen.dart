@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/dish_menu/dish_menu.dart';
 import '../widgets/category/category_bar.dart';
+import '../widgets/dish_menu/dish_menu.dart';
 
 class MenuScreen extends StatefulWidget {
   final int currentCategorySelected;
@@ -22,7 +22,6 @@ class MenuScreen extends StatefulWidget {
 
 class _MenuScreenState extends State<MenuScreen> {
   int currentMenuId = 0;
-
 
   void selectMenuItem(int pageId, int menuId) {
     setState(() {
@@ -56,40 +55,3 @@ class _MenuScreenState extends State<MenuScreen> {
     );
   }
 }
-
-//
-// class MainMenuPage extends StatelessWidget {
-//   final int currentCategorySelected;
-//   final Function(int, int) clickMenuBarPage;
-//   final List<ProductItem> lstProductItem;
-//
-//   const MainMenuPage(
-//       {Key? key,
-//       required this.currentCategorySelected,
-//       required this.clickMenuBarPage,
-//       required this.lstProductItem})
-//       : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Container(
-//             alignment: Alignment.topCenter,
-//             width: double.infinity,
-//             height: 50,
-//             child: CategoryMenuList(
-//               currentCategory: currentCategorySelected,
-//               menuItemTap: clickCategoryItem,
-//             )),
-//         Container(
-//             alignment: Alignment.topCenter,
-//             width: double.infinity,
-//             height: 500,
-//             child: MainMenu(
-//               lstMenu: DUMMY_PRODUCT,
-//             ))
-//       ],
-//     );
-//   }
-// }

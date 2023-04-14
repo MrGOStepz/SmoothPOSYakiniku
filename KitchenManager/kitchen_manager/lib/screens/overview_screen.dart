@@ -41,7 +41,6 @@ class _KitchenOverviewScreenState extends State<KitchenOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final AppBar appBar = AppBar(
       title: Text(widget.title),
     );

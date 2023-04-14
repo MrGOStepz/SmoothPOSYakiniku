@@ -1,20 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/category_model.dart';
 
 class Categories with ChangeNotifier {
-  // List<Category> _items = [
-  //   Category(1, "MAIN 1"),
-  //   Category(2, "MAIN 2"),
-  //   Category(3, "SET MENU 1"),
-  //   Category(4, "SET MENU 2"),
-  //   Category(5, "BEVERAGE 1"),
-  //   Category(6, "BEVERAGE 2"),
-  //   Category(7, "DESSERT 1"),
-  // ];
   List<Category> _items = [];
 
   List<Category> get items {
@@ -22,21 +14,20 @@ class Categories with ChangeNotifier {
   }
 
   Future<void> fetchAndSetCategory() async {
-    final url = Uri.http('10.0.2.2:8080', '/api/v1/categoryInfo/all');
-    // final url = Uri.http('localhost:8080', '/api/v1/categoryInfo/all');
+    final url = Uri.http(GlobalConfiguration().get("server_endpoint"),
+        '/api/v1/categoryInfo/all');
     final response = await http.get(url);
     final List<Category> loadedCategory = [];
-    // final extractedData = json.decode(response.body) as Map<String, dynamic>;
     final extractedData = json.decode(response.body) as List<dynamic>;
     if (extractedData == null) {
       return;
     }
 
-    extractedData.forEach((category) {
+    for (var category in extractedData) {
       loadedCategory.add(
         Category(category["categoryInfoId"], category["name"]),
       );
-    });
+    }
 
     _items = loadedCategory.toList();
     debugPrint(_items.toString());

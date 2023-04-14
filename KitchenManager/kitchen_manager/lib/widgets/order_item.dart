@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kitchen_manager/models/cart_item_model.dart';
+
+import '../models/cart_item_model.dart';
 
 class OrderItem extends StatefulWidget {
   final CartItem cartItem;

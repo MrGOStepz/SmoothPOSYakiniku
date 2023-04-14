@@ -12,8 +12,8 @@ public class OrderRowMapper implements RowMapper<OrderInfo> {
     @Override
     public OrderInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
         OrderInfo order = new OrderInfo();
-        order.setId(rs.getInt(COL_ID));
-        order.setTableName(rs.getString(COL_TABLE_SECTION_NAME));
+        order.setId(rs.getInt(COL_ORDER_INFO_ID));
+        order.setTableName(rs.getString(COL_TABLE_NAME));
         order.setReceiptJson(rs.getString(COL_RECEIPT_JSON));
         order.setStatus(rs.getString(COL_STATUS));
         order.setOrderType(rs.getString(COL_ORDER_TYPE));

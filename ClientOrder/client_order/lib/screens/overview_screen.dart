@@ -1,6 +1,8 @@
 import 'package:client_order/providers/categories_provider.dart';
 import 'package:client_order/widgets/cart/cart.dart';
+import 'package:client_order/widgets/cart/cart_overview.dart';
 import 'package:client_order/widgets/cart/send_order.dart';
+import 'package:client_order/widgets/table_seletion.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -92,22 +94,7 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height,
                 // child: Text("Test"),
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text("Tabel"),
-                    ),
-                    Expanded(
-                      flex: 8,
-                      child: CartMenu(),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: SendOrder(),
-                    )
-                  ],
-                ),
+                child: const CartOverview(),
               ),
             ),
           ],

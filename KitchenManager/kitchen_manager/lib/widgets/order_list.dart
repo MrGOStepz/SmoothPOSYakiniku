@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kitchen_manager/models/table_item_model.dart';
 
+import '../models/table_item_model.dart';
 import 'order_item.dart';
 
 class OrderList extends StatelessWidget {

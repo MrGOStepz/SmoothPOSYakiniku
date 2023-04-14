@@ -42,6 +42,10 @@ public class ProductService {
         }
     }
 
+    public Product getProductByCache(int id) {
+        return products.get(id);
+    }
+
     public List<Product> getAllProduct() {
         List<Product> productList = productRepository.getAll();
         updateProductCache(productList);

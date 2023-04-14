@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-
+import 'package:global_configuration/global_configuration.dart';
 import 'package:stomp_dart_client/stomp.dart';
 import 'package:stomp_dart_client/stomp_config.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
@@ -22,52 +20,15 @@ void onConnect(StompFrame frame) {
   // });
 }
 
-final stompClient2 = StompClient(
+final stompClient = StompClient(
     config: StompConfig.SockJS(
-      url: 'http://10.0.2.2:8080/gs-guide-websocket',
+      url: 'http://${GlobalConfiguration().get(
+          "server_endpoint")}/gs-guide-websocket',
       onConnect: onConnect,
       onWebSocketError: (dynamic error) => print(error.toString()),
     ));
 
 
-
 void main() {
-  // stompClient2.activate();
+//   // stompClient2.activate();
 }
-
-// import 'package:flutter/cupertino.dart';
-// import 'package:stomp_dart_client/stomp.dart';
-// import 'package:stomp_dart_client/stomp_config.dart';
-// import 'package:stomp_dart_client/stomp_frame.dart';
-//
-// String url = 'http://localhost:8080/gs-guide-websocket';
-//
-// void onConnect(StompFrame frame) {
-//   debugPrint("STOMP CONNECT");
-//   stompClient.subscribe(
-//     destination: '/topic/ordering',
-//     callback: (frame) {
-//       dynamic result = json.decode(frame.body!);
-//       debugPrint(result.toString());
-//     },
-//   );
-//
-//   // Timer.periodic(Duration(seconds: 10), (_) {
-//   //   stompClient.send(
-//   //     destination: '/app/test/endpoints',
-//   //     body: json.encode({'a': 123}),
-//   //   );
-//   // });
-// }
-//
-// final stompClient = StompClient(
-//   config: StompConfig.SockJS(
-//     url: url,
-//     onConnect: onConnect,
-//     onWebSocketError: (dynamic error) => debugPrint(error.toString()),
-//   ),
-// );
-//
-// void main() {
-//   stompClient.activate();
-// }

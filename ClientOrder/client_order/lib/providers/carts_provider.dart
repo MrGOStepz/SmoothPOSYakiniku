@@ -3,14 +3,11 @@ import 'dart:convert';
 import 'package:client_order/models/requests/order_request.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 
 import '../models/cart_item_model.dart';
 import '../services/web_socket.dart';
-import 'config_provider.dart';
 
 class Cart with ChangeNotifier {
-  // Map<String, CartItem> _items = { '1': CartItem(id: '1', title: 'Test1', price: 20, quantity: 1), '2': CartItem(id: '2', title: 'Title2', price: 10, quantity: 1)};
   final Map<int, CartItem> _items = {};
 
   Map<int, CartItem> get items {
@@ -84,50 +81,43 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
-  void sendToWebSocket() {
-    var stompClient = stompClient2;
-    if (stompClient == null) {
-      stompClient.activate();
-      debugPrint("STOMP= NULL");
-    } else {
-      debugPrint("STOMP!= NULL");
-    }
+  void sendToWebSocket(String tableName) {
     List<CartItem> cartItems = [];
     _items.forEach((key, value) {
       cartItems.add(value);
     });
+    CartRequest cartRequest = CartRequest(tableName, cartItems);
 
-    CartRequest cartRequest = CartRequest(POSConfig.tableName, cartItems);
-
-    stompClient.activate();
     var request = jsonEncode(cartRequest.toJson());
     stompClient.send(
       destination: '/app/cart/order',
       body: request,
     );
-
     items.clear();
+    notifyListeners();
   }
 
-  Future<void> sendOrderToBackEnd() async {
-    final url = Uri.http('10.0.2.2:8080', '/api/v1/order/order');
-    // final url = Uri.http('localhost:8080', '/api/v1/order/order');
-    List<CartItem> cartItems = [];
-    _items.forEach((key, value) {
-      cartItems.add(value);
-    });
-
-    CartRequest cartRequest = CartRequest(POSConfig.tableName, cartItems);
-    try {
-      final response = await http.post(
-        url,
-        body: json.encode(cartRequest),
-      );
-      _items.clear();
-      notifyListeners();
-    } catch (error) {
-      print(error);
-      throw error;
-    }
-  }
+// Future<void> sendOrderToBackEnd() async {
+//   final url = Uri.http(GlobalConfiguration().get("server_endpoint"), '/api/v1/order/order');
+//   // final url = Uri.http('10.0.2.2:8080', '/api/v1/order/order');
+//   // final url = Uri.http('localhost:8080', '/api/v1/order/order');
+//   // final url = Uri.http('127.0.0.1:8080', '/api/v1/order/order');
+//   List<CartItem> cartItems = [];
+//   _items.forEach((key, value) {
+//     cartItems.add(value);
+//   });
+//
+//   CartRequest cartRequest = CartRequest(POSConfig.tableName, cartItems);
+//   try {
+//     final response = await http.post(
+//       url,
+//       body: json.encode(cartRequest),
+//     );
+//     _items.clear();
+//     notifyListeners();
+//   } catch (error) {
+//     print(error);
+//     throw error;
+//   }
+// }
 }
