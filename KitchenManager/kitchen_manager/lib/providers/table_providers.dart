@@ -6,6 +6,7 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/cart_item_model.dart';
+import '../models/request/order_status_request.dart';
 import '../models/table_item_model.dart';
 
 class TableProvider with ChangeNotifier {
@@ -75,26 +76,29 @@ class TableProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> cleanTable(int index) async {
+  void cleanTable(int index) async {
+    print(tableItems);
+    print(index);
+
+    if (tableItems[index].orderInfoId != 0) {
+      await updateStatus(tableItems[index].orderInfoId);
+    }
+
     if (tableItems.length > 3) {
       tableItems.removeAt(index);
     } else {
       tableItems.removeAt(index);
       tableItems.add(vacantTable);
     }
-
-    if (tableItems[index].orderInfoId != 0) {
-      await updateStatus(tableItems[index].orderInfoId);
-    }
     notifyListeners();
   }
 
   Future<void> updateStatus(int orderInfoId) async {
-    // final url = Uri.http('localhost:8080', '/api/v1/order/update');
-    // OrderStatusRequest orderStatusReq = OrderStatusRequest(orderInfoId, 'DONE');
-    // final response = await http.put(
-    //   url,
-    //   body: json.encode(orderStatusReq),
-    // );
+    final url = Uri.http(GlobalConfiguration().get('server_endpoint'), '/api/v1/order/update/status');
+    OrderStatusRequest orderStatusReq = OrderStatusRequest(orderInfoId, 'DONE');
+    await http.put(
+      url,
+      body: json.encode(orderStatusReq.toJson()),
+    );
   }
 }

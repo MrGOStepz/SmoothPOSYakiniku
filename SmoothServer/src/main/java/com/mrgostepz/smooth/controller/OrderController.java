@@ -2,6 +2,7 @@ package com.mrgostepz.smooth.controller;
 
 import com.mrgostepz.smooth.model.db.OrderInfo;
 import com.mrgostepz.smooth.model.request.OrderRequest;
+import com.mrgostepz.smooth.model.request.OrderUpdateStatus;
 import com.mrgostepz.smooth.model.response.OrderResponse;
 import com.mrgostepz.smooth.service.OrderService;
 import com.mrgostepz.smooth.until.SmoothUtil;
@@ -67,6 +68,13 @@ class OrderController {
         OrderInfo order = (OrderInfo) SmoothUtil.convertJsonToObject(jsonReq, OrderInfo.class);
         orderService.updateOrder(order);
         return String.format("Update Order: %s completed.", order);
+    }
+
+    @PutMapping(path = "/update/status")
+    public String updateOrderDone(@RequestBody String jsonReq) {
+        OrderUpdateStatus orderDone = (OrderUpdateStatus) SmoothUtil.convertJsonToObject(jsonReq, OrderUpdateStatus.class);
+        orderService.updateOrderStatus(orderDone);
+        return String.format("Update Order: %s completed.", orderDone);
     }
 
     @DeleteMapping("/{id}")

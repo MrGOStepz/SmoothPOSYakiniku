@@ -25,5 +25,9 @@ public class OrderInfoSQL {
             + COL_STARTED_TIME + " = ?, "
             + COL_LAST_UPDATED_TIME + " = ? WHERE "
             + COL_ORDER_INFO_ID + " = ?;";
+
+    public static final String SQL_UPDATE_ORDER_DONE = "UPDATE " + TABLE_ORDER_INFO + " SET "
+            + COL_STATUS + " = ? WHERE "
+            + COL_ORDER_INFO_ID + " = ?;";
     public static final String SQL_DELETE_ORDER = "DELETE FROM " + TABLE_ORDER_INFO + " WHERE " + COL_ORDER_INFO_ID + " = ?;";
 }

@@ -3,6 +3,7 @@ package com.mrgostepz.smooth.db.dao;
 import com.mrgostepz.smooth.db.repository.OrderInfoRepository;
 import com.mrgostepz.smooth.db.rowmapper.OrderRowMapper;
 import com.mrgostepz.smooth.model.db.OrderInfo;
+import com.mrgostepz.smooth.model.request.OrderUpdateStatus;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,6 +37,19 @@ public class OrderInfoDAO implements OrderInfoRepository {
     public List<OrderInfo> getCookOrder() {
         try {
             return jdbcTemplate.query(SQL_GET_COOK_ORDER, new OrderRowMapper());
+        } catch (DataAccessException ex) {
+            logger.error(ex.getMessage());
+            throw ex;
+        }
+    }
+
+    @Override
+    public Boolean updateOrderStatus(OrderUpdateStatus orderUpdateStatus) {
+        try {
+            int result = jdbcTemplate.update(SQL_UPDATE_ORDER_DONE,
+                    orderUpdateStatus.getStatus(),
+                    orderUpdateStatus.getOrderInfoId());
+            return result == 1;
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
             throw ex;

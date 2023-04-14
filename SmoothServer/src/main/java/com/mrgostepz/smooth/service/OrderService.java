@@ -12,6 +12,7 @@ import com.mrgostepz.smooth.model.db.Product;
 import com.mrgostepz.smooth.model.enumtype.OrderType;
 import com.mrgostepz.smooth.model.enumtype.Status;
 import com.mrgostepz.smooth.model.request.OrderRequest;
+import com.mrgostepz.smooth.model.request.OrderUpdateStatus;
 import com.mrgostepz.smooth.model.response.OrderResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -169,6 +170,14 @@ public class OrderService {
             logger.warn("Cannot Update order: {}", order);
         }
 
+    }
+
+    public void updateOrderStatus(OrderUpdateStatus orderUpdateStatus) {
+        if (Boolean.TRUE.equals(orderInfoRepository.updateOrderStatus(orderUpdateStatus))) {
+            logger.info("Update order status Successfully: {}", orderUpdateStatus);
+        } else {
+            logger.warn("Cannot Update order status: {}", orderUpdateStatus);
+        }
     }
 
     public void deleteOrder(int id) {
