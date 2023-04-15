@@ -19,13 +19,13 @@ class Categories with ChangeNotifier {
     final response = await http.get(url);
     final List<Category> loadedCategory = [];
     final extractedData = json.decode(response.body) as List<dynamic>;
-    if (extractedData == null) {
-      return;
-    }
-
-    for (var category in extractedData) {
+    // Category.fromJson(jsonDecode(response.body));
+    for (var tempCategory in extractedData) {
+      var tempJson = jsonDecode(tempCategory);
+      Category category = Category.fromJson(tempJson);
       loadedCategory.add(
-        Category(category["categoryInfoId"], category["name"]),
+        // Category(category["categoryInfoId"], category["name"], category["imagePath"]),
+        Category(category.id, category.name, category.imagePath)
       );
     }
 

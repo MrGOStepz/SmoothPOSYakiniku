@@ -19,7 +19,7 @@ class CartItem {
       this.description, this.quantity, this.price, this.comment) {
     productId = json['productId'];
     name = json['name'];
-    description = json['address'];
+    description = json['description'];
     quantity = json['quantity'];
     price = json['price'];
     comment = json['comment'];
