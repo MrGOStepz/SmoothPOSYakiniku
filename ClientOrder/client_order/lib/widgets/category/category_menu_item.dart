@@ -13,26 +13,48 @@ class CategoryMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          height: 250,
-          width: double.infinity,
-          child: Image.network('http://${GlobalConfiguration().get("server_endpoint")}/images/${category.imagePath}',
-            height: 250,
-            width: double.infinity,
-            fit: BoxFit.cover,),
-        ),
-        Container(
-          // elevation: 5,
-          // margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-          alignment: Alignment.center,
-          child: InkWell(
-            onTap: () => selectCategory(category.id),
-            child: Text(category.name),
+    return SizedBox(
+      height: 150,
+      width:  150,
+      child: GridTile(
+        footer: GridTileBar(
+          backgroundColor: Colors.black87,
+          title: Text(
+            category.name,
+            textAlign: TextAlign.center,
           ),
         ),
-      ],
+        child: GestureDetector(
+          onTap: () => selectCategory(category.id),
+          child: Image.network(
+            'http://${GlobalConfiguration().get("server_endpoint")}/images/${category.imagePath}',
+            height: 100,
+            width: 100,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
     );
+    // return Stack(
+    //   children: [
+    //     Container(
+    //       height: 100,
+    //       width: 100,
+    //       child: Image.network('http://${GlobalConfiguration().get("server_endpoint")}/images/${category.imagePath}',
+    //         height: 100,
+    //         width: 100,
+    //         fit: BoxFit.cover,),
+    //     ),
+    //     Container(
+    //       elevation: 5,
+    //       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+    // alignment: Alignment.center,
+    // child: InkWell(
+    //   onTap: () => selectCategory(category.id),
+    //   child: Text(category.name),
+    // ),
+    // ),
+    // ],
+    // );
   }
 }

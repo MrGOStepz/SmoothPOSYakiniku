@@ -71,7 +71,7 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
         child: Row(
           children: [
             Expanded(
-              flex: 3,
+              flex: 2,
               child: Container(
                 alignment: Alignment.topCenter,
                 child: CategoryMenu(
@@ -88,7 +88,7 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
               ),
             ),
             Expanded(
-              flex: 3,
+              flex: 2,
               child: Container(
                 alignment: Alignment.topCenter,
                 width: double.infinity,
