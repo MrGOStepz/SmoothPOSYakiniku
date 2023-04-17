@@ -1,5 +1,6 @@
 package com.mrgostepz.smooth.controller;
 
+
 import com.mrgostepz.smooth.model.Products;
 import com.mrgostepz.smooth.model.db.Product;
 import com.mrgostepz.smooth.service.ProductService;
@@ -16,16 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-
-//https://mkyong.com/spring-boot/spring-rest-error-handling-example/
-//http://localhost:8080/spring-mvc-basics/foos?id=abc
-// @RequestParam means it is a parameter from the GET or POST request
 
 @RestController
 @RequiredArgsConstructor
@@ -49,13 +44,13 @@ class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/")
-    @ResponseBody
-    public ResponseEntity<List<Product>> getProductById(@RequestParam String columnName, @RequestParam String value) {
-        List<Product> productList = productService.getProductByColumn(columnName, value);
-        return new ResponseEntity<>(productList, HttpStatus.OK);
-
-    }
+//    @GetMapping(path = "/")
+//    @ResponseBody
+//    public ResponseEntity<List<Product>> getProductById(@RequestParam String columnName, @RequestParam String value) {
+//        List<Product> productList = productService.getProductByColumn(columnName, value);
+//        return new ResponseEntity<>(productList, HttpStatus.OK);
+//
+//    }
 
     @PostMapping(path = "/add")
     @ResponseBody
@@ -68,18 +63,18 @@ class ProductController {
         return new ResponseEntity<>(String.format("Add new product successfully: %s", product), HttpStatus.CREATED);
     }
 
-    @PostMapping(path = "/adds")
-    @ResponseBody
-    public ResponseEntity<String> addNewProducts(@RequestBody String jsonReq) {
-        List<Product> productList = (List<Product>) SmoothUtil.convertJsonToObject(jsonReq, Products.class);
-        if (productList == null) {
-            return new ResponseEntity<>("Cannot Create Product", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        for(Product product: productList) {
-            productService.addProduct(product);
-        }
-        return new ResponseEntity<>(String.format("Add new product successfully: %s", productList), HttpStatus.CREATED);
-    }
+//    @PostMapping(path = "/adds")
+//    @ResponseBody
+//    public ResponseEntity<String> addNewProducts(@RequestBody String jsonReq) {
+//        List<Product> productList = (List<Product>) SmoothUtil.convertJsonToObject(jsonReq, Products.class);
+//        if (productList == null) {
+//            return new ResponseEntity<>("Cannot Create Product", HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//        for (Product product : productList) {
+//            productService.addProduct(product);
+//        }
+//        return new ResponseEntity<>(String.format("Add new product successfully: %s", productList), HttpStatus.CREATED);
+//    }
 
     @PutMapping(path = "/update")
     public String updateProduct(@RequestBody String jsonReq) {
