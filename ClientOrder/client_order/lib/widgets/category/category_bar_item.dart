@@ -16,7 +16,7 @@ class MenuBarPage extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: InkWell(
           onTap: () => tapMenubar(page),
-          child: Text("Page $page"),
+          child: Text("หน้า  $page"),
         ),
       ),
     );

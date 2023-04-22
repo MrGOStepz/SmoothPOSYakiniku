@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/carts_provider.dart';
@@ -10,7 +11,11 @@ class ProductMenuItem extends StatefulWidget {
   final String imagePath;
 
   const ProductMenuItem(
-      {Key? key, required this.id, required this.name, required this.price, required this.imagePath})
+      {Key? key,
+      required this.id,
+      required this.name,
+      required this.price,
+      required this.imagePath})
       : super(key: key);
 
   @override
@@ -20,6 +25,7 @@ class ProductMenuItem extends StatefulWidget {
 class _ProductMenuItemState extends State<ProductMenuItem> {
   late String valueText;
   late String codeDialog;
+  late int price;
   TextEditingController _textFieldController = TextEditingController();
 
   Future<void> _displayTextInputDialog(BuildContext context) async {
@@ -64,34 +70,53 @@ class _ProductMenuItemState extends State<ProductMenuItem> {
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<Cart>(context, listen: true);
-    return InkWell(
-      //Add Description
-      onTap: () {
-        // _displayTextInputDialog(context);
-        cart.addItem(widget.id, widget.price, widget.name, '', '');
-      },
-      splashColor: Theme.of(context).primaryColor,
-      borderRadius: BorderRadius.circular(15),
-      child: Container(
-        width: double.infinity,
-        height: double.infinity,
-        padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.deepOrange.withOpacity(0.7),
-              Colors.deepOrange,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+    if (widget.imagePath != 'NULL') {
+      return InkWell(
+        onTap: () {
+          cart.addItem(widget.id, widget.price, widget.name, '', '');
+        },
+        splashColor: Theme.of(context).primaryColor,
+        borderRadius: BorderRadius.circular(15),
+        child: GridTile(
+          header: GridTileBar(
+            backgroundColor: Colors.black45,
+            title: Text(
+              '${widget.name} ${widget.price.round()} บาท',
+              textAlign: TextAlign.center,
+            ),
           ),
-          borderRadius: BorderRadius.circular(15),
+          child: GestureDetector(
+            child: Image.network(
+              'http://${GlobalConfiguration().get("server_endpoint")}/images/${widget.imagePath}',
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
-        child: Text(
-          widget.name,
-          style: Theme.of(context).textTheme.titleMedium,
+      );
+    } else {
+      return InkWell(
+        onTap: () {
+          cart.addItem(widget.id, widget.price, widget.name, '', '');
+        },
+        splashColor: Theme.of(context).primaryColor,
+        borderRadius: BorderRadius.circular(15),
+        child: GridTile(
+          header: GridTileBar(
+            backgroundColor: Colors.black45,
+            title: Text(
+              '${widget.price.round()} บาท',
+              textAlign: TextAlign.center,
+            ),
+          ),
+          child: Center(
+              child: Text(
+            widget.name,
+            textAlign: TextAlign.center,
+          )),
         ),
-      ),
-    );
+      );
+    }
   }
 }

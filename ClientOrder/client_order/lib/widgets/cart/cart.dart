@@ -18,7 +18,7 @@ class _CartMenuState extends State<CartMenu> {
     final cartProvider = Provider.of<Cart>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     if (cartProvider.itemCount == 0) {
-      return Text("EMPTY");
+      return const Text("กรุณาเลือกเมนู");
     } else {
       return Consumer<Cart>(
         builder: (ctx, cart, _) => ListView.builder(

@@ -22,7 +22,8 @@ class Products with ChangeNotifier {
         GlobalConfiguration().get("server_endpoint"), '/api/v1/product/all');
     final response = await http.get(url);
     final List<Product> loadedProduct = [];
-    final extractedData = json.decode(response.body) as List<dynamic>;
+    final extractedData = jsonDecode(utf8.decode(response.bodyBytes));
+    // final extractedData = json.decode(response.body) as List<dynamic>;
 
     for (var value in extractedData) {
       loadedProduct.add(
