@@ -47,7 +47,7 @@ class _CartSectionState extends State<CartSection> {
         children: [
           Expanded(
             flex: 1,
-            child: Text(widget.title.toString()),
+            child: Text('${widget.title.toString()}  ${widget.quantity}'),
           ),
           Expanded(
             flex: 1,

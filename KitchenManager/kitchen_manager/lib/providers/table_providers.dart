@@ -11,11 +11,14 @@ import '../models/table_item_model.dart';
 
 class TableProvider with ChangeNotifier {
   List<TableItem> tableItems = [
-    TableItem(0, "Waiting Order", "PENDING", []),
-    TableItem(0, "Waiting Order", "PENDING", []),
-    TableItem(0, "Waiting Order", "PENDING", [])
+    TableItem(0, "กำลังรอโต๊ะ ถัดไป", "PENDING", []),
+    TableItem(0, "กำลังรอโต๊ะ ถัดไป", "PENDING", []),
+    TableItem(0, "กำลังรอโต๊ะ ถัดไป", "PENDING", []),
+    TableItem(0, "กำลังรอโต๊ะ ถัดไป", "PENDING", [])
   ];
-  TableItem vacantTable = TableItem(0, 'Waiter Table', "PENDING", []);
+  TableItem vacantTable = TableItem(0, 'กำลังรอโต๊ะ ถัดไป', "PENDING", []);
+
+  int maxWaitingTable = 4;
 
   List<TableItem> get items {
     return tableItems;
@@ -26,9 +29,8 @@ class TableProvider with ChangeNotifier {
         GlobalConfiguration().get("server_endpoint"), '/api/v1/order/cook');
     final response = await http.get(url);
     final List<TableItem> loadItems = [];
-    final extractedData = json.decode(response.body) as List<dynamic>;
+    final extractedData = jsonDecode(utf8.decode(response.bodyBytes));
     for (var value in extractedData) {
-      print(value.toString());
       List<CartItem> tempCartItemList = [];
       for (var cart in value['items']) {
         CartItem cartItem = CartItem.fromJson(cart);
@@ -37,17 +39,21 @@ class TableProvider with ChangeNotifier {
       loadItems.add(TableItem(
           value['orderInfoId'], value['tableName'], 'Cook', tempCartItemList));
     }
-    await initTableItem(loadItems);
+    print('Number of Table Item: ${tableItems.length}');
 
+    for(int i=0; i > tableItems.length;i++) {
+      print('Item: ${tableItems[i].orderInfoId}');
+    }
+    await initTableItem(loadItems);
     notifyListeners();
   }
 
   Future<void> getOrderClient() async {}
 
   Future<void> initTableItem(List<TableItem> listTableItem) async {
-    if (listTableItem.length > 3) {
+    if (listTableItem.length > maxWaitingTable) {
       for (int i = 0; i < listTableItem.length; i++) {
-        if (i < 3) {
+        if (i < maxWaitingTable) {
           tableItems[i] = listTableItem[i];
         } else {
           tableItems.add(listTableItem[i]);
@@ -64,7 +70,7 @@ class TableProvider with ChangeNotifier {
     List<TableItem> tempItem =
         tableItems.where((value) => value.orderInfoId == 0).toList();
 
-    if (tempItem.length == 3) {
+    if (tempItem.length == maxWaitingTable) {
       tableItems[0] = tableItem;
     } else if (tempItem.length == 2) {
       tableItems[1] = tableItem;
@@ -77,14 +83,11 @@ class TableProvider with ChangeNotifier {
   }
 
   void cleanTable(int index) async {
-    print(tableItems);
-    print(index);
-
     if (tableItems[index].orderInfoId != 0) {
       await updateStatus(tableItems[index].orderInfoId);
     }
 
-    if (tableItems.length > 3) {
+    if (tableItems.length > maxWaitingTable) {
       tableItems.removeAt(index);
     } else {
       tableItems.removeAt(index);

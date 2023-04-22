@@ -28,6 +28,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+
     stompClient = StompClient(
         config: StompConfig.SockJS(
       url:
@@ -40,6 +41,7 @@ class _MainScreenState extends State<MainScreen> {
 
   void onConnect(StompFrame frame) {
     dynamic result;
+    print("WebSocket");
     stompClient.subscribe(
         destination: '/topic/ordering',
         callback: (frame) {
@@ -81,7 +83,11 @@ class _MainScreenState extends State<MainScreen> {
               columnNumber: 2,
               tableItem: tableItems[2],
             ),
-            Text('Table 4') // TODO Clean List,
+            ListChecker(
+              appBar: widget.appBar,
+              columnNumber: 3,
+              tableItem: tableItems[3],
+            )
           ],
         ),
       ],

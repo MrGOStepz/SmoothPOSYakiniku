@@ -18,12 +18,10 @@ class Categories with ChangeNotifier {
         '/api/v1/categoryInfo/all');
     final response = await http.get(url);
     final List<Category> loadedCategory = [];
-    // final extractedData = json.decode(response.body) as List<dynamic>;
     final extractedData = jsonDecode(utf8.decode(response.bodyBytes));
     for(var category in extractedData) {
       loadedCategory.add(
         Category(category["categoryInfoId"], category["name"], category["imagePath"]),
-        // Category(category.id, category.name, category.imagePath)
       );
     }
 

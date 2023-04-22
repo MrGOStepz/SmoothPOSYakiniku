@@ -29,11 +29,11 @@ class _OrderItemState extends State<OrderItem> {
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: ListTile(
         title: Text(
-          widget.cartItem.name as String,
+          '${widget.cartItem.name} x ${widget.cartItem.quantity}',
           style: textItemStyle,
         ),
         trailing: IconButton(
-          icon: const Icon(Icons.delete),
+          icon: const Icon(Icons.check),
           color: Theme.of(context).errorColor,
           onPressed: () => changeTextItemStyle(),
         ),
