@@ -61,36 +61,101 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final tableProvider = Provider.of<TableProvider>(context, listen: true);
-    tableItems = tableProvider.items;
-    return Table(
-      border: TableBorder.all(),
-      children: [
-        TableRow(
-          children: [
-            ListChecker(
+    return Consumer<TableProvider>(
+      builder: (ctx, table, _) => Row(
+        children: [
+          Expanded(
+            child: ListChecker(
               appBar: widget.appBar,
               columnNumber: 0,
-              tableItem: tableItems[0],
+              tableItem: table.tableItems[0],
             ),
-            ListChecker(
+          ),
+          Expanded(
+            child: ListChecker(
               appBar: widget.appBar,
               columnNumber: 1,
-              tableItem: tableItems[1],
+              tableItem: table.tableItems[1],
             ),
-            ListChecker(
+          ),
+          Expanded(
+            child: ListChecker(
               appBar: widget.appBar,
               columnNumber: 2,
-              tableItem: tableItems[2],
+              tableItem: table.tableItems[2],
             ),
-            ListChecker(
+          ),
+          Expanded(
+            child: ListChecker(
               appBar: widget.appBar,
               columnNumber: 3,
-              tableItem: tableItems[3],
-            )
-          ],
-        ),
-      ],
+              tableItem: table.tableItems[3],
+            ),
+          ),
+        ],
+      ),
     );
+    // builder: (ctx, table, _) => Table(
+    //   border: TableBorder.all(),
+    //   children: [
+    //     TableRow(
+    //       children: [
+    //         ListChecker(
+    //           appBar: widget.appBar,
+    //           columnNumber: 0,
+    //           tableItem: table.tableItems[0],
+    //         ),
+    //         ListChecker(
+    //           appBar: widget.appBar,
+    //           columnNumber: 1,
+    //           tableItem: table.tableItems[1],
+    //         ),
+    //         ListChecker(
+    //           appBar: widget.appBar,
+    //           columnNumber: 2,
+    //           tableItem: table.tableItems[2],
+    //         ),
+    //         ListChecker(
+    //           appBar: widget.appBar,
+    //           columnNumber: 3,
+    //           tableItem: table.tableItems[3],
+    //         )
+    //       ],
+    //     ),
+    //   ],
+    // ),
+    // );
+
+    // final tableProvider = Provider.of<TableProvider>(context, listen: true);
+    // tableItems = tableProvider.items;
+    // return Table(
+    //   border: TableBorder.all(),
+    //   children: [
+    //     TableRow(
+    //       children: [
+    //         ListChecker(
+    //           appBar: widget.appBar,
+    //           columnNumber: 0,
+    //           tableItem: tableItems[0],
+    //         ),
+    //         ListChecker(
+    //           appBar: widget.appBar,
+    //           columnNumber: 1,
+    //           tableItem: tableItems[1],
+    //         ),
+    //         ListChecker(
+    //           appBar: widget.appBar,
+    //           columnNumber: 2,
+    //           tableItem: tableItems[2],
+    //         ),
+    //         ListChecker(
+    //           appBar: widget.appBar,
+    //           columnNumber: 3,
+    //           tableItem: tableItems[3],
+    //         )
+    //       ],
+    //     ),
+    //   ],
+    // );
   }
 }

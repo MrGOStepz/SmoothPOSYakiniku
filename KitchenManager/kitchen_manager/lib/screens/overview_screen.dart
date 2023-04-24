@@ -45,7 +45,6 @@ class _KitchenOverviewScreenState extends State<KitchenOverviewScreen> {
       title: Text(widget.title),
     );
     return Scaffold(
-      appBar: appBar,
       body: SafeArea(
         child: MainScreen(
           appBar: appBar,

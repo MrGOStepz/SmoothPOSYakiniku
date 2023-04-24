@@ -10,11 +10,11 @@ class OrderList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: tableItem.items
-          .map((item) =>
-              OrderItem(key: ValueKey(tableItem.orderInfoId), cartItem: item))
-          .toList(),
+    return ListView.builder(
+      itemCount: tableItem.items.length,
+      itemBuilder: (ctx, index) => OrderItem(
+        cartItem: tableItem.items[index],
+      ),
     );
   }
 }

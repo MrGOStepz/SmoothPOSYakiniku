@@ -24,12 +24,26 @@ class _OrderItemState extends State<OrderItem> {
 
   @override
   Widget build(BuildContext context) {
+    // return SizedBox(
+    //   width: double.infinity,
+    //     child: ListTile(
+    //     title: Text(
+    //       '${widget.cartItem.name} x ${widget.cartItem.quantity}',
+    //       style: textItemStyle,
+    //     ),
+    //     trailing: IconButton(
+    //       icon: const Icon(Icons.check),
+    //       onPressed: () => changeTextItemStyle(),
+    //     ),
+    //   ),
+    // );
+  // }
     return Card(
       elevation: 5,
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: ListTile(
         title: Text(
-          '${widget.cartItem.name} x ${widget.cartItem.quantity}',
+          '${widget.cartItem.name} ',
           style: textItemStyle,
         ),
         trailing: IconButton(

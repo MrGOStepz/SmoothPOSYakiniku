@@ -39,11 +39,7 @@ class TableProvider with ChangeNotifier {
       loadItems.add(TableItem(
           value['orderInfoId'], value['tableName'], 'Cook', tempCartItemList));
     }
-    print('Number of Table Item: ${tableItems.length}');
 
-    for(int i=0; i > tableItems.length;i++) {
-      print('Item: ${tableItems[i].orderInfoId}');
-    }
     await initTableItem(loadItems);
     notifyListeners();
   }
@@ -67,18 +63,27 @@ class TableProvider with ChangeNotifier {
   }
 
   void addItem(TableItem tableItem) {
+
     List<TableItem> tempItem =
-        tableItems.where((value) => value.orderInfoId == 0).toList();
+    tableItems.where((value) => value.orderInfoId == 0).toList();
 
     if (tempItem.length == maxWaitingTable) {
       tableItems[0] = tableItem;
-    } else if (tempItem.length == 2) {
+    } else if (tempItem.length == 3) {
       tableItems[1] = tableItem;
-    } else if (tempItem.length == 1) {
+    } else if (tempItem.length == 2) {
       tableItems[2] = tableItem;
+    } else if (tempItem.length == 1) {
+      tableItems[3] = tableItem;
     } else {
       tableItems.add(tableItem);
     }
+
+    debugPrint('Number of Table Item: ${tableItems.length}');
+    for(int i=0; i < tableItems.length;i++) {
+      debugPrint('Item: ${tableItems[i].orderInfoId}');
+    }
+
     notifyListeners();
   }
 

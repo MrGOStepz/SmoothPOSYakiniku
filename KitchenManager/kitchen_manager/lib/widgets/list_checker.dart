@@ -36,7 +36,7 @@ class _ListCheckerState extends State<ListChecker> {
           tableItem: widget.tableItem,
           columnNumber: widget.columnNumber,
         ),
-        Container(
+        SizedBox(
           height: heightSize,
           child: OrderList(tableItem: widget.tableItem),
         )
