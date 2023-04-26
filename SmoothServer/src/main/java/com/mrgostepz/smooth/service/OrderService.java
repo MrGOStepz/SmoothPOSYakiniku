@@ -8,6 +8,7 @@ import com.mrgostepz.smooth.model.CartItem;
 import com.mrgostepz.smooth.model.ReceiptInfo;
 import com.mrgostepz.smooth.model.db.OrderDetail;
 import com.mrgostepz.smooth.model.db.OrderInfo;
+import com.mrgostepz.smooth.model.db.OrderSummary;
 import com.mrgostepz.smooth.model.db.Product;
 import com.mrgostepz.smooth.model.enumtype.OrderType;
 import com.mrgostepz.smooth.model.enumtype.Status;
@@ -15,6 +16,7 @@ import com.mrgostepz.smooth.model.request.OrderRequest;
 import com.mrgostepz.smooth.model.request.OrderUpdateStatus;
 import com.mrgostepz.smooth.model.response.OrderDetailInfoResponse;
 import com.mrgostepz.smooth.model.response.OrderResponse;
+import com.mrgostepz.smooth.model.response.OrderSummaryResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,15 +47,14 @@ public class OrderService {
         return orderList;
     }
 
-    public OrderDetailInfoResponse getOrderSummary() {
-        List<OrderDetail> orderDetailList = orderInfoRepository.getOrderDetailByDay();
-        OrderDetailInfoResponse orderResponse = new OrderDetailInfoResponse();
-        if (orderDetailList == null) {
+    public OrderSummaryResponse getOrderSummary() {
+        List<OrderSummary> orderSummaries = orderInfoRepository.getOrderDetailByDay();
+        OrderSummaryResponse orderResponse = new OrderSummaryResponse();
+        if (orderSummaries == null) {
             throw new RecordNotFoundException("There is no record in order table.");
         }
-
-        orderResponse.setOrderDetailList(orderDetailList);
-        logger.info(orderDetailList);
+        orderResponse.setOrderSummaries(orderSummaries);
+        logger.info(orderSummaries);
         return orderResponse;
     }
 

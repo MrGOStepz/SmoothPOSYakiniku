@@ -2,6 +2,7 @@ package com.mrgostepz.smooth.db.repository;
 
 import com.mrgostepz.smooth.model.db.OrderDetail;
 import com.mrgostepz.smooth.model.db.OrderInfo;
+import com.mrgostepz.smooth.model.db.OrderSummary;
 import com.mrgostepz.smooth.model.request.OrderUpdateStatus;
 import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,7 @@ import java.util.Set;
 public interface OrderInfoRepository extends CrudRepository<OrderInfo, Integer> {
     List<OrderInfo> getCookOrder();
     List<OrderDetail> getOrderByTableName(String tableName, Set<Integer> idList);
-    List<OrderDetail> getOrderDetailByDay();
+    List<OrderSummary> getOrderDetailByDay();
     List<OrderInfo> getOrderInfoByTableName(String tableName);
     Boolean updateOrderStatus(OrderUpdateStatus orderUpdateStatus);
 }

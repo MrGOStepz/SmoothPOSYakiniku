@@ -6,6 +6,7 @@ import com.mrgostepz.smooth.model.request.OrderRequest;
 import com.mrgostepz.smooth.model.request.OrderUpdateStatus;
 import com.mrgostepz.smooth.model.response.OrderDetailInfoResponse;
 import com.mrgostepz.smooth.model.response.OrderResponse;
+import com.mrgostepz.smooth.model.response.OrderSummaryResponse;
 import com.mrgostepz.smooth.service.OrderService;
 import com.mrgostepz.smooth.until.SmoothUtil;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ class OrderController {
 
     @GetMapping(path = "/summary")
     @ResponseBody
-    public ResponseEntity<OrderDetailInfoResponse> getSummaryOrder() {
+    public ResponseEntity<OrderSummaryResponse> getSummaryOrder() {
         return new ResponseEntity<>(orderService.getOrderSummary(), HttpStatus.OK);
     }
 

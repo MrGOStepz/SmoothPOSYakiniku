@@ -12,10 +12,19 @@ final TextEditingController titleController;
 }
 
 class _SendOrderState extends State<SendOrder> {
+
+  final _titleController = TextEditingController();
+  late String tableName = '';
+  void _changeTableName(String tableSelected) {
+    setState(() {
+      tableName = tableSelected;
+      _titleController.text = tableName;
+    });
+  }
   void _sendOrder() {
     setState(() {
-      Provider.of<Cart>(context, listen: false).sendToWebSocket(widget.titleController.text);
-      widget.titleController.text = "";
+      Provider.of<Cart>(context, listen: false).sendToWebSocket(_titleController.text);
+      _titleController.text = "";
     });
   }
 
@@ -26,7 +35,19 @@ class _SendOrderState extends State<SendOrder> {
         context: context,
         builder: (BuildContext context) => AlertDialog(
           title: const Text('Confirm Order'),
-          content: const Text('ถ้ากด Send แล้ว จะไม่สามารถยกเลิกได้'),
+          content: Column(
+            children: [
+              const Text('ถ้ากด Send แล้ว จะไม่สามารถยกเลิกได้'),
+              TextField(
+                  decoration: InputDecoration(labelText: 'Table Name'),
+                  keyboardType: TextInputType.number,
+                  controller: _titleController,
+                  onSubmitted: (_) {
+                    _changeTableName(_titleController.text);
+                  }
+              )
+            ],
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, 'Cancel'),

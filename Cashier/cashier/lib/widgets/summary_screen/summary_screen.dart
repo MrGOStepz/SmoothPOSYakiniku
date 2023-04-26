@@ -1,17 +1,18 @@
+import 'package:client_order/providers/order_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SummaryScreen extends StatelessWidget {
   const SummaryScreen({Key? key}) : super(key: key);
 
-  void _summaryToday() {
-
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final orderProvider = Provider.of<OrderProvider>(context, listen:true);
+    return SizedBox(
       width: double.infinity,
-      child: ,
+      child: Text(
+        orderProvider.getSummaryText
+      ),
     );
   }
 }

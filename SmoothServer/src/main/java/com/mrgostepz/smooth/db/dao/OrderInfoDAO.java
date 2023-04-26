@@ -3,8 +3,10 @@ package com.mrgostepz.smooth.db.dao;
 import com.mrgostepz.smooth.db.repository.OrderInfoRepository;
 import com.mrgostepz.smooth.db.rowmapper.OrderDetailRowMapper;
 import com.mrgostepz.smooth.db.rowmapper.OrderRowMapper;
+import com.mrgostepz.smooth.db.rowmapper.OrderSummatyRowMapper;
 import com.mrgostepz.smooth.model.db.OrderDetail;
 import com.mrgostepz.smooth.model.db.OrderInfo;
+import com.mrgostepz.smooth.model.db.OrderSummary;
 import com.mrgostepz.smooth.model.request.OrderUpdateStatus;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -78,15 +80,15 @@ public class OrderInfoDAO implements OrderInfoRepository {
     }
 
     @Override
-    public List<OrderDetail> getOrderDetailByDay() {
+    public List<OrderSummary> getOrderDetailByDay() {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date();
             String todayDate = formatter.format(date);
-            String dateTime = String.format("between DATE_FORMAT(\"%s 00:00:01\", \"%%Y-%%m-%%d %%T\") and DATE_FORMAT(\"%s\", \"%%Y-%%m-%%d %%T\")", todayDate, todayDate);
-            String sql = SQL_GET_ORDER_DETAIL_BY_DAY + dateTime;
-            List<OrderDetail> orderDetailList =  jdbcTemplate.query(sql, new OrderDetailRowMapper());
-            return orderDetailList;
+            String dateTime = String.format("between DATE_FORMAT(\"%s 00:00:01\", \"%%Y-%%m-%%d %%T\") and DATE_FORMAT(\"%s 23:59:59\", \"%%Y-%%m-%%d %%T\")", todayDate, todayDate);
+            String sql = "SELECT PRODUCT_ID, sum(quantity) as quantity, sum(price) as amount from order_detail where started_time "  + dateTime + "  GROUP BY PRODUCT_ID";
+            List<OrderSummary>  orderSummariesList=  jdbcTemplate.query(sql, new OrderSummatyRowMapper());
+            return orderSummariesList;
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
             throw ex;

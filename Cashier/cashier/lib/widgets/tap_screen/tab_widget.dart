@@ -1,4 +1,6 @@
+import 'package:client_order/providers/order_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TabScreen extends StatelessWidget {
   final Function setState;
@@ -14,7 +16,10 @@ class TabScreen extends StatelessWidget {
           child: Text('Table Screen'),
         ),
         TextButton(
-          onPressed: () => setState(2),
+          onPressed: () {
+            Provider.of<OrderProvider>(context, listen: false).getSummaryToday();
+            setState(2);
+            },
           child: Text('Summary Screen'),
         ),
       ],

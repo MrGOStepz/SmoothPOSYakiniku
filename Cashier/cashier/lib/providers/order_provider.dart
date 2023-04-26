@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:client_order/models/order_summary.dart';
 import 'package:client_order/providers/product_provider.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,9 @@ import '../models/response/order_detail_response.dart';
 class OrderProvider with ChangeNotifier {
   late List<OrderDetail> _orderDetailItems = [];
   late List<OrderInfo> _orderInfoItems = [];
+  late List<Product> _productItems= [];
+
+  late String summaryText = '';
 
   get orderInfoItems {
     return _orderInfoItems;
@@ -31,7 +35,12 @@ class OrderProvider with ChangeNotifier {
     return _orderInfoItems.length;
   }
 
+  get getSummaryText {
+    return summaryText;
+  }
+
   String getOrderDetailText(List<Product> productList) {
+    _productItems = productList;
     var buffer = StringBuffer();
     double total = 0.0;
     for(var orderDetail in _orderDetailItems) {
@@ -72,41 +81,21 @@ class OrderProvider with ChangeNotifier {
 
       final extractedData = jsonDecode(utf8.decode(response.bodyBytes));
 
-      List<OrderInfo> orderInfoList = [];
-      for (var value in extractedData['orderInfoList']) {
-        OrderInfo orderInfo = OrderInfo(id: value['id'],
-            tableName: value['tableName'],
-            receiptJson: value['receiptJson'],
-            status: value['status'],
-            orderType: value['orderType'],
-            amount: value['amount'],
-            startedTime: value['startedTime'],
-            lastUpdatedTime: value['lastUpdatedTime']);
-        orderInfoList.add(orderInfo);
+      List<OrderSummary> orderSummaryList = [];
+      for (var value in extractedData['orderSummaries']) {
+       OrderSummary orderSummary = OrderSummary(productId: value['productId'], quantity: value['quantity'], amount: value['amount']);
+       orderSummaryList.add(orderSummary);
       }
 
-      List<OrderDetail> orderDetailList = [];
-      for (var value in extractedData['orderDetailList']) {
-        OrderDetail orderDetail = OrderDetail(
-            orderDetailId: value['orderDetailId'],
-            productId: value['productId'],
-            orderIntoId: value['orderInfoId'],
-            status: value['status'],
-            quantity: value['quantity'],
-            price: value['price'],
-            comment: value['comment'],
-            startedTime: value['startedTime'],
-            lastUpdatedTime: value['lastUpdatedTime']);
-        orderDetailList.add(orderDetail);
+      var buffer = StringBuffer();
+      double totalToday = 0;
+      for(var orderDetail in orderSummaryList) {
+        String productName = _productItems.firstWhere((element) => element.id == orderDetail.productId).name;
+        buffer.write('${productName} x ${orderDetail.quantity} = ${orderDetail.amount} \n');
+        totalToday += orderDetail.amount;
       }
-
-
-      _orderInfoItems = orderInfoList;
-      _orderDetailItems = orderDetailList;
-
-      debugPrint(_orderDetailItems.toString());
-      debugPrint(_orderInfoItems.toString());
-
+      buffer.write('ราคารวมวันนี้ = ${totalToday}');
+      summaryText = buffer.toString();
       notifyListeners();
     } catch (error) {
       print(error);
