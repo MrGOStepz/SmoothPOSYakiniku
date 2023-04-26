@@ -1,3 +1,4 @@
+import 'package:client_order/providers/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,9 @@ class CashierApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: OrderProvider(),
         ),
+        ChangeNotifierProvider.value(
+          value: ProductProvider(),
+        ),
       ],
       child: MaterialApp(
         title: 'MyShop',
@@ -34,4 +38,3 @@ class CashierApp extends StatelessWidget {
     );
   }
 }
-

@@ -6,6 +6,7 @@ import static com.mrgostepz.smooth.db.TableName.TABLE_ORDER_INFO;
 public class OrderInfoSQL {
     public static final String SQL_GET_ALL_ORDER = "SELECT * FROM " + TABLE_ORDER_INFO + ";";
     public static final String SQL_GET_COOK_ORDER = "SELECT * FROM " + TABLE_ORDER_INFO + " WHERE status = 'Cook';";
+    public static final String SQL_GET_ORDER_INFO_BY_TABLE = "SELECT * FROM " + TABLE_ORDER_INFO + " WHERE status <> 'PAID' AND TABLE_NAME = ? ;";
     public static final String SQL_GET_ORDER_BY_ID = "SELECT * FROM " + TABLE_ORDER_INFO + " WHERE " + COL_ORDER_INFO_ID +" = ?;";
     public static final String SQL_GET_ORDER_BY_COLUMN = "SELECT ? FROM " + TABLE_ORDER_INFO + " WHERE ? = ?";
     public static final String SQL_ADD_ORDER = "INSERT INTO " + TABLE_ORDER_INFO + " ("

@@ -5,8 +5,10 @@ import static com.mrgostepz.smooth.db.TableName.TABLE_ORDER_DETAIL;
 
 public class OrderDetailSQL {
     public static final String SQL_GET_ALL_ORDER_DETAIL = "SELECT * FROM " + TABLE_ORDER_DETAIL + ";";
+    public static final String SQL_GET_ORDER_DETAIL_BY_ORDER_INFO_ID_LIST = "SELECT * FROM " + TABLE_ORDER_DETAIL + " WHERE ORDER_INFO_ID IN (:ids)";
     public static final String SQL_GET_ORDER_DETAIL_BY_ORDER_INFO_ID = "SELECT * FROM " + TABLE_ORDER_DETAIL + " WHERE " + COL_ORDER_INFO_ID + " = ?;";
     public static final String SQL_GET_ORDER_DETAIL_BY_ID = "SELECT * FROM " + TABLE_ORDER_DETAIL + " WHERE " + COL_ORDER_DETAIL_ID + " =  ?;";
+    public static final String SQL_GET_ORDER_DETAIL_BY_DAY = "SELECT * FROM " + TABLE_ORDER_DETAIL + " WHERE " + COL_STARTED_TIME + " ";
     public static final String SQL_GET_ORDER_DETAIL_BY_COLUMN = "SELECT ? FROM " + TABLE_ORDER_DETAIL + " WHERE ? = ?";
     public static final String SQL_ADD_ORDER_DETAIL = "INSERT INTO " + TABLE_ORDER_DETAIL + " ("
             + COL_ORDER_INFO_ID + ", "

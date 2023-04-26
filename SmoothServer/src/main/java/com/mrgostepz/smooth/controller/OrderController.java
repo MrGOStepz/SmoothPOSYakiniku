@@ -1,8 +1,10 @@
 package com.mrgostepz.smooth.controller;
 
+import com.mrgostepz.smooth.model.db.OrderDetail;
 import com.mrgostepz.smooth.model.db.OrderInfo;
 import com.mrgostepz.smooth.model.request.OrderRequest;
 import com.mrgostepz.smooth.model.request.OrderUpdateStatus;
+import com.mrgostepz.smooth.model.response.OrderDetailInfoResponse;
 import com.mrgostepz.smooth.model.response.OrderResponse;
 import com.mrgostepz.smooth.service.OrderService;
 import com.mrgostepz.smooth.until.SmoothUtil;
@@ -34,10 +36,24 @@ class OrderController {
         return new ResponseEntity<>(orderService.getAllOrder(), HttpStatus.OK);
     }
 
+
+    @GetMapping(path = "/summary")
+    @ResponseBody
+    public ResponseEntity<OrderDetailInfoResponse> getSummaryOrder() {
+        return new ResponseEntity<>(orderService.getOrderSummary(), HttpStatus.OK);
+    }
+
     @GetMapping(path = "/cook")
     @ResponseBody
     public ResponseEntity<List<OrderResponse>> getCookOrder() {
         return new ResponseEntity<>(orderService.getListOrderCook(), HttpStatus.OK);
+    }
+
+
+    @GetMapping(path = "/table/{tableName}")
+    @ResponseBody
+    public ResponseEntity<OrderDetailInfoResponse> getOrderByTableName(@PathVariable String tableName) {
+        return new ResponseEntity<>(orderService.getListOrderByTableName(tableName), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
@@ -71,7 +87,7 @@ class OrderController {
     }
 
     @PutMapping(path = "/update/status")
-    public String updateOrderDone(@RequestBody String jsonReq) {
+    public String updateOrderStatus(@RequestBody String jsonReq) {
         OrderUpdateStatus orderDone = (OrderUpdateStatus) SmoothUtil.convertJsonToObject(jsonReq, OrderUpdateStatus.class);
         orderService.updateOrderStatus(orderDone);
         return String.format("Update Order: %s completed.", orderDone);

@@ -1,7 +1,9 @@
 package com.mrgostepz.smooth.db.dao;
 
 import com.mrgostepz.smooth.db.repository.OrderInfoRepository;
+import com.mrgostepz.smooth.db.rowmapper.OrderDetailRowMapper;
 import com.mrgostepz.smooth.db.rowmapper.OrderRowMapper;
+import com.mrgostepz.smooth.model.db.OrderDetail;
 import com.mrgostepz.smooth.model.db.OrderInfo;
 import com.mrgostepz.smooth.model.request.OrderUpdateStatus;
 import lombok.RequiredArgsConstructor;
@@ -9,13 +11,31 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
-import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.*;
+import static com.mrgostepz.smooth.db.sql.OrderDetailSQL.SQL_GET_ORDER_DETAIL_BY_DAY;
+import static com.mrgostepz.smooth.db.sql.OrderDetailSQL.SQL_GET_ORDER_DETAIL_BY_ORDER_INFO_ID_LIST;
+import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.SQL_ADD_ORDER;
+import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.SQL_DELETE_ORDER;
+import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.SQL_GET_ALL_ORDER;
+import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.SQL_GET_COOK_ORDER;
+import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.SQL_GET_ORDER_BY_ID;
+import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.SQL_GET_ORDER_INFO_BY_TABLE;
+import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.SQL_UPDATE_ORDER;
+import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.SQL_UPDATE_ORDER_DONE;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +43,7 @@ public class OrderInfoDAO implements OrderInfoRepository {
     private static final Logger logger = LogManager.getLogger(OrderInfoDAO.class);
 
     private final JdbcTemplate jdbcTemplate;
+
     @Override
     public List<OrderInfo> getAll() {
         try {
@@ -37,6 +58,46 @@ public class OrderInfoDAO implements OrderInfoRepository {
     public List<OrderInfo> getCookOrder() {
         try {
             return jdbcTemplate.query(SQL_GET_COOK_ORDER, new OrderRowMapper());
+        } catch (DataAccessException ex) {
+            logger.error(ex.getMessage());
+            throw ex;
+        }
+    }
+
+    @Override
+    public List<OrderDetail> getOrderByTableName(String tableName, Set<Integer> idList) {
+        try {
+            NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+            MapSqlParameterSource parameters = new MapSqlParameterSource();
+            parameters.addValue("ids", idList);
+            return template.query(SQL_GET_ORDER_DETAIL_BY_ORDER_INFO_ID_LIST, parameters, new OrderDetailRowMapper());
+        } catch (DataAccessException ex) {
+            logger.error(ex.getMessage());
+            throw ex;
+        }
+    }
+
+    @Override
+    public List<OrderDetail> getOrderDetailByDay() {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date();
+            String todayDate = formatter.format(date);
+            String dateTime = String.format("between DATE_FORMAT(\"%s 00:00:01\", \"%%Y-%%m-%%d %%T\") and DATE_FORMAT(\"%s\", \"%%Y-%%m-%%d %%T\")", todayDate, todayDate);
+            String sql = SQL_GET_ORDER_DETAIL_BY_DAY + dateTime;
+            List<OrderDetail> orderDetailList =  jdbcTemplate.query(sql, new OrderDetailRowMapper());
+            return orderDetailList;
+        } catch (DataAccessException ex) {
+            logger.error(ex.getMessage());
+            throw ex;
+
+        }
+    }
+
+    @Override
+    public List<OrderInfo> getOrderInfoByTableName(String tableName) {
+        try {
+            return jdbcTemplate.query(SQL_GET_ORDER_INFO_BY_TABLE, new OrderRowMapper(), tableName);
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
             throw ex;

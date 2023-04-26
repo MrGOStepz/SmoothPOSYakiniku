@@ -1,6 +1,10 @@
+import 'package:client_order/providers/product_provider.dart';
 import 'package:client_order/screens/order_screen.dart';
+import 'package:client_order/widgets/paid_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../models/product_model.dart';
 import 'main_screen.dart';
 
 class OverViewScreen extends StatefulWidget {
@@ -11,15 +15,30 @@ class OverViewScreen extends StatefulWidget {
 }
 
 class _OverViewScreenState extends State<OverViewScreen> {
-
   var _isInit = true;
   var _isLoading = false;
 
   int currentCategorySelected = 1;
   int currentCategoryPageSelected = 1;
 
+  List<Product> productList = [];
+
   @override
   void initState() {
+    //
+    // if (_isInit) {
+    //   //   setState(() {
+    //   //     _isLoading = true;
+    //   //   });
+    //   //   Provider.of<Products>(context).fetchAndSetProducts().then((_) {
+    //   //     setState(() {
+    //   //       _isLoading = false;
+    //   //     });
+    //   //   });
+    //   Provider.of<ProductProvider>(context, listen: false).fetchAndSetProducts();
+    //
+    // }
+    // _isInit = false;
     super.initState();
   }
 
@@ -34,11 +53,14 @@ class _OverViewScreenState extends State<OverViewScreen> {
       //       _isLoading = false;
       //     });
       //   });
-
+      Provider.of<ProductProvider>(context, listen: true).fetchAndSetProducts();
     }
     _isInit = false;
+
+    productList = Provider.of<ProductProvider>(context, listen: true).items;
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,20 +73,28 @@ class _OverViewScreenState extends State<OverViewScreen> {
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height,
                 child: MainScreen(),
-                ),
               ),
+            ),
             Expanded(
               flex: 3,
               child: Container(
-               width: double.infinity,
+                width: double.infinity,
                 height: MediaQuery.of(context).size.height,
-                child: OrderScreen(),
+                child: Column(
+                  children: [
+                    Expanded(
+                        flex: 8,
+                        child: OrderScreen(
+                          productList: productList,
+                        ),),
+                    Expanded(flex: 2, child: PaidWidget())
+                  ],
+                ),
               ),
             ),
           ],
         ),
       ),
     );
-
   }
 }

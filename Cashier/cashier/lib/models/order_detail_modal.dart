@@ -8,6 +8,7 @@ class OrderDetail {
   late final String comment;
   late final String startedTime;
   late final String lastUpdatedTime;
+  late String productName;
 
   OrderDetail({
     required this.orderDetailId,

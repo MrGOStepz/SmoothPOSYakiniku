@@ -13,6 +13,7 @@ import com.mrgostepz.smooth.model.enumtype.OrderType;
 import com.mrgostepz.smooth.model.enumtype.Status;
 import com.mrgostepz.smooth.model.request.OrderRequest;
 import com.mrgostepz.smooth.model.request.OrderUpdateStatus;
+import com.mrgostepz.smooth.model.response.OrderDetailInfoResponse;
 import com.mrgostepz.smooth.model.response.OrderResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +22,9 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +43,18 @@ public class OrderService {
         }
         logger.info(orderList);
         return orderList;
+    }
+
+    public OrderDetailInfoResponse getOrderSummary() {
+        List<OrderDetail> orderDetailList = orderInfoRepository.getOrderDetailByDay();
+        OrderDetailInfoResponse orderResponse = new OrderDetailInfoResponse();
+        if (orderDetailList == null) {
+            throw new RecordNotFoundException("There is no record in order table.");
+        }
+
+        orderResponse.setOrderDetailList(orderDetailList);
+        logger.info(orderDetailList);
+        return orderResponse;
     }
 
     public List<OrderInfo> getCookOrder() {
@@ -110,7 +125,26 @@ public class OrderService {
             return orderResponseList;
 
         } catch (Exception ex) {
-            return null;
+            return new ArrayList<>();
+        }
+    }
+
+    public OrderDetailInfoResponse getListOrderByTableName(String tableName) {
+        try{
+            List<OrderInfo> orderInfoList = orderInfoRepository.getOrderInfoByTableName(tableName);
+
+            Set<Integer> idList = new HashSet<>();
+            for (int i = 0; i < orderInfoList.size(); i++) {
+                idList.add(orderInfoList.get(i).getId());
+            }
+
+            List<OrderDetail> orderDetailList = orderInfoRepository.getOrderByTableName(tableName, idList);
+            OrderDetailInfoResponse orderResponse = new OrderDetailInfoResponse();
+            orderResponse.setOrderInfoList(orderInfoList);
+            orderResponse.setOrderDetailList(orderDetailList);
+            return orderResponse;
+        } catch (Exception ex) {
+            return new OrderDetailInfoResponse();
         }
     }
 
