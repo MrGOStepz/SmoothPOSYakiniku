@@ -12,6 +12,7 @@ import static com.mrgostepz.smooth.db.ColumnName.COL_COMMENT;
 import static com.mrgostepz.smooth.db.ColumnName.COL_LAST_UPDATED_TIME;
 import static com.mrgostepz.smooth.db.ColumnName.COL_ORDER_DETAIL_ID;
 import static com.mrgostepz.smooth.db.ColumnName.COL_ORDER_INFO_ID;
+import static com.mrgostepz.smooth.db.ColumnName.COL_POPUP_DETAIL_ID;
 import static com.mrgostepz.smooth.db.ColumnName.COL_PRICE;
 import static com.mrgostepz.smooth.db.ColumnName.COL_PRODUCT_ID;
 import static com.mrgostepz.smooth.db.ColumnName.COL_QUANTITY;
@@ -23,6 +24,7 @@ public class OrderSummatyRowMapper implements RowMapper<OrderSummary> {
     public OrderSummary mapRow(ResultSet rs, int rowNum) throws SQLException {
         OrderSummary orderSummary = new OrderSummary();
         orderSummary.setProductId(rs.getInt(COL_PRODUCT_ID));
+        orderSummary.setPopupDetailId(rs.getInt(COL_POPUP_DETAIL_ID));
         orderSummary.setQuantity(rs.getInt(COL_QUANTITY));
         orderSummary.setAmount(rs.getDouble(COL_AMOUNT));
         return orderSummary;

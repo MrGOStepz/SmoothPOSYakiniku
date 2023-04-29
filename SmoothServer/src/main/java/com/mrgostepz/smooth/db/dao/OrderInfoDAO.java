@@ -86,7 +86,7 @@ public class OrderInfoDAO implements OrderInfoRepository {
             Date date = new Date();
             String todayDate = formatter.format(date);
             String dateTime = String.format("between DATE_FORMAT(\"%s 00:00:01\", \"%%Y-%%m-%%d %%T\") and DATE_FORMAT(\"%s 23:59:59\", \"%%Y-%%m-%%d %%T\")", todayDate, todayDate);
-            String sql = "SELECT PRODUCT_ID, sum(quantity) as quantity, sum(price) as amount from order_detail where started_time "  + dateTime + "  GROUP BY PRODUCT_ID";
+            String sql = "SELECT PRODUCT_ID, POPUP_DETAIL_ID, sum(quantity) as quantity, sum(price) as amount from order_detail where started_time "  + dateTime + "  GROUP BY PRODUCT_ID, POPUP_DETAIL_ID";
             List<OrderSummary>  orderSummariesList=  jdbcTemplate.query(sql, new OrderSummatyRowMapper());
             return orderSummariesList;
         } catch (DataAccessException ex) {

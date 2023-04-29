@@ -1,21 +1,19 @@
 import 'dart:convert';
+
 import 'package:client_order/models/order_summary.dart';
-import 'package:client_order/providers/product_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:flutter/cupertino.dart';
 
 import '../models/order_detail_modal.dart';
 import '../models/order_info_modal.dart';
 import '../models/product_model.dart';
 import '../models/request/order_status_request.dart';
-import '../models/response/order_detail_response.dart';
 
 class OrderProvider with ChangeNotifier {
   late List<OrderDetail> _orderDetailItems = [];
   late List<OrderInfo> _orderInfoItems = [];
-  late List<Product> _productItems= [];
+  late List<Product> _productItems = [];
 
   late String summaryText = '';
 
@@ -43,22 +41,24 @@ class OrderProvider with ChangeNotifier {
     _productItems = productList;
     var buffer = StringBuffer();
     double total = 0.0;
-    for(var orderDetail in _orderDetailItems) {
-      String productName = productList.firstWhere((element) => element.id == orderDetail.productId).name;
-      buffer.write('$productName x ${orderDetail.quantity} = ${orderDetail.price * orderDetail.quantity} \n');
+    for (var orderDetail in _orderDetailItems) {
+      String productName = productList
+          .firstWhere((element) => element.id == orderDetail.productId)
+          .name;
+      buffer.write(
+          '$productName x ${orderDetail.quantity} = ${orderDetail.price * orderDetail.quantity} \n');
       total += orderDetail.price;
     }
     buffer.write('ราคารวม $total');
     return buffer.toString();
-
   }
 
   Future<void> updateStatus() async {
-    final url = Uri.http(GlobalConfiguration().get('server_endpoint'), '/api/v1/order/update/status');
+    final url = Uri.http(GlobalConfiguration().get('server_endpoint'),
+        '/api/v1/order/update/status');
     OrderStatusRequest orderStatusReq;
-    for(var item in _orderInfoItems) {
-      orderStatusReq = OrderStatusRequest(
-          item.id, 'PAID');
+    for (var item in _orderInfoItems) {
+      orderStatusReq = OrderStatusRequest(item.id, 'PAID');
       await http.put(
         url,
         body: json.encode(orderStatusReq.toJson()),
@@ -70,10 +70,8 @@ class OrderProvider with ChangeNotifier {
   }
 
   Future<void> getSummaryToday() async {
-
     final url = Uri.http(
-        GlobalConfiguration().get("server_endpoint"),
-        '/api/v1/order/summary');
+        GlobalConfiguration().get("server_endpoint"), '/api/v1/order/summary');
     try {
       final response = await http.get(
         url,
@@ -83,15 +81,34 @@ class OrderProvider with ChangeNotifier {
 
       List<OrderSummary> orderSummaryList = [];
       for (var value in extractedData['orderSummaries']) {
-       OrderSummary orderSummary = OrderSummary(productId: value['productId'], quantity: value['quantity'], amount: value['amount']);
-       orderSummaryList.add(orderSummary);
+        OrderSummary orderSummary = OrderSummary(
+            productId: value['productId'],
+            popupDetailId: value['popupDetailId'],
+            quantity: value['quantity'],
+            amount: value['amount']);
+        orderSummaryList.add(orderSummary);
       }
 
       var buffer = StringBuffer();
       double totalToday = 0;
-      for(var orderDetail in orderSummaryList) {
-        String productName = _productItems.firstWhere((element) => element.id == orderDetail.productId).name;
-        buffer.write('${productName} x ${orderDetail.quantity} = ${orderDetail.amount} \n');
+      for (var orderDetail in orderSummaryList) {
+        String productName = _productItems
+            .firstWhere((element) => element.id == orderDetail.productId)
+            .name;
+        if (orderDetail.popupDetailId == 1) {
+          buffer.write(
+              '${productName} อุด้ง x ${orderDetail.quantity} = ${orderDetail.amount} \n');
+        } else if (orderDetail.popupDetailId == 2) {
+          totalToday += 20;
+          buffer.write(
+              '${productName} อุด้งแบน x ${orderDetail.quantity} = ${orderDetail.amount} \n');
+        } else if (orderDetail.popupDetailId == 3) {
+          buffer.write(
+              '${productName} ราแมง x ${orderDetail.quantity} = ${orderDetail.amount} \n');
+        } else {
+          buffer.write(
+              '${productName} x ${orderDetail.quantity} = ${orderDetail.amount} \n');
+        }
         totalToday += orderDetail.amount;
       }
       buffer.write('ราคารวมวันนี้ = ${totalToday}');
@@ -104,8 +121,7 @@ class OrderProvider with ChangeNotifier {
   }
 
   Future<void> sendOrderToBackEnd(String tableName) async {
-    final url = Uri.http(
-        GlobalConfiguration().get("server_endpoint"),
+    final url = Uri.http(GlobalConfiguration().get("server_endpoint"),
         '/api/v1/order/table/$tableName');
     try {
       final response = await http.get(
@@ -116,7 +132,8 @@ class OrderProvider with ChangeNotifier {
 
       List<OrderInfo> orderInfoList = [];
       for (var value in extractedData['orderInfoList']) {
-        OrderInfo orderInfo = OrderInfo(id: value['id'],
+        OrderInfo orderInfo = OrderInfo(
+            id: value['id'],
             tableName: value['tableName'],
             receiptJson: value['receiptJson'],
             status: value['status'],
@@ -133,6 +150,7 @@ class OrderProvider with ChangeNotifier {
             orderDetailId: value['orderDetailId'],
             productId: value['productId'],
             orderIntoId: value['orderInfoId'],
+            popupDetailId: value['popupDetailId'],
             status: value['status'],
             quantity: value['quantity'],
             price: value['price'],
@@ -141,7 +159,6 @@ class OrderProvider with ChangeNotifier {
             lastUpdatedTime: value['lastUpdatedTime']);
         orderDetailList.add(orderDetail);
       }
-
 
       _orderInfoItems = orderInfoList;
       _orderDetailItems = orderDetailList;

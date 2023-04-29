@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:stomp_dart_client/stomp.dart';
 import 'package:stomp_dart_client/stomp_config.dart';
 import 'package:stomp_dart_client/stomp_frame.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
 import '../models/cart_item_model.dart';
 import '../models/table_item_model.dart';
@@ -45,6 +46,7 @@ class _MainScreenState extends State<MainScreen> {
     stompClient.subscribe(
         destination: '/topic/ordering',
         callback: (frame) {
+
           result = json.decode(frame.body!);
           List<CartItem> tempCartItemList = [];
           for (var cart in result['items']) {
@@ -56,6 +58,7 @@ class _MainScreenState extends State<MainScreen> {
               result['tableName'],
               'Cook',
               tempCartItemList));
+          FlutterRingtonePlayer.playNotification();
         });
   }
 

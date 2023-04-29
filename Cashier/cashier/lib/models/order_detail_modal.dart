@@ -2,6 +2,7 @@ class OrderDetail {
   late final int orderDetailId;
   late final int productId;
   late final int orderIntoId;
+  late final int popupDetailId;
   late final String status;
   late final int quantity;
   late final double price;
@@ -14,6 +15,7 @@ class OrderDetail {
     required this.orderDetailId,
     required this.productId,
     required this.orderIntoId,
+    required this.popupDetailId,
     required this.status,
     required this.quantity,
     required this.price,
@@ -28,6 +30,7 @@ class OrderDetail {
     orderDetailId = json['orderDetailId'];
     productId = json['productId'];
     orderIntoId = json['orderInfoId'];
+    popupDetailId = json['popupDetailId'];
     status = json['status'];
     quantity = json['quantity'];
     price = json['price'];

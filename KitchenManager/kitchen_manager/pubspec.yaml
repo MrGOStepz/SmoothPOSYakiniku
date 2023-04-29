@@ -41,6 +41,7 @@ dependencies:
   global_configuration: ^2.0.0-nullsafety.1
   http: ^0.13.5
   intl: ^0.17.0
+  flutter_ringtone_player: ^3.2.0
 
 dev_dependencies:
   flutter_test:

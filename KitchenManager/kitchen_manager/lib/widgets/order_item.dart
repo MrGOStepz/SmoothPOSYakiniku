@@ -12,6 +12,7 @@ class OrderItem extends StatefulWidget {
 }
 
 class _OrderItemState extends State<OrderItem> {
+
   TextStyle textItemStyle = const TextStyle(
     decoration: TextDecoration.none,
   );
@@ -20,6 +21,19 @@ class _OrderItemState extends State<OrderItem> {
     setState(() {
       textItemStyle = const TextStyle(decoration: TextDecoration.lineThrough);
     });
+  }
+
+  String _generateName(){
+    String noodleType = '';
+    if(widget.cartItem.popupDetailId == 1) {
+   noodleType = 'อุด้ง';
+   } else if (widget.cartItem.popupDetailId == 2) {
+    noodleType = 'อุงด้ง แบน';
+    } else if (widget.cartItem.popupDetailId == 3) {
+      noodleType = 'ราเมง';
+    }
+
+   return '${widget.cartItem.name} $noodleType x ${widget.cartItem.quantity}';
   }
 
   @override
@@ -43,7 +57,7 @@ class _OrderItemState extends State<OrderItem> {
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: ListTile(
         title: Text(
-          '${widget.cartItem.name} ',
+          _generateName(),
           style: textItemStyle,
         ),
         trailing: IconButton(

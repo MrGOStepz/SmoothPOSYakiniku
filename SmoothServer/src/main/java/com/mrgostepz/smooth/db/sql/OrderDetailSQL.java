@@ -13,15 +13,17 @@ public class OrderDetailSQL {
     public static final String SQL_ADD_ORDER_DETAIL = "INSERT INTO " + TABLE_ORDER_DETAIL + " ("
             + COL_ORDER_INFO_ID + ", "
             + COL_PRODUCT_ID + ", "
+            + COL_POPUP_DETAIL_ID + ", "
             + COL_QUANTITY + ", "
             + COL_PRICE + ", "
             + COL_COMMENT + ", "
             + COL_STATUS + ", "
             + COL_STARTED_TIME + ", "
-            + COL_LAST_UPDATED_TIME + ") VALUE(?,?,?,?,?,?,?,?);";
+            + COL_LAST_UPDATED_TIME + ") VALUE(?,?,?,?,?,?,?,?,?);";
     public static final String SQL_UPDATE_ORDER_DETAIL = "UPDATE " + TABLE_ORDER_DETAIL + " SET "
             + COL_ORDER_INFO_ID + " = ?, "
             + COL_PRODUCT_ID + " = ?, "
+            + COL_POPUP_DETAIL_ID + " = ?, "
             + COL_QUANTITY + " = ?, "
             + COL_PRICE + " = ?, "
             + COL_COMMENT + " = ?, "

@@ -9,18 +9,18 @@ import '../services/web_socket.dart';
 
 class CartKey {
   int productId;
-  int popupDetialId;
+  int popupDetailId;
 
   CartKey({
     required this.productId,
-    required this.popupDetialId,
-});
+    required this.popupDetailId,
+  });
 }
 
 class Cart with ChangeNotifier {
-  final Map<int, CartItem> _items = {};
+  final Map<String, CartItem> _items = {};
 
-  Map<int, CartItem> get items {
+  Map<String, CartItem> get items {
     return _items;
   }
 
@@ -31,7 +31,7 @@ class Cart with ChangeNotifier {
   double get totalAmount {
     var total = 0.0;
     _items.forEach((key, value) {
-      if(value.popupDetailId == 2) {
+      if (value.popupDetailId == 2) {
         total += 20;
       }
       total += value.price * value.quantity;
@@ -39,12 +39,13 @@ class Cart with ChangeNotifier {
     return total;
   }
 
-  void addItem(int productId, int popupDetailId, double price, String title, String description,
-      String comment) {
+  void addItem(int productId, int popupDetailId, double price, String title,
+      String description, String comment) {
     debugPrint('${title} ${productId} ${popupDetailId}');
-    if (_items.containsKey(productId) && _items.containsKey(popupDetailId)) {
+    String key = '${productId}-${popupDetailId}';
+    if (_items.containsKey(key)) {
       _items.update(
-          productId,
+          key,
           (existingCartItem) => CartItem(
               productId: existingCartItem.productId,
               popupDetailId: existingCartItem.popupDetailId,
@@ -55,7 +56,7 @@ class Cart with ChangeNotifier {
               comment: existingCartItem.comment));
     } else {
       _items.putIfAbsent(
-        productId,
+        key,
         () => CartItem(
             productId: productId,
             popupDetailId: popupDetailId,
@@ -69,21 +70,28 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeItem(int? productId) {
-    _items.remove(productId);
+  void removeItem(int productId, int popupDetailId) {
+    String key = '${productId}-${popupDetailId}';
+    _items.remove(key);
     notifyListeners();
   }
 
-  void addOrRemoveItem(int productId, int value) {
-    if (!_items.containsKey(productId)) {
+  // void addOrRemoveItem(int productId, int value) {
+  //   if (!_items.containsKey(productId)) {
+  //     return;
+  //   }
+  void addOrRemoveItem(int productId, int popupDetailId, int value) {
+
+    String key = '${productId}-${popupDetailId}';
+    if (!_items.containsKey(key)) {
       return;
     }
 
-    var quantity = _items[productId]?.quantity as int;
+    var quantity = _items[key]?.quantity as int;
     quantity = quantity + value;
     if (quantity > 0) {
       items.update(
-          productId,
+          key,
           (existingCartItem) => CartItem(
               productId: existingCartItem.productId,
               popupDetailId: existingCartItem.popupDetailId,
@@ -93,7 +101,7 @@ class Cart with ChangeNotifier {
               quantity: existingCartItem.quantity + value,
               comment: existingCartItem.comment));
     } else {
-      _items.remove(productId);
+      _items.remove(key);
     }
     notifyListeners();
   }

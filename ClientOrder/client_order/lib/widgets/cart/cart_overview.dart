@@ -1,6 +1,5 @@
 import 'package:client_order/widgets/cart/amount_cart.dart';
 import 'package:client_order/widgets/cart/send_order.dart';
-import 'package:client_order/widgets/noodle_type/noodle_type_item.dart';
 import 'package:flutter/material.dart';
 
 import '../table_seletion.dart';
@@ -31,7 +30,8 @@ class _CartOverviewState extends State<CartOverview> {
       children: [
         Expanded(
           flex: 1,
-          child: ChangeTable(changeTableName: _changeTableName, titleController: _titleController,),
+          child: Text('รายการอาหาร'),
+          // child: ChangeTable(changeTableName: _changeTableName, titleController: _titleController,),
         ),
         Expanded(
           flex: 7,
@@ -42,8 +42,7 @@ class _CartOverviewState extends State<CartOverview> {
           child: Column(
             children: [
               AmountCartItem(),
-              NoodleTypeItem()
-              // SendOrder(titleController: _titleController,),
+              SendOrder(titleController: _titleController,),
             ],
           ),
         )

@@ -33,7 +33,8 @@ class _CartSectionState extends State<CartSection> {
       if (_quantity > 0) {
         _quantity = _quantity + value;
         Provider.of<Cart>(context, listen: false)
-            .addOrRemoveItem(widget.id, value);
+            // .addOrRemoveItem(widget.id, value);
+        .addOrRemoveItem(widget.id, widget.popupDetailId, value);
       }
     });
   }

@@ -15,6 +15,7 @@ public class OrderDetailRowMapper implements RowMapper<OrderDetail> {
         orderDetail.setOrderDetailId(rs.getInt(COL_ORDER_DETAIL_ID));
         orderDetail.setOrderInfoId(rs.getInt(COL_ORDER_INFO_ID));
         orderDetail.setProductId(rs.getInt(COL_PRODUCT_ID));
+        orderDetail.setPopupDetailId(rs.getInt(COL_POPUP_DETAIL_ID));
         orderDetail.setQuantity(rs.getInt(COL_QUANTITY));
         orderDetail.setPrice(rs.getDouble(COL_PRICE));
         orderDetail.setComment(rs.getString(COL_COMMENT));

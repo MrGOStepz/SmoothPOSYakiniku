@@ -50,12 +50,13 @@ public class OrderDetailDAO implements OrderDetailRepository {
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_ORDER_DETAIL, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, orderDetail.getOrderInfoId());
             statement.setInt(2, orderDetail.getProductId());
-            statement.setInt(3, orderDetail.getQuantity());
-            statement.setDouble(4, orderDetail.getPrice());
-            statement.setString(5, orderDetail.getComment());
-            statement.setString(6, orderDetail.getStatus());
-            statement.setTimestamp(7, orderDetail.getStartedTime());
-            statement.setTimestamp(8, orderDetail.getLastUpdatedTime());
+            statement.setInt(3, orderDetail.getPopupDetailId());
+            statement.setInt(4, orderDetail.getQuantity());
+            statement.setDouble(5, orderDetail.getPrice());
+            statement.setString(6, orderDetail.getComment());
+            statement.setString(7, orderDetail.getStatus());
+            statement.setTimestamp(8, orderDetail.getStartedTime());
+            statement.setTimestamp(9, orderDetail.getLastUpdatedTime());
 
             int affectedRows = statement.executeUpdate();
 
@@ -84,6 +85,7 @@ public class OrderDetailDAO implements OrderDetailRepository {
             int result = jdbcTemplate.update(SQL_UPDATE_ORDER_DETAIL,
                     orderDetail.getOrderInfoId(),
                     orderDetail.getProductId(),
+                    orderDetail.getPopupDetailId(),
                     orderDetail.getQuantity(),
                     orderDetail.getPrice(),
                     orderDetail.getComment(),

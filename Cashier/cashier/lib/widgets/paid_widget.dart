@@ -21,7 +21,7 @@ class _PaidWidgetState extends State<PaidWidget> {
     return InkWell(
       child: TextButton(
         onPressed: _updateOrderPaid,
-        child: Text('PAID'),
+        child: Text('PAY'),
       ),
     );
   }

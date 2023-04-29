@@ -114,6 +114,7 @@ public class OrderService {
                     Product tempProduct = productService.getProductByCache(orderDetail.getProductId());
                     orderDetail.setProductName(tempProduct.getName());
                     cartItem.setProductId(orderDetail.getProductId());
+                    cartItem.setPopupDetailId(orderDetail.getPopupDetailId());
                     cartItem.setName(orderDetail.getProductName());
                     cartItem.setQuantity(orderDetail.getQuantity());
                     cartItem.setPrice(orderDetail.getPrice());
@@ -155,6 +156,7 @@ public class OrderService {
         for (CartItem cartItem : orderRequest.getCartItems()) {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setProductId(cartItem.getProductId());
+            orderDetail.setPopupDetailId(cartItem.getPopupDetailId());
             orderDetail.setProductName(cartItem.getName());
             orderDetail.setQuantity(cartItem.getQuantity());
             orderDetail.setComment(cartItem.getComment());
