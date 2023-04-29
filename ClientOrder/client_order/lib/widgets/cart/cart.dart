@@ -25,6 +25,7 @@ class _CartMenuState extends State<CartMenu> {
           itemCount: cart.itemCount,
           itemBuilder: (ctx, i) => CartSection(
             id: cart.items.values.toList()[i].productId,
+            popupDetailId: cart.items.values.toList()[i].popupDetailId,
             title: cart.items.values.toList()[i].name,
             description: cart.items.values.toList()[i].description,
             price: cart.items.values.toList()[i].price,

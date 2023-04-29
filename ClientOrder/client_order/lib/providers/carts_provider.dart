@@ -7,6 +7,16 @@ import 'package:flutter/foundation.dart';
 import '../models/cart_item_model.dart';
 import '../services/web_socket.dart';
 
+class CartKey {
+  int productId;
+  int popupDetialId;
+
+  CartKey({
+    required this.productId,
+    required this.popupDetialId,
+});
+}
+
 class Cart with ChangeNotifier {
   final Map<int, CartItem> _items = {};
 
@@ -21,6 +31,9 @@ class Cart with ChangeNotifier {
   double get totalAmount {
     var total = 0.0;
     _items.forEach((key, value) {
+      if(value.popupDetailId == 2) {
+        total += 20;
+      }
       total += value.price * value.quantity;
     });
     return total;
@@ -28,7 +41,8 @@ class Cart with ChangeNotifier {
 
   void addItem(int productId, int popupDetailId, double price, String title, String description,
       String comment) {
-    if (_items.containsKey(productId)) {
+    debugPrint('${title} ${productId} ${popupDetailId}');
+    if (_items.containsKey(productId) && _items.containsKey(popupDetailId)) {
       _items.update(
           productId,
           (existingCartItem) => CartItem(

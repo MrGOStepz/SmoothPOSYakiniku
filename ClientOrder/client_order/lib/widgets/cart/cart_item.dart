@@ -8,6 +8,7 @@ class CartSection extends StatefulWidget {
       {Key? key,
       required this.id,
       required this.title,
+      required this.popupDetailId,
       required this.description,
       required this.price,
       required this.quantity})
@@ -15,6 +16,7 @@ class CartSection extends StatefulWidget {
 
   final int id;
   final String title;
+  final int popupDetailId;
   final String description;
   final double price;
   final int quantity;
@@ -36,6 +38,19 @@ class _CartSectionState extends State<CartSection> {
     });
   }
 
+  String _generateTitle() {
+    String noodleType = '';
+    if(widget.popupDetailId == 1) {
+      noodleType = 'อุด้ง';
+    } else if (widget.popupDetailId == 2) {
+      noodleType = 'อุด้ง แบน';
+    } else if (widget.popupDetailId == 3) {
+      noodleType = 'ราเมง';
+    }
+    return '${widget.title.toString()} ${noodleType}';
+
+  }
+
   @override
   Widget build(BuildContext context) {
     _quantity = widget.quantity;
@@ -47,7 +62,7 @@ class _CartSectionState extends State<CartSection> {
         children: [
           Expanded(
             flex: 1,
-            child: Text('${widget.title.toString()}  ${widget.quantity}'),
+            child: Text(_generateTitle()),
           ),
           Expanded(
             flex: 1,
