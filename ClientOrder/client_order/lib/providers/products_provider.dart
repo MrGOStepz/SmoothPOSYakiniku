@@ -33,6 +33,7 @@ class Products with ChangeNotifier {
             value["price"],
             value["foodType"],
             value["categoryInfoId"],
+            value["popupInfoId"],
             value["locationPage"],
             value["locationRow"],
             value["locationColumn"],

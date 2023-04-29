@@ -6,6 +6,7 @@ import '../../providers/carts_provider.dart';
 
 class ProductMenuItem extends StatefulWidget {
   final int id;
+  final int popupInfoId;
   final String name;
   final double price;
   final String imagePath;
@@ -13,6 +14,7 @@ class ProductMenuItem extends StatefulWidget {
   const ProductMenuItem(
       {Key? key,
       required this.id,
+      required this.popupInfoId,
       required this.name,
       required this.price,
       required this.imagePath})

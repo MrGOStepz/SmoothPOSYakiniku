@@ -18,6 +18,7 @@ public class ProductRowMapper implements RowMapper<Product> {
         product.setPrice(rs.getDouble(COL_PRICE));
         product.setFoodType(rs.getString(COL_FOOD_TYPE));
         product.setCategoryInfoId(rs.getInt(COL_CATEGORY_INFO_ID));
+        product.setPopupInfoId(rs.getInt(COL_POPUP_INFO_ID));
         product.setLocationPage(rs.getInt(COL_LOCATION_PAGE));
         product.setLocationRow(rs.getInt(COL_LOCATION_ROW));
         product.setLocationColumn(rs.getInt(COL_LOCATION_COLUMN));

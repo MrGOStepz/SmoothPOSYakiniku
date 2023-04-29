@@ -10,6 +10,7 @@ public class Product {
     private Double price;
     private String foodType;
     private Integer categoryInfoId;
+    private Integer popupInfoId;
     private Integer locationPage;
     private Integer locationRow;
     private Integer locationColumn;

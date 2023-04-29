@@ -1,5 +1,6 @@
 class CartItem {
   int? productId;
+  int? popupDetailId;
   String? name;
   String? description;
   int? quantity;
@@ -8,6 +9,7 @@ class CartItem {
 
   CartItem(
     this.productId,
+    this.popupDetailId,
     this.name,
     this.description,
     this.price,
@@ -17,6 +19,7 @@ class CartItem {
 
   CartItem.fromJson(Map<String, dynamic> json) {
     productId = json['productId'];
+    popupDetailId = json['popupDetailId'];
     name = json['name'];
     description = json['description'];
     quantity = json['quantity'];
@@ -27,6 +30,7 @@ class CartItem {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['productId'] = productId;
+    data['popupDetailId'] = popupDetailId;
     data['name'] = name;
     data['description'] = description;
     data['quantity'] = quantity;

@@ -1,5 +1,6 @@
 class CartItem {
   late final int productId;
+  late final int popupDetailId;
   late final String name;
   late final String description;
   late final int quantity;
@@ -8,6 +9,7 @@ class CartItem {
 
   CartItem({
     required this.productId,
+    required this.popupDetailId,
     required this.name,
     required this.description,
     required this.price,
@@ -18,6 +20,7 @@ class CartItem {
   CartItem.fromJson(Map<String, dynamic> json, this.productId, this.name,
       this.description, this.quantity, this.price, this.comment) {
     productId = json['productId'];
+    popupDetailId = json['popupDetailId'];
     name = json['name'];
     description = json['description'];
     quantity = json['quantity'];
@@ -28,6 +31,7 @@ class CartItem {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['productId'] = productId;
+    data['popupDetailId'] = popupDetailId;
     data['name'] = name;
     data['description'] = description;
     data['quantity'] = quantity;

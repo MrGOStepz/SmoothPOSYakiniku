@@ -26,13 +26,14 @@ class Cart with ChangeNotifier {
     return total;
   }
 
-  void addItem(int productId, double price, String title, String description,
+  void addItem(int productId, int popupDetailId, double price, String title, String description,
       String comment) {
     if (_items.containsKey(productId)) {
       _items.update(
           productId,
           (existingCartItem) => CartItem(
               productId: existingCartItem.productId,
+              popupDetailId: existingCartItem.popupDetailId,
               name: existingCartItem.name,
               description: existingCartItem.description,
               price: existingCartItem.price,
@@ -43,6 +44,7 @@ class Cart with ChangeNotifier {
         productId,
         () => CartItem(
             productId: productId,
+            popupDetailId: popupDetailId,
             name: title,
             description: description,
             price: price,
@@ -70,6 +72,7 @@ class Cart with ChangeNotifier {
           productId,
           (existingCartItem) => CartItem(
               productId: existingCartItem.productId,
+              popupDetailId: existingCartItem.popupDetailId,
               name: existingCartItem.name,
               description: existingCartItem.description,
               price: existingCartItem.price,

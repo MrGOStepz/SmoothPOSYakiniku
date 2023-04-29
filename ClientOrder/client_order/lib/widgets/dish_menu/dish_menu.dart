@@ -17,10 +17,15 @@ class DishMenu extends StatelessWidget {
     try {
       Product productItem = productItems
           .where((value) =>
-      value.locationRow == row && value.locationColumn == column)
+              value.locationRow == row && value.locationColumn == column)
           .first;
       return ProductMenuItem(
-          id: productItem.id, price: productItem.price, name: productItem.name, imagePath: productItem.imagePath,);
+        id: productItem.id,
+        popupInfoId: productItem.popupInfoId,
+        price: productItem.price,
+        name: productItem.name,
+        imagePath: productItem.imagePath,
+      );
     } catch (e) {
       return const Text("");
     }
@@ -29,13 +34,11 @@ class DishMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Products>(context, listen: false);
-    var sizeScreen = MediaQuery
-        .of(context)
-        .size;
+    var sizeScreen = MediaQuery.of(context).size;
     var itemHeight = sizeScreen.height;
     var itemWidth = sizeScreen.width / 2;
-    List<Product> productItem = product.getProductsByCategoryAndPage(
-        currentCategory, currentPage);
+    List<Product> productItem =
+        product.getProductsByCategoryAndPage(currentCategory, currentPage);
 
     return Container(
         width: double.infinity,

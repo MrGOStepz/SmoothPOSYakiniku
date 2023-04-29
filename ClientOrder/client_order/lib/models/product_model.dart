@@ -4,6 +4,7 @@ class Product {
   final double price;
   final String foodType;
   final int categoryInfoId;
+  final int popupInfoId;
   final int locationPage;
   final int locationRow;
   final int locationColumn;
@@ -17,6 +18,7 @@ class Product {
       this.price,
       this.foodType,
       this.categoryInfoId,
+      this.popupInfoId,
       this.locationPage,
       this.locationRow,
       this.locationColumn,

@@ -55,12 +55,13 @@ public class ProductDAO implements ProductRepository {
             statement.setDouble(3, product.getPrice());
             statement.setString(4, product.getFoodType());
             statement.setInt(5, product.getCategoryInfoId());
-            statement.setInt(6, product.getLocationPage());
-            statement.setInt(7, product.getLocationRow());
-            statement.setInt(8, product.getLocationColumn());
-            statement.setInt(9, product.getStock());
-            statement.setString(10, product.getImagePath());
-            statement.setInt(11, Boolean.TRUE.equals(product.getIsAvailable()) ? 1 : 0);
+            statement.setInt(6, product.getPopupInfoId());
+            statement.setInt(7, product.getLocationPage());
+            statement.setInt(8, product.getLocationRow());
+            statement.setInt(9, product.getLocationColumn());
+            statement.setInt(10, product.getStock());
+            statement.setString(11, product.getImagePath());
+            statement.setInt(12, Boolean.TRUE.equals(product.getIsAvailable()) ? 1 : 0);
 
             int affectedRows = statement.executeUpdate();
 
@@ -92,6 +93,7 @@ public class ProductDAO implements ProductRepository {
                     product.getPrice(),
                     product.getFoodType(),
                     product.getCategoryInfoId(),
+                    product.getPopupInfoId(),
                     product.getLocationPage(),
                     product.getLocationRow(),
                     product.getLocationColumn(),
