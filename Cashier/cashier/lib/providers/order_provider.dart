@@ -45,9 +45,27 @@ class OrderProvider with ChangeNotifier {
       String productName = productList
           .firstWhere((element) => element.id == orderDetail.productId)
           .name;
-      buffer.write(
-          '$productName x ${orderDetail.quantity} = ${orderDetail.price * orderDetail.quantity} \n');
-      total += orderDetail.price;
+      if (orderDetail.popupDetailId == 1) {
+        double price = orderDetail.price * orderDetail.quantity;
+        buffer.write(
+            '$productName อุด้ง x ${orderDetail.quantity} = $price\n');
+        total += price;
+      } else if (orderDetail.popupDetailId == 2) {
+        double price = (orderDetail.price + 20) * orderDetail.quantity;
+        buffer.write(
+            '$productName อุด้งเส้นแบน x ${orderDetail.quantity} = $price\n');
+        total += price;
+      }else if (orderDetail.popupDetailId == 2) {
+        double price = orderDetail.price * orderDetail.quantity;
+        buffer.write(
+            '$productName ราเมง x ${orderDetail.quantity} = $price\n');
+        total += price;
+      } else {
+        double price = orderDetail.price * orderDetail.quantity;
+        buffer.write(
+            '$productName x ${orderDetail.quantity} = $price\n');
+        total += price;
+      }
     }
     buffer.write('ราคารวม $total');
     return buffer.toString();
