@@ -1,6 +1,6 @@
 package com.mrgostepz.smooth.db.dao;
 
-import com.mrgostepz.smooth.db.repository.ProductRepository;
+import com.mrgostepz.smooth.db.repository.ProductRepositories;
 import com.mrgostepz.smooth.db.rowmapper.ProductRowMapper;
 import com.mrgostepz.smooth.model.db.Product;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import static com.mrgostepz.smooth.db.sql.ProductSQL.*;
 
 @Service
 @RequiredArgsConstructor
-public class ProductDAO implements ProductRepository {
+public class ProductDAO implements ProductRepositories {
 
     private static final Logger logger = LogManager.getLogger(ProductDAO.class);
 

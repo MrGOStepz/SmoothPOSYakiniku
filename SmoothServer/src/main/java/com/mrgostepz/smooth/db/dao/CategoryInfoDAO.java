@@ -1,6 +1,6 @@
 package com.mrgostepz.smooth.db.dao;
 
-import com.mrgostepz.smooth.db.repository.CategoryInfoRepository;
+import com.mrgostepz.smooth.db.repository.CategoryInfoRepositories;
 import com.mrgostepz.smooth.db.rowmapper.CategoryInfoMapper;
 import com.mrgostepz.smooth.model.db.CategoryInfo;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import static com.mrgostepz.smooth.db.sql.CategoryInfoSQL.*;
 
 @Service
 @RequiredArgsConstructor
-public class CategoryInfoDAO implements CategoryInfoRepository {
+public class CategoryInfoDAO implements CategoryInfoRepositories {
     private static final Logger logger = LogManager.getLogger(CategoryInfoDAO.class);
 
     private final JdbcTemplate jdbcTemplate;

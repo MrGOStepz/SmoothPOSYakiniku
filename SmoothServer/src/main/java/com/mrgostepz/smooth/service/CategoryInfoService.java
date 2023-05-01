@@ -1,6 +1,6 @@
 package com.mrgostepz.smooth.service;
 
-import com.mrgostepz.smooth.db.repository.CategoryInfoRepository;
+import com.mrgostepz.smooth.db.repository.CategoryInfoRepositories;
 import com.mrgostepz.smooth.exception.InsertRecordException;
 import com.mrgostepz.smooth.exception.RecordNotFoundException;
 import com.mrgostepz.smooth.model.db.CategoryInfo;
@@ -17,7 +17,7 @@ public class CategoryInfoService {
 
     private static final Logger logger = LogManager.getLogger(CategoryInfoService.class);
 
-    private final CategoryInfoRepository categoryInfoRepository;
+    private final CategoryInfoRepositories categoryInfoRepository;
 
     public List<CategoryInfo> getAllCategoryInfo() {
         List<CategoryInfo> categoryInfoReList = categoryInfoRepository.getAll();

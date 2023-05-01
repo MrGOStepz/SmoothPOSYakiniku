@@ -1,6 +1,6 @@
 package com.mrgostepz.smooth.db.dao;
 
-import com.mrgostepz.smooth.db.repository.OrderDetailRepository;
+import com.mrgostepz.smooth.db.repository.OrderDetailRepositories;
 import com.mrgostepz.smooth.db.rowmapper.OrderDetailRowMapper;
 import com.mrgostepz.smooth.model.db.OrderDetail;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import static com.mrgostepz.smooth.db.sql.OrderDetailSQL.*;
 
 @Service
 @RequiredArgsConstructor
-public class OrderDetailDAO implements OrderDetailRepository {
+public class OrderDetailDAO implements OrderDetailRepositories {
     private static final Logger logger = LogManager.getLogger(OrderDetailDAO.class);
 
     private final JdbcTemplate jdbcTemplate;

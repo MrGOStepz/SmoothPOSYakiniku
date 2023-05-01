@@ -1,6 +1,6 @@
 package com.mrgostepz.smooth.service;
 
-import com.mrgostepz.smooth.db.repository.OrderDetailRepository;
+import com.mrgostepz.smooth.db.repository.OrderDetailRepositories;
 import com.mrgostepz.smooth.exception.InsertRecordException;
 import com.mrgostepz.smooth.exception.RecordNotFoundException;
 import com.mrgostepz.smooth.model.db.OrderDetail;
@@ -17,7 +17,7 @@ public class OrderDetailService {
 
     private static final Logger logger = LogManager.getLogger(OrderDetailService.class);
 
-    private final OrderDetailRepository orderDetailRepository;
+    private final OrderDetailRepositories orderDetailRepository;
 
     public List<OrderDetail> getAllOrderDetail() {
         List<OrderDetail> orderDetailList = orderDetailRepository.getAll();

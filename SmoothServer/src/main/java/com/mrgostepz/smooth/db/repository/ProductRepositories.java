@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends CrudRepository<Product, Integer> {
+public interface ProductRepositories extends CrudRepositories<Product, Integer> {
     List<Product> getProductInfoByColumn(String columnName, String value);
 }

@@ -1,6 +1,6 @@
 package com.mrgostepz.smooth.service;
 
-import com.mrgostepz.smooth.db.repository.ProductRepository;
+import com.mrgostepz.smooth.db.repository.ProductRepositories;
 import com.mrgostepz.smooth.exception.InsertRecordException;
 import com.mrgostepz.smooth.exception.RecordNotFoundException;
 import com.mrgostepz.smooth.model.db.Product;
@@ -21,7 +21,7 @@ public class ProductService {
 
     private static final Logger logger = LogManager.getLogger(ProductService.class);
 
-    private final ProductRepository productRepository;
+    private final ProductRepositories productRepository;
 
     private Map<Integer, Product> products = new HashMap<>();
     private List<Product> productList = new ArrayList<>();

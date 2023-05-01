@@ -1,6 +1,6 @@
 package com.mrgostepz.smooth.db.dao;
 
-import com.mrgostepz.smooth.db.repository.OrderInfoRepository;
+import com.mrgostepz.smooth.db.repository.OrderInfoRepositories;
 import com.mrgostepz.smooth.db.rowmapper.OrderDetailRowMapper;
 import com.mrgostepz.smooth.db.rowmapper.OrderRowMapper;
 import com.mrgostepz.smooth.db.rowmapper.OrderSummatyRowMapper;
@@ -28,7 +28,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import static com.mrgostepz.smooth.db.sql.OrderDetailSQL.SQL_GET_ORDER_DETAIL_BY_DAY;
 import static com.mrgostepz.smooth.db.sql.OrderDetailSQL.SQL_GET_ORDER_DETAIL_BY_ORDER_INFO_ID_LIST;
 import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.SQL_ADD_ORDER;
 import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.SQL_DELETE_ORDER;
@@ -41,7 +40,7 @@ import static com.mrgostepz.smooth.db.sql.OrderInfoSQL.SQL_UPDATE_ORDER_DONE;
 
 @Service
 @RequiredArgsConstructor
-public class OrderInfoDAO implements OrderInfoRepository {
+public class OrderInfoDAO implements OrderInfoRepositories {
     private static final Logger logger = LogManager.getLogger(OrderInfoDAO.class);
 
     private final JdbcTemplate jdbcTemplate;

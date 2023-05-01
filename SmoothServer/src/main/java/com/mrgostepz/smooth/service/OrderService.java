@@ -1,7 +1,7 @@
 package com.mrgostepz.smooth.service;
 
-import com.mrgostepz.smooth.db.repository.OrderDetailRepository;
-import com.mrgostepz.smooth.db.repository.OrderInfoRepository;
+import com.mrgostepz.smooth.db.repository.OrderDetailRepositories;
+import com.mrgostepz.smooth.db.repository.OrderInfoRepositories;
 import com.mrgostepz.smooth.exception.InsertRecordException;
 import com.mrgostepz.smooth.exception.RecordNotFoundException;
 import com.mrgostepz.smooth.model.CartItem;
@@ -34,8 +34,8 @@ public class OrderService {
 
     private static final Logger logger = LogManager.getLogger(OrderService.class);
 
-    private final OrderInfoRepository orderInfoRepository;
-    private final OrderDetailRepository orderDetailRepository;
+    private final OrderInfoRepositories orderInfoRepository;
+    private final OrderDetailRepositories orderDetailRepository;
     private final ProductService productService;
 
     public List<OrderInfo> getAllOrder() {

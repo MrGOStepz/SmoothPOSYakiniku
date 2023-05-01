@@ -1,6 +1,5 @@
 package com.mrgostepz.smooth.until;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SmoothUtil {
