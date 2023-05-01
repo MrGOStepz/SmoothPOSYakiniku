@@ -26,6 +26,7 @@ class _TableItemWidgetState extends State<TableItemWidget> {
           child: Text(
             widget.tableName,
             textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20),
           ),
         ),
       ),

@@ -8,10 +8,13 @@ class SummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final orderProvider = Provider.of<OrderProvider>(context, listen:true);
-    return SizedBox(
-      width: double.infinity,
-      child: Text(
-        orderProvider.getSummaryText
+    return SingleChildScrollView(
+      child: SizedBox(
+        width: double.infinity,
+        child: SelectableText(
+          orderProvider.getSummaryText,
+          style: TextStyle(fontSize: 20),
+        ),
       ),
     );
   }

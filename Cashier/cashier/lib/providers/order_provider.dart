@@ -55,7 +55,7 @@ class OrderProvider with ChangeNotifier {
         buffer.write(
             '$productName อุด้งเส้นแบน x ${orderDetail.quantity} = $price\n');
         total += price;
-      }else if (orderDetail.popupDetailId == 2) {
+      }else if (orderDetail.popupDetailId == 3) {
         double price = orderDetail.price * orderDetail.quantity;
         buffer.write(
             '$productName ราเมง x ${orderDetail.quantity} = $price\n');
