@@ -27,13 +27,20 @@ class TableInfoController {
         return new ResponseEntity<>(tableInfoService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/{name}")
     @ResponseBody
-    public ResponseEntity<TableInfo> getTableCurrentStateById(@PathVariable Long id) {
-        TableInfo tableInfo = tableInfoService.getTableInfoById(id);
+    public ResponseEntity<TableInfo> getTableCurrentStateById(@PathVariable String name) {
+        TableInfo tableInfo = tableInfoService.getTableInfoByName(name);
         return new ResponseEntity<>(tableInfo, HttpStatus.OK);
     }
 
+    @PostMapping(path = "/add")
+    @ResponseBody
+    public ResponseEntity<TableInfo> addTableInfo(@RequestBody String jsonReq){
+        TableInfo request = (TableInfo) SmoothUtil.convertJsonToObject(jsonReq, TableInfo.class);
+        assert request != null;
+        return new ResponseEntity<>(tableInfoService.addTableInfo(request), HttpStatus.OK);
+    }
 
     @PutMapping(path = "/update/status")
     public String updateTableInfoStatus(@RequestBody String jsonReq) {

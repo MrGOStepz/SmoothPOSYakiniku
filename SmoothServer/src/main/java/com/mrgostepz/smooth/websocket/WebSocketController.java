@@ -2,6 +2,7 @@ package com.mrgostepz.smooth.websocket;
 import com.mrgostepz.smooth.model.db.OrderInfo;
 import com.mrgostepz.smooth.model.db.TableInfo;
 import com.mrgostepz.smooth.model.request.OrderRequest;
+import com.mrgostepz.smooth.model.request.TableStatusRequest;
 import com.mrgostepz.smooth.model.response.OrderResponse;
 import com.mrgostepz.smooth.service.OrderService;
 import com.mrgostepz.smooth.service.TableInfoService;
@@ -39,7 +40,7 @@ public class WebSocketController {
 
     @MessageMapping("/table/update")
     @SendTo("/topic/table")
-    public List<TableInfo> tabling(TableInfo request) {
+    public List<TableInfo> tabling(TableStatusRequest request) {
         List<TableInfo> tableInfoList = new ArrayList<>();
         try {
             tableInfoService.updateTableInfoStatusByName(request.getStatus(), request.getName());
