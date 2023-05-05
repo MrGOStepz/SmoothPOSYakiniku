@@ -85,11 +85,13 @@ class _OverViewScreenState extends State<OverViewScreen> {
                 child: Column(
                   children: [
                     Expanded(
-                        flex: 8,
+                        flex: 9,
                         child: OrderScreen(
                           productList: productList,
                         ),),
-                    Expanded(flex: 2, child: PaidWidget())
+                    Expanded(flex: 1, child: Container(
+                        width: double.infinity,
+                        child: PaidWidget()))
                   ],
                 ),
               ),

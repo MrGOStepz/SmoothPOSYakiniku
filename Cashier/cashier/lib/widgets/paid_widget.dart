@@ -25,9 +25,13 @@ class _PaidWidgetState extends State<PaidWidget> {
 
     stompClient.activate();
     return InkWell(
-      child: TextButton(
-        onPressed: _updateOrderPaid,
-        child: const Text('PAY'),
+      child:
+      DecoratedBox(
+        decoration: const BoxDecoration(color: Colors.grey),
+        child: TextButton(
+          onPressed: _updateOrderPaid,
+          child: const Text('PAY'),
+        ),
       ),
     );
   }

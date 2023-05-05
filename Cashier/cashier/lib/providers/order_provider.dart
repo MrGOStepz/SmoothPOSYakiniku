@@ -13,7 +13,7 @@ import '../models/table_info_model.dart';
 import '../services/web_socket.dart';
 
 class OrderProvider with ChangeNotifier {
-  late List<OrderDetail> _orderDetailItems = [];
+  late List<OrderDetail> orderDetailItems = [];
   late List<OrderInfo> _orderInfoItems = [];
   late List<Product> _productItems = [];
   late String _tableName;
@@ -24,12 +24,12 @@ class OrderProvider with ChangeNotifier {
     return _orderInfoItems;
   }
 
-  get orderDetailItems {
-    return _orderDetailItems;
-  }
+  // get orderDetailItems {
+  //   return _orderDetailItems;
+  // }
 
   get orderDetailItemLength {
-    return _orderDetailItems.length;
+    return orderDetailItems.length;
   }
 
   get orderInfoItemLength {
@@ -44,7 +44,7 @@ class OrderProvider with ChangeNotifier {
     _productItems = productList;
     var buffer = StringBuffer();
     double total = 0.0;
-    for (var orderDetail in _orderDetailItems) {
+    for (var orderDetail in orderDetailItems) {
       String productName = productList
           .firstWhere((element) => element.id == orderDetail.productId)
           .name;
@@ -86,7 +86,7 @@ class OrderProvider with ChangeNotifier {
       );
     }
     _orderInfoItems.clear();
-    _orderDetailItems.clear();
+    orderDetailItems.clear();
     notifyListeners();
   }
 
@@ -183,7 +183,7 @@ class OrderProvider with ChangeNotifier {
       }
 
       _orderInfoItems = orderInfoList;
-      _orderDetailItems = orderDetailList;
+      orderDetailItems = orderDetailList;
 
       notifyListeners();
     } catch (error) {

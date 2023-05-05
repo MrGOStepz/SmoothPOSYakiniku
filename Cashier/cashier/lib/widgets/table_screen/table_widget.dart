@@ -42,7 +42,6 @@ class _TableScreenState extends State<TableScreen> {
     stompClient.subscribe(
         destination: '/topic/table',
         callback: (frame) {
-          debugPrint('On Connectttttttt Table INfoooooo');
           result = jsonDecode(frame.body!);
           List<TableInfo> tempTableInfo = [];
           for (var value in result) {
