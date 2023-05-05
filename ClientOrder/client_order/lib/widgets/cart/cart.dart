@@ -15,12 +15,12 @@ class _CartMenuState extends State<CartMenu> {
 
   @override
   Widget build(BuildContext context) {
-    final cartProvider = Provider.of<Cart>(context, listen: true);
+    final cartProvider = Provider.of<CartProvider>(context, listen: true);
     Size size = MediaQuery.of(context).size;
     if (cartProvider.itemCount == 0) {
       return const Text("กรุณาเลือกเมนู");
     } else {
-      return Consumer<Cart>(
+      return Consumer<CartProvider>(
         builder: (ctx, cart, _) => ListView.builder(
           itemCount: cart.itemCount,
           itemBuilder: (ctx, i) => CartSection(

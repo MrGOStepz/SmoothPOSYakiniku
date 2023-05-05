@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 import '../models/category_model.dart';
 
-class Categories with ChangeNotifier {
+class CategoryProvider with ChangeNotifier {
   List<Category> _items = [];
 
   List<Category> get items {

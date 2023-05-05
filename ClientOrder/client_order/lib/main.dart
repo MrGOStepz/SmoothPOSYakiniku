@@ -23,13 +23,13 @@ class ClientOrderApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: Products(),
+          value: ProductProvider(),
         ),
         ChangeNotifierProvider.value(
-          value: Categories(),
+          value: CategoryProvider(),
         ),
         ChangeNotifierProvider.value(
-          value: Cart(),
+          value: CartProvider(),
         )
       ],
       child: MaterialApp(

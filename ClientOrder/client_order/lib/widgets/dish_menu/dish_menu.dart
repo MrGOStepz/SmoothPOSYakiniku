@@ -33,7 +33,7 @@ class DishMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Products>(context, listen: false);
+    final product = Provider.of<ProductProvider>(context, listen: false);
     var sizeScreen = MediaQuery.of(context).size;
     var itemHeight = sizeScreen.height;
     var itemWidth = sizeScreen.width / 2;

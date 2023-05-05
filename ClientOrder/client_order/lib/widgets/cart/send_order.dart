@@ -23,7 +23,8 @@ class _SendOrderState extends State<SendOrder> {
   }
   void _sendOrder() {
     setState(() {
-      Provider.of<Cart>(context, listen: false).sendToWebSocket(_titleController.text);
+      Provider.of<CartProvider>(context, listen: false).sendToWebSocket(_titleController.text);
+      Provider.of<CartProvider>(context, listen: false).sendTableStatus(_titleController.text);
       _titleController.text = "";
     });
   }

@@ -44,8 +44,8 @@ class _OrderOverViewScreenState extends State<OrderOverViewScreen> {
       //     });
       //   });
 
-      Provider.of<Categories>(context).fetchAndSetCategory();
-      Provider.of<Products>(context).fetchAndSetProducts();
+      Provider.of<CategoryProvider>(context).fetchAndSetCategory();
+      Provider.of<ProductProvider>(context).fetchAndSetProducts();
     }
     _isInit = false;
     super.didChangeDependencies();

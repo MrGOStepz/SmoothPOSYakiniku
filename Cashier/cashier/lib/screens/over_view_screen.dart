@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/product_model.dart';
+import '../providers/tables_provider.dart';
 import 'main_screen.dart';
 
 class OverViewScreen extends StatefulWidget {
@@ -54,6 +55,7 @@ class _OverViewScreenState extends State<OverViewScreen> {
       //     });
       //   });
       Provider.of<ProductProvider>(context, listen: true).fetchAndSetProducts();
+      Provider.of<TableInfoProvider>(context, listen: true).fetchAndSetTableInfo();
     }
     _isInit = false;
 

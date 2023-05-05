@@ -14,7 +14,7 @@ class CategoryMenuBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final products = Provider.of<Products>(context, listen: false);
+    final products = Provider.of<ProductProvider>(context, listen: false);
     Set<int> pageNumber = products.getNumberOfPageByCategory(currentCategory);
 
     return ListView(

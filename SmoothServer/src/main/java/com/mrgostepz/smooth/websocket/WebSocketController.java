@@ -32,6 +32,10 @@ public class WebSocketController {
             orderResponse.setOrderInfoId(orderInfo.getId());
             orderResponse.setTableName(orderRequest.getTableName());
             orderResponse.setItems(orderRequest.getCartItems());
+//            TableStatusRequest tableStatusRequest = new TableStatusRequest();
+//            tableStatusRequest.setName(orderRequest.getTableName());
+//            tableStatusRequest.setStatus("Cook");
+//            tableStatus(tableStatusRequest);
             return orderResponse;
         } catch (Exception ex) {
             return new OrderResponse();
@@ -40,7 +44,20 @@ public class WebSocketController {
 
     @MessageMapping("/table/update")
     @SendTo("/topic/table")
-    public List<TableInfo> tabling(TableStatusRequest request) {
+    public List<TableInfo> tableStatus(TableStatusRequest request) {
+        List<TableInfo> tableInfoList = new ArrayList<>();
+        try {
+            tableInfoService.updateTableInfoStatusByName(request.getStatus(), request.getName());
+            tableInfoList = tableInfoService.getAll();
+            return tableInfoList;
+        } catch (Exception ex) {
+            return tableInfoList;
+        }
+    }
+
+    @MessageMapping("/kitchen/update")
+    @SendTo("/topic/kitchen")
+    public List<TableInfo> kitchenOrder(TableStatusRequest request) {
         List<TableInfo> tableInfoList = new ArrayList<>();
         try {
             tableInfoService.updateTableInfoStatusByName(request.getStatus(), request.getName());

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 import '../models/product_model.dart';
 
-class Products with ChangeNotifier {
+class ProductProvider with ChangeNotifier {
   List<Product> _items = [];
 
   List<Product> get items {

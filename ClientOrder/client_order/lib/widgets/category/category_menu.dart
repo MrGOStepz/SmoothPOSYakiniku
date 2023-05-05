@@ -12,7 +12,7 @@ class CategoryMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final category = Provider.of<Categories>(context, listen: false);
+    final category = Provider.of<CategoryProvider>(context, listen: false);
 
     return ListView(
       children: category.items

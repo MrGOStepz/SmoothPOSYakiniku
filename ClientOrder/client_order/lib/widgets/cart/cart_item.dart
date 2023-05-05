@@ -32,7 +32,7 @@ class _CartSectionState extends State<CartSection> {
     setState(() {
       if (_quantity > 0) {
         _quantity = _quantity + value;
-        Provider.of<Cart>(context, listen: false)
+        Provider.of<CartProvider>(context, listen: false)
             // .addOrRemoveItem(widget.id, value);
         .addOrRemoveItem(widget.id, widget.popupDetailId, value);
       }

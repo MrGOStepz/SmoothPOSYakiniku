@@ -9,11 +9,14 @@ import '../models/order_detail_modal.dart';
 import '../models/order_info_modal.dart';
 import '../models/product_model.dart';
 import '../models/request/order_status_request.dart';
+import '../models/table_info_model.dart';
+import '../services/web_socket.dart';
 
 class OrderProvider with ChangeNotifier {
   late List<OrderDetail> _orderDetailItems = [];
   late List<OrderInfo> _orderInfoItems = [];
   late List<Product> _productItems = [];
+  late String _tableName;
 
   late String summaryText = '';
 
@@ -139,6 +142,7 @@ class OrderProvider with ChangeNotifier {
   }
 
   Future<void> sendOrderToBackEnd(String tableName) async {
+    _tableName = tableName;
     final url = Uri.http(GlobalConfiguration().get("server_endpoint"),
         '/api/v1/order/table/$tableName');
     try {
@@ -181,13 +185,20 @@ class OrderProvider with ChangeNotifier {
       _orderInfoItems = orderInfoList;
       _orderDetailItems = orderDetailList;
 
-      debugPrint(_orderDetailItems.toString());
-      debugPrint(_orderInfoItems.toString());
-
       notifyListeners();
     } catch (error) {
       print(error);
       throw error;
     }
+  }
+
+  void sendTableStatus() {
+    TableInfo tableInfo = TableInfo(name: _tableName, status: 'Free');
+
+    var request = jsonEncode(tableInfo.toJson());
+    stompClient.send(
+      destination: '/app/table/update',
+      body: request,
+    );
   }
 }

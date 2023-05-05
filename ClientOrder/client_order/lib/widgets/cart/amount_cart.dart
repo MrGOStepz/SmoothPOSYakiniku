@@ -9,7 +9,7 @@ class AmountCartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      child: Consumer<Cart>(
+      child: Consumer<CartProvider>(
         builder: (_, cart, ch) => Text('Total: ${cart.totalAmount} bath')
       ),
     );

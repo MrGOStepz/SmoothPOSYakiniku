@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:client_order/models/requests/order_request.dart';
+import 'package:client_order/models/requests/table_status_request.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
@@ -17,7 +18,7 @@ class CartKey {
   });
 }
 
-class Cart with ChangeNotifier {
+class CartProvider with ChangeNotifier {
   final Map<String, CartItem> _items = {};
 
   Map<String, CartItem> get items {
@@ -120,6 +121,21 @@ class Cart with ChangeNotifier {
     );
     items.clear();
     notifyListeners();
+  }
+
+
+
+  void sendTableStatus(String tableName) {
+    List<CartItem> cartItems = [];
+    _items.forEach((key, value) {
+      cartItems.add(value);
+    });
+    TableStatus tableStatus = TableStatus(name: tableName, status: 'Cook');
+    var request = jsonEncode(tableStatus.toJson());
+    stompClient.send(
+      destination: '/app/table/update',
+      body: request,
+    );
   }
 
 // Future<void> sendOrderToBackEnd() async {

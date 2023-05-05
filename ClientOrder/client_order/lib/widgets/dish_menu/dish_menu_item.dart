@@ -159,7 +159,7 @@ class _ProductMenuItemState extends State<ProductMenuItem> {
 
   @override
   Widget build(BuildContext context) {
-    final cart = Provider.of<Cart>(context, listen: true);
+    final cart = Provider.of<CartProvider>(context, listen: true);
     if (widget.imagePath != 'NULL') {
       return InkWell(
         onTap: () async {
