@@ -65,4 +65,13 @@ public class OrderDetailService {
         }
     }
 
+
+    public void updateOrderDetail(int orderDetailId, int quantity, Double price) {
+        if (Boolean.TRUE.equals(orderDetailRepository.updateOrderDetailByQuantity(orderDetailId, quantity, price))) {
+            logger.info("Update Order Detail Successfully. OrderDetailId: {} Quantity: {}, Price: {}", orderDetailId, quantity, price);
+        } else {
+            logger.warn("Cannot Update order detail: OrderDetailId: {} Quantity: {}, Price: {}", orderDetailId, quantity, price);
+        }
+    }
+
 }

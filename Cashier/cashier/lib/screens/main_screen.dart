@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../models/product_model.dart';
 import '../widgets/summary_screen/summary_screen.dart';
 import '../widgets/table_screen/table_widget.dart';
 import '../widgets/tap_screen/tab_widget.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  final List<Product> productList;
+  const MainScreen({required this.productList, Key? key}) : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -26,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
       children: [
         Expanded(
           flex: 2,
-          child: TabScreen(setState: _changeScreen,  ),
+          child: TabScreen(setState: _changeScreen, productList: widget.productList,  ),
         ),
         if (_state == 1)
           Expanded(

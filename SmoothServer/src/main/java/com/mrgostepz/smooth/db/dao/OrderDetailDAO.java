@@ -14,6 +14,13 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
+import static com.mrgostepz.smooth.db.ColumnName.COL_ORDER_DETAIL_ID;
+import static com.mrgostepz.smooth.db.ColumnName.COL_ORDER_INFO_ID;
+import static com.mrgostepz.smooth.db.ColumnName.COL_POPUP_DETAIL_ID;
+import static com.mrgostepz.smooth.db.ColumnName.COL_PRICE;
+import static com.mrgostepz.smooth.db.ColumnName.COL_PRODUCT_ID;
+import static com.mrgostepz.smooth.db.ColumnName.COL_QUANTITY;
+import static com.mrgostepz.smooth.db.TableName.TABLE_ORDER_DETAIL;
 import static com.mrgostepz.smooth.db.sql.OrderDetailSQL.*;
 
 @Service
@@ -119,6 +126,20 @@ public class OrderDetailDAO implements OrderDetailRepositories {
             logger.error(ex.getMessage());
             throw ex;
         }
+    }
 
+    @Override
+    public Boolean updateOrderDetailByQuantity(int id, int quantity, Double price) {
+        try {
+            String sql = "UPDATE " + TABLE_ORDER_DETAIL + " SET "
+                    + COL_QUANTITY + " = ?, "
+                    + COL_PRICE + " = ?, WHERE "
+                    + COL_ORDER_DETAIL_ID + " = ?;";
+            int success = jdbcTemplate.update(sql, quantity, price, id);
+            return success == 1;
+        } catch (DataAccessException ex) {
+            logger.error(ex.getMessage());
+            throw ex;
+        }
     }
 }

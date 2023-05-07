@@ -1,3 +1,4 @@
+import 'package:client_order/providers/order_provider.dart';
 import 'package:client_order/providers/product_provider.dart';
 import 'package:client_order/screens/order_screen.dart';
 import 'package:client_order/widgets/paid_widget.dart';
@@ -23,6 +24,8 @@ class _OverViewScreenState extends State<OverViewScreen> {
   int currentCategoryPageSelected = 1;
 
   List<Product> productList = [];
+
+  double _totalPrice = 0;
 
   @override
   void initState() {
@@ -55,7 +58,8 @@ class _OverViewScreenState extends State<OverViewScreen> {
       //     });
       //   });
       Provider.of<ProductProvider>(context, listen: true).fetchAndSetProducts();
-      Provider.of<TableInfoProvider>(context, listen: true).fetchAndSetTableInfo();
+      Provider.of<TableInfoProvider>(context, listen: true)
+          .fetchAndSetTableInfo();
     }
     _isInit = false;
 
@@ -63,8 +67,16 @@ class _OverViewScreenState extends State<OverViewScreen> {
     super.didChangeDependencies();
   }
 
+  void _updateOrderItem(){
+    debugPrint('Hello');
+    setState(() {
+      Provider.of<OrderProvider>(context, listen: false).updateItem();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final orderProvider = Provider.of<OrderProvider>(context, listen: true);
     return Scaffold(
       body: SafeArea(
         child: Row(
@@ -74,7 +86,7 @@ class _OverViewScreenState extends State<OverViewScreen> {
               child: Container(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height,
-                child: MainScreen(),
+                child: MainScreen(productList: productList,),
               ),
             ),
             Expanded(
@@ -85,13 +97,38 @@ class _OverViewScreenState extends State<OverViewScreen> {
                 child: Column(
                   children: [
                     Expanded(
-                        flex: 9,
-                        child: OrderScreen(
-                          productList: productList,
-                        ),),
-                    Expanded(flex: 1, child: Container(
-                        width: double.infinity,
-                        child: PaidWidget()))
+                      flex: 8,
+                      child: OrderScreen(
+                        productList: productList,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Center(child: Text('ราคา ${orderProvider.totalPrice}')),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Center(
+                              child: TextButton(
+                                onPressed: () {
+                                  orderProvider.updateItem();
+                                  // _updateOrderItem
+                                },
+                                child: Text('Update'),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                        flex: 1,
+                        child: Container(
+                            width: double.infinity, child: PaidWidget()))
                   ],
                 ),
               ),

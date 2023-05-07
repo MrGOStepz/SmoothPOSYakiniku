@@ -55,11 +55,6 @@ class OrderDetailController {
         return String.format("Update Order: %s completed.", order);
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteOrder(@PathVariable int id) {
-        orderDetailService.deleteOrder(id);
-        return String.format("Delete Order Id: %d completed.", id);
-    }
 
 //    private OrderDetail convertJsonToOrder(String json){
 //        try {

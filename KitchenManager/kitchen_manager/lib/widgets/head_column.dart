@@ -51,7 +51,7 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
                     child: TextButton(
                       onPressed: null,
                       style: TextButton.styleFrom(
-                        primary: Colors.blue,
+                        foregroundColor: Colors.blue,
                       ),
                       child: const Text('Call'),
                     ),
@@ -61,7 +61,7 @@ class _HeadColumnTableState extends State<HeadColumnTable> {
                     child: TextButton(
                       onPressed: getNextTable,
                       style: TextButton.styleFrom(
-                        primary: Colors.blue,
+                        foregroundColor: Colors.blue,
                       ),
                       child: const Text('Done'),
                     ),

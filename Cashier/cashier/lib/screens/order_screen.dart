@@ -24,6 +24,7 @@ class _OrderScreenState extends State<OrderScreen> {
           itemCount: order.orderDetailItemLength,
           itemBuilder: (ctx, i) => OrderItemWidget(
               product: widget.productList,
+              productId: order.orderDetailItems[i].productId,
               orderDetailId: order.orderDetailItems[i].orderDetailId,
               popupDetailId: order.orderDetailItems[i].popupDetailId,
               quantity: order.orderDetailItems[i].quantity)),

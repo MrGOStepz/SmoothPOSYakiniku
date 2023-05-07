@@ -6,6 +6,7 @@ class CartItem {
   int? quantity;
   double? price;
   String? comment;
+  bool isNew = true;
 
   CartItem(
     this.productId,

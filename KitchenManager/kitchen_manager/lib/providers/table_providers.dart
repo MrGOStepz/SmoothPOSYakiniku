@@ -19,6 +19,7 @@ class TableProvider with ChangeNotifier {
   TableItem vacantTable = TableItem(0, 'กำลังรอโต๊ะ ถัดไป', "PENDING", []);
 
   int maxWaitingTable = 4;
+  bool doesClickDone = false;
 
   List<TableItem> get items {
     return tableItems;
@@ -98,6 +99,7 @@ class TableProvider with ChangeNotifier {
       tableItems.removeAt(index);
       tableItems.add(vacantTable);
     }
+    doesClickDone = true;
     notifyListeners();
   }
 

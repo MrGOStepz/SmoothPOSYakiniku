@@ -16,12 +16,21 @@ class OrderProvider with ChangeNotifier {
   late List<OrderDetail> orderDetailItems = [];
   late List<OrderInfo> _orderInfoItems = [];
   late List<Product> _productItems = [];
+
+  late List<OrderDetail> tempOrderDetailItems = [];
   late String _tableName;
+  late double totalPrice = 0;
 
   late String summaryText = '';
 
   get orderInfoItems {
     return _orderInfoItems;
+  }
+
+  double getOrderDetailPriceById(int id) {
+    return orderDetailItems
+        .firstWhere((element) => element.productId == id)
+        .price;
   }
 
   // get orderDetailItems {
@@ -50,28 +59,47 @@ class OrderProvider with ChangeNotifier {
           .name;
       if (orderDetail.popupDetailId == 1) {
         double price = orderDetail.price * orderDetail.quantity;
-        buffer.write(
-            '$productName อุด้ง x ${orderDetail.quantity} = $price\n');
+        buffer.write('$productName อุด้ง x ${orderDetail.quantity} = $price\n');
         total += price;
       } else if (orderDetail.popupDetailId == 2) {
         double price = (orderDetail.price + 20) * orderDetail.quantity;
         buffer.write(
             '$productName อุด้งเส้นแบน x ${orderDetail.quantity} = $price\n');
         total += price;
-      }else if (orderDetail.popupDetailId == 3) {
+      } else if (orderDetail.popupDetailId == 3) {
         double price = orderDetail.price * orderDetail.quantity;
-        buffer.write(
-            '$productName ราเมง x ${orderDetail.quantity} = $price\n');
+        buffer.write('$productName ราเมง x ${orderDetail.quantity} = $price\n');
         total += price;
       } else {
         double price = orderDetail.price * orderDetail.quantity;
-        buffer.write(
-            '$productName x ${orderDetail.quantity} = $price\n');
+        buffer.write('$productName x ${orderDetail.quantity} = $price\n');
         total += price;
       }
     }
     buffer.write('ราคารวม $total');
+    totalPrice = total;
     return buffer.toString();
+  }
+
+  double getTotalPrice() {
+    double total = 0.0;
+    for (var orderDetail in orderDetailItems) {
+      if (orderDetail.popupDetailId == 1) {
+        double price = orderDetail.price * orderDetail.quantity;
+        total += price;
+      } else if (orderDetail.popupDetailId == 2) {
+        double price = (orderDetail.price + 20) * orderDetail.quantity;
+        total += price;
+      } else if (orderDetail.popupDetailId == 3) {
+        double price = orderDetail.price * orderDetail.quantity;
+        total += price;
+      } else {
+        double price = orderDetail.price * orderDetail.quantity;
+        total += price;
+      }
+    }
+    totalPrice = total;
+    return totalPrice;
   }
 
   Future<void> updateStatus() async {
@@ -90,7 +118,8 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getSummaryToday() async {
+  Future<void> getSummaryToday(List<Product> productList) async {
+    _productItems = productList;
     final url = Uri.http(
         GlobalConfiguration().get("server_endpoint"), '/api/v1/order/summary');
     try {
@@ -171,7 +200,7 @@ class OrderProvider with ChangeNotifier {
         OrderDetail orderDetail = OrderDetail(
             orderDetailId: value['orderDetailId'],
             productId: value['productId'],
-            orderIntoId: value['orderInfoId'],
+            orderInfoId: value['orderInfoId'],
             popupDetailId: value['popupDetailId'],
             status: value['status'],
             quantity: value['quantity'],
@@ -184,7 +213,8 @@ class OrderProvider with ChangeNotifier {
 
       _orderInfoItems = orderInfoList;
       orderDetailItems = orderDetailList;
-
+      tempOrderDetailItems = orderDetailList;
+      getTotalPrice();
       notifyListeners();
     } catch (error) {
       print(error);
@@ -199,6 +229,53 @@ class OrderProvider with ChangeNotifier {
     stompClient.send(
       destination: '/app/table/update',
       body: request,
+    );
+  }
+
+  void addAndRemoveOrderItem(int orderDetailId, int quantity, double price) {
+    OrderDetail orderDetail = tempOrderDetailItems
+        .firstWhere((element) => element.orderDetailId == orderDetailId);
+    orderDetail.price = price;
+    orderDetail.quantity = quantity;
+    tempOrderDetailItems
+        .removeWhere((element) => element.orderDetailId == orderDetailId);
+    tempOrderDetailItems.add(orderDetail);
+  }
+
+  void updateItem() async {
+    double total = 0.0;
+    for (var orderDetail in tempOrderDetailItems) {
+      if (orderDetail.popupDetailId == 1) {
+        double price = orderDetail.price * orderDetail.quantity;
+        total += price;
+      } else if (orderDetail.popupDetailId == 2) {
+        double price = (orderDetail.price + 20) * orderDetail.quantity;
+        total += price;
+      } else if (orderDetail.popupDetailId == 3) {
+        double price = orderDetail.price * orderDetail.quantity;
+        total += price;
+      } else {
+        double price = orderDetail.price * orderDetail.quantity;
+        total += price;
+      }
+
+      if(orderDetail.quantity == 0) {
+        orderDetail.price = 0;
+      }
+      await updateOrderDetail(orderDetail);
+
+    }
+    totalPrice = total;
+    //TODO UPDATE BACKEND
+    notifyListeners();
+  }
+
+
+  Future<void> updateOrderDetail(OrderDetail orderDetail) async {
+    final url = Uri.http(GlobalConfiguration().get('server_endpoint'), 'api/v1/orderdetail/update');
+    await http.put(
+      url,
+      body: json.encode(orderDetail.toJson()),
     );
   }
 }
