@@ -67,7 +67,7 @@ class _OverViewScreenState extends State<OverViewScreen> {
     super.didChangeDependencies();
   }
 
-  void _updateOrderItem(){
+  void _updateOrderItem() {
     debugPrint('Hello');
     setState(() {
       Provider.of<OrderProvider>(context, listen: false).updateItem();
@@ -86,7 +86,9 @@ class _OverViewScreenState extends State<OverViewScreen> {
               child: Container(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height,
-                child: MainScreen(productList: productList,),
+                child: MainScreen(
+                  productList: productList,
+                ),
               ),
             ),
             Expanded(
@@ -107,8 +109,12 @@ class _OverViewScreenState extends State<OverViewScreen> {
                       child: Row(
                         children: [
                           Expanded(
-                            flex: 1,
-                            child: Center(child: Text('ราคา ${orderProvider.totalPrice}')),
+                            flex: 2,
+                            child: Center(
+                                child: Text(
+                              'ราคา ${orderProvider.totalPrice}',
+                              style: TextStyle(fontSize: 40),
+                            )),
                           ),
                           Expanded(
                             flex: 1,

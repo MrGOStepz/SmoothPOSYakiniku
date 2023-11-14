@@ -112,7 +112,7 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
           Expanded(
             flex: 1,
             child: Text(
-                '${_calculatePrice(orderProvider.getOrderDetailPriceById(widget.productId))}'),
+                '${_calculatePrice(orderProvider.getOrderDetailPriceById(widget.productId))}', style: TextStyle(fontSize: 30),),
           ),
         ],
       ),
